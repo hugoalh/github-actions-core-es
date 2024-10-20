@@ -40,7 +40,7 @@
 	},
 	"dependencies": {
 		"@hugoalh/is-json": "1.0.2",
-		"@hugoalh/is-string-singleline": "1.0.2"
+		"@hugoalh/is-string-singleline": "1.0.3"
 	},
 	"devDependencies": {
 		"typescript": "^5.4.5"
