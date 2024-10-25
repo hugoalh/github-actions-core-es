@@ -39,7 +39,7 @@
 		"build": "tsc"
 	},
 	"dependencies": {
-		"@hugoalh/is-json": "1.0.2",
+		"@hugoalh/is-json": "1.0.4",
 		"@hugoalh/is-string-singleline": "1.0.2"
 	},
 	"devDependencies": {
