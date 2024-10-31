@@ -6,10 +6,65 @@ import {
 	appendFileLineCommand,
 	appendFileMapCommand,
 	clearFileCommand,
-	optimizeFileCommand,
-	type GitHubActionsFileCommandOptions
+	optimizeFileCommand
 } from "./command/file.ts";
 import type { KeyValueLike } from "./common.ts";
+/**
+ * Add value to the `PATH`.
+ * 
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - `GITHUB_PATH`
+ * >     - `PATH`
+ * >   - File System - Read (`read`)
+ * >     - *Resources*
+ * >   - File System - Write (`write`)
+ * >     - *Resources*
+ * @param {string} path Value that need to add to the `PATH`.
+ * @param {GitHubActionsSetEnvironmentVariableOptions} [options={}] Options.
+ * @returns {void}
+ */
+export function addPATH(path: string, options?: GitHubActionsSetEnvironmentVariableOptions): void;
+/**
+ * Add value to the `PATH`.
+ * 
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - `GITHUB_PATH`
+ * >     - `PATH`
+ * >   - File System - Read (`read`)
+ * >     - *Resources*
+ * >   - File System - Write (`write`)
+ * >     - *Resources*
+ * @param {string[]} paths Value that need to add to the `PATH`.
+ * @param {GitHubActionsSetEnvironmentVariableOptions} [options={}] Options.
+ * @returns {void}
+ */
+export function addPATH(paths: string[], options?: GitHubActionsSetEnvironmentVariableOptions): void;
+export function addPATH(param0: string | string[], options: GitHubActionsSetEnvironmentVariableOptions = {}): void {
+	const {
+		scopeCurrent = true,
+		scopeSubsequent = true
+	}: GitHubActionsSetEnvironmentVariableOptions = options;
+	const paths: string[] = (typeof param0 === "string") ? [param0] : param0;
+	paths.forEach((path: string): void => {
+		if (!isPathAbsolute(path)) {
+			throw new SyntaxError(`\`${path}\` is not a valid absolute path!`);
+		}
+	});
+	if (paths.length > 0) {
+		if (scopeCurrent) {
+			addEnvPath(...paths);
+		}
+		if (scopeSubsequent) {
+			appendFileLineCommand("GITHUB_PATH", ...paths);
+		}
+	}
+}
 /**
  * **\[🅰️ Advanced\]** Clear the environment variables for all of the subsequent steps which set in the current step.
  * 
@@ -84,66 +139,6 @@ export {
 export function optimizePATHSubsequent(): void {
 	optimizeFileCommand("GITHUB_PATH");
 }
-/**
- * Add value to the `PATH`.
- * 
- * > **🛡️ Require Runtime Permissions**
- * > 
- * > - Deno
- * >   - Environment Variable (`env`)
- * >     - `GITHUB_PATH`
- * >     - `PATH`
- * >   - File System - Read (`read`)
- * >     - *Resources*
- * >   - File System - Write (`write`)
- * >     - *Resources*
- * @param {string} path Value that need to add to the `PATH`.
- * @param {GitHubActionsSetEnvironmentVariableOptions & GitHubActionsFileCommandOptions} [options={}] Options.
- * @returns {void}
- */
-export function addPATH(path: string, options?: GitHubActionsSetEnvironmentVariableOptions & GitHubActionsFileCommandOptions): void;
-/**
- * Add value to the `PATH`.
- * 
- * > **🛡️ Require Runtime Permissions**
- * > 
- * > - Deno
- * >   - Environment Variable (`env`)
- * >     - `GITHUB_PATH`
- * >     - `PATH`
- * >   - File System - Read (`read`)
- * >     - *Resources*
- * >   - File System - Write (`write`)
- * >     - *Resources*
- * @param {string[]} paths Value that need to add to the `PATH`.
- * @param {GitHubActionsSetEnvironmentVariableOptions & GitHubActionsFileCommandOptions} [options={}] Options.
- * @returns {void}
- */
-export function addPATH(paths: string[], options?: GitHubActionsSetEnvironmentVariableOptions & GitHubActionsFileCommandOptions): void;
-export function addPATH(param0: string | string[], options: GitHubActionsSetEnvironmentVariableOptions & GitHubActionsFileCommandOptions = {}): void {
-	const {
-		optimize = false,
-		scopeCurrent = true,
-		scopeSubsequent = true
-	}: GitHubActionsSetEnvironmentVariableOptions & GitHubActionsFileCommandOptions = options;
-	const paths: string[] = (typeof param0 === "string") ? [param0] : param0;
-	paths.forEach((path: string): void => {
-		if (!isPathAbsolute(path)) {
-			throw new SyntaxError(`\`${path}\` is not a valid absolute path!`);
-		}
-	});
-	if (paths.length > 0) {
-		if (scopeCurrent) {
-			addEnvPath(...paths);
-		}
-		if (scopeSubsequent) {
-			appendFileLineCommand("GITHUB_PATH", ...paths);
-		}
-	}
-	if (optimize) {
-		optimizePATHSubsequent();
-	}
-}
 const regexpEnvironmentVariableKeyForbidden = /^(?:CI|PATH)$|^(?:ACTIONS|GITHUB|RUNNER)_/i;
 /**
  * Validate the item is a valid GitHub Actions environment variable key.
@@ -184,10 +179,10 @@ export interface GitHubActionsSetEnvironmentVariableOptions {
  * >     - *Resources*
  * @param {string} key Key of the environment variable.
  * @param {string} value Value of the environment variable.
- * @param {GitHubActionsSetEnvironmentVariableOptions & GitHubActionsFileCommandOptions} [options={}] Options.
+ * @param {GitHubActionsSetEnvironmentVariableOptions} [options={}] Options.
  * @returns {void}
  */
-export function setEnvironmentVariable(key: string, value: string, options?: GitHubActionsSetEnvironmentVariableOptions & GitHubActionsFileCommandOptions): void;
+export function setEnvironmentVariable(key: string, value: string, options?: GitHubActionsSetEnvironmentVariableOptions): void;
 /**
  * Set the environment variables.
  * 
@@ -202,16 +197,15 @@ export function setEnvironmentVariable(key: string, value: string, options?: Git
  * >   - File System - Write (`write`)
  * >     - *Resources*
  * @param {KeyValueLike} pairs Pairs of the environment variable.
- * @param {GitHubActionsSetEnvironmentVariableOptions & GitHubActionsFileCommandOptions} [options={}] Options.
+ * @param {GitHubActionsSetEnvironmentVariableOptions} [options={}] Options.
  * @returns {void}
  */
-export function setEnvironmentVariable(pairs: KeyValueLike, options?: GitHubActionsSetEnvironmentVariableOptions & GitHubActionsFileCommandOptions): void;
-export function setEnvironmentVariable(param0: string | KeyValueLike, param1?: string | GitHubActionsSetEnvironmentVariableOptions & GitHubActionsFileCommandOptions, param2?: GitHubActionsSetEnvironmentVariableOptions & GitHubActionsFileCommandOptions): void {
+export function setEnvironmentVariable(pairs: KeyValueLike, options?: GitHubActionsSetEnvironmentVariableOptions): void;
+export function setEnvironmentVariable(param0: string | KeyValueLike, param1?: string | GitHubActionsSetEnvironmentVariableOptions, param2?: GitHubActionsSetEnvironmentVariableOptions): void {
 	const {
-		optimize = false,
 		scopeCurrent = true,
 		scopeSubsequent = true
-	}: GitHubActionsSetEnvironmentVariableOptions & GitHubActionsFileCommandOptions = ((typeof param0 === "string") ? (param1 as (GitHubActionsSetEnvironmentVariableOptions & GitHubActionsFileCommandOptions) | undefined) : param2) ?? {};
+	}: GitHubActionsSetEnvironmentVariableOptions = ((typeof param0 === "string") ? (param1 as GitHubActionsSetEnvironmentVariableOptions | undefined) : param2) ?? {};
 	const pairs: Map<string, string> = new Map<string, string>();
 	if (typeof param0 === "string") {
 		validateEnvironmentVariableKey(param0);
@@ -231,9 +225,6 @@ export function setEnvironmentVariable(param0: string | KeyValueLike, param1?: s
 		if (scopeSubsequent) {
 			appendFileMapCommand("GITHUB_ENV", pairs);
 		}
-	}
-	if (optimize) {
-		optimizeEnvironmentVariableSubsequent();
 	}
 }
 export {

@@ -66,8 +66,8 @@ This is a partial refactor of [the official toolkit][official-toolkit], not all 
 ## 🧩 APIs (Excerpt)
 
 - ```ts
-  function addPATH(path: string, options?: GitHubActionsSetEnvironmentVariableOptions & GitHubActionsFileCommandOptions): void;
-  function addPATH(paths: string[], options?: GitHubActionsSetEnvironmentVariableOptions & GitHubActionsFileCommandOptions): void;
+  function addPATH(path: string, options?: GitHubActionsSetEnvironmentVariableOptions): void;
+  function addPATH(paths: string[], options?: GitHubActionsSetEnvironmentVariableOptions): void;
   ```
 - ```ts
   function addSecretMask(...values: string[]): void;
@@ -89,16 +89,16 @@ This is a partial refactor of [the official toolkit][official-toolkit], not all 
   function getState(key: string, options: GitHubActionsGetParameterOptions & { returnDefaultValueOnUndefined: false; require?: false; }): string | undefined;
   ```
 - ```ts
-  function setEnvironmentVariable(key: string, value: string, options?: GitHubActionsSetEnvironmentVariableOptions & GitHubActionsFileCommandOptions): void;
-  function setEnvironmentVariable(pairs: KeyValueLike, options?: GitHubActionsSetEnvironmentVariableOptions & GitHubActionsFileCommandOptions): void;
+  function setEnvironmentVariable(key: string, value: string, options?: GitHubActionsSetEnvironmentVariableOptions): void;
+  function setEnvironmentVariable(pairs: KeyValueLike, options?: GitHubActionsSetEnvironmentVariableOptions): void;
   ```
 - ```ts
-  function setOutput(key: string, value: string, options?: GitHubActionsFileCommandOptions): void;
-  function setOutput(pairs: KeyValueLike, options?: GitHubActionsFileCommandOptions): void;
+  function setOutput(key: string, value: string): void;
+  function setOutput(pairs: KeyValueLike): void;
   ```
 - ```ts
-  function setState(key: string, value: string, options?: GitHubActionsFileCommandOptions): void;
-  function setState(pairs: KeyValueLike, options?: GitHubActionsFileCommandOptions): void;
+  function setState(key: string, value: string): void;
+  function setState(pairs: KeyValueLike): void;
   ```
 - ```ts
   function writeDebug(...data: string[]): void;

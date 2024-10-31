@@ -3,8 +3,7 @@ import { isStringSingleLine } from "https://raw.githubusercontent.com/hugoalh/is
 import {
 	appendFileMapCommand,
 	clearFileCommand,
-	optimizeFileCommand,
-	type GitHubActionsFileCommandOptions
+	optimizeFileCommand
 } from "./command/file.ts";
 import type { KeyValueLike } from "./common.ts";
 /**
@@ -40,40 +39,6 @@ export function clearOutput(): void {
  */
 export function clearState(): void {
 	clearFileCommand("GITHUB_STATE");
-}
-/**
- * **\[🅰️ Advanced\]** Optimize the outputs which set in the current step to reduce size whenever possible.
- * 
- * > **🛡️ Require Runtime Permissions**
- * > 
- * > - Deno
- * >   - Environment Variable (`env`)
- * >     - `GITHUB_OUTPUT`
- * >   - File System - Read (`read`)
- * >     - *Resources*
- * >   - File System - Write (`write`)
- * >     - *Resources*
- * @returns {void}
- */
-export function optimizeOutput(): void {
-	optimizeFileCommand("GITHUB_OUTPUT");
-}
-/**
- * **\[🅰️ Advanced\]** Optimize the states which set in the current step to reduce size whenever possible.
- * 
- * > **🛡️ Require Runtime Permissions**
- * > 
- * > - Deno
- * >   - Environment Variable (`env`)
- * >     - `GITHUB_STATE`
- * >   - File System - Read (`read`)
- * >     - *Resources*
- * >   - File System - Write (`write`)
- * >     - *Resources*
- * @returns {void}
- */
-export function optimizeState(): void {
-	optimizeFileCommand("GITHUB_STATE");
 }
 const regexpBigInt = /^(?:0b1*[01]+|0o[1-7]*[0-7]+|[1-9]*\d|0x[1-9A-Fa-f]*[\dA-Fa-f]+)n?$/;
 const regexpBooleanFalse = /^[Ff]alse$|^FALSE$/;
@@ -602,6 +567,40 @@ export function getStateNumber(key: string, options: GitHubActionsGetParameterOp
 	}
 }
 /**
+ * **\[🅰️ Advanced\]** Optimize the outputs which set in the current step to reduce size whenever possible.
+ * 
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - `GITHUB_OUTPUT`
+ * >   - File System - Read (`read`)
+ * >     - *Resources*
+ * >   - File System - Write (`write`)
+ * >     - *Resources*
+ * @returns {void}
+ */
+export function optimizeOutput(): void {
+	optimizeFileCommand("GITHUB_OUTPUT");
+}
+/**
+ * **\[🅰️ Advanced\]** Optimize the states which set in the current step to reduce size whenever possible.
+ * 
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - `GITHUB_STATE`
+ * >   - File System - Read (`read`)
+ * >     - *Resources*
+ * >   - File System - Write (`write`)
+ * >     - *Resources*
+ * @returns {void}
+ */
+export function optimizeState(): void {
+	optimizeFileCommand("GITHUB_STATE");
+}
+/**
  * Set an output.
  * 
  * > **🛡️ Require Runtime Permissions**
@@ -615,10 +614,9 @@ export function getStateNumber(key: string, options: GitHubActionsGetParameterOp
  * >     - *Resources*
  * @param {string} key Key of the output.
  * @param {string} value Value of the output.
- * @param {GitHubActionsFileCommandOptions} [options={}] Options.
  * @returns {void}
  */
-export function setOutput(key: string, value: string, options?: GitHubActionsFileCommandOptions): void;
+export function setOutput(key: string, value: string): void;
 /**
  * Set the outputs.
  * 
@@ -632,18 +630,16 @@ export function setOutput(key: string, value: string, options?: GitHubActionsFil
  * >   - File System - Write (`write`)
  * >     - *Resources*
  * @param {KeyValueLike} pairs Pairs of the output.
- * @param {GitHubActionsFileCommandOptions} [options={}] Options.
  * @returns {void}
  */
-export function setOutput(pairs: KeyValueLike, options?: GitHubActionsFileCommandOptions): void;
-export function setOutput(param0: string | KeyValueLike, param1?: string | GitHubActionsFileCommandOptions, param2?: GitHubActionsFileCommandOptions): void {
-	const { optimize = false }: GitHubActionsFileCommandOptions = ((typeof param0 === "string") ? (param1 as (GitHubActionsFileCommandOptions) | undefined) : param2) ?? {};
+export function setOutput(pairs: KeyValueLike): void;
+export function setOutput(param0: string | KeyValueLike, param1?: string): void {
 	const pairs: Map<string, string> = new Map<string, string>();
 	if (typeof param0 === "string") {
 		if (!isStringSingleLine(param0)) {
 			throw new SyntaxError(`\`${param0}\` is not a valid GitHub Actions output key!`);
 		}
-		pairs.set(param0, param1 as string);
+		pairs.set(param0, param1!);
 	} else {
 		for (const [key, value] of ((param0 instanceof Map) ? param0.entries() : Object.entries(param0))) {
 			if (!isStringSingleLine(key)) {
@@ -654,9 +650,6 @@ export function setOutput(param0: string | KeyValueLike, param1?: string | GitHu
 	}
 	if (pairs.size > 0) {
 		appendFileMapCommand("GITHUB_OUTPUT", pairs);
-	}
-	if (optimize) {
-		optimizeOutput();
 	}
 }
 /**
@@ -673,10 +666,9 @@ export function setOutput(param0: string | KeyValueLike, param1?: string | GitHu
  * >     - *Resources*
  * @param {string} key Key of the state.
  * @param {string} value Value of the state.
- * @param {GitHubActionsFileCommandOptions} [options={}] Options.
  * @returns {void}
  */
-export function setState(key: string, value: string, options?: GitHubActionsFileCommandOptions): void;
+export function setState(key: string, value: string): void;
 /**
  * Set the states.
  * 
@@ -690,18 +682,16 @@ export function setState(key: string, value: string, options?: GitHubActionsFile
  * >   - File System - Write (`write`)
  * >     - *Resources*
  * @param {KeyValueLike} pairs Pairs of the state.
- * @param {GitHubActionsFileCommandOptions} [options={}] Options.
  * @returns {void}
  */
-export function setState(pairs: KeyValueLike, options?: GitHubActionsFileCommandOptions): void;
-export function setState(param0: string | KeyValueLike, param1?: string | GitHubActionsFileCommandOptions, param2?: GitHubActionsFileCommandOptions): void {
-	const { optimize = false }: GitHubActionsFileCommandOptions = ((typeof param0 === "string") ? (param1 as (GitHubActionsFileCommandOptions) | undefined) : param2) ?? {};
+export function setState(pairs: KeyValueLike): void;
+export function setState(param0: string | KeyValueLike, param1?: string): void {
 	const pairs: Map<string, string> = new Map<string, string>();
 	if (typeof param0 === "string") {
 		if (!isStringSingleLine(param0)) {
 			throw new SyntaxError(`\`${param0}\` is not a valid GitHub Actions state key!`);
 		}
-		pairs.set(param0, param1 as string);
+		pairs.set(param0, param1!);
 	} else {
 		for (const [key, value] of ((param0 instanceof Map) ? param0.entries() : Object.entries(param0))) {
 			if (!isStringSingleLine(key)) {
@@ -712,8 +702,5 @@ export function setState(param0: string | KeyValueLike, param1?: string | GitHub
 	}
 	if (pairs.size > 0) {
 		appendFileMapCommand("GITHUB_STATE", pairs);
-	}
-	if (optimize) {
-		optimizeState();
 	}
 }

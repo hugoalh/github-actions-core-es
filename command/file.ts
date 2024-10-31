@@ -273,10 +273,3 @@ export function optimizeFileCommand(command: string, type: GitHubActionsFileComm
 			throw new RangeError(`\`${type}\` is not a valid GitHub Actions file command type! Only accept these values: ${Object.keys(GitHubActionsFileCommandType).join(", ")}`);
 	}
 };
-export interface GitHubActionsFileCommandOptions {
-	/**
-	 * Whether to optimize the file command to reduce size whenever possible.
-	 * @default {false}
-	 */
-	optimize?: boolean;
-}

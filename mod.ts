@@ -4,8 +4,7 @@ export {
 	clearFileCommand,
 	getFileCommandPath,
 	GitHubActionsFileCommandType,
-	optimizeFileCommand,
-	type GitHubActionsFileCommandOptions
+	optimizeFileCommand
 } from "./command/file.ts";
 export {
 	disableEchoStdOutCommand,
