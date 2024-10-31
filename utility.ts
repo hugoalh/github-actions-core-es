@@ -1,5 +1,5 @@
 import { isAbsolute as isPathAbsolute } from "jsr:@std/path@^1.0.6/is-absolute";
-import { getEnv } from "https://raw.githubusercontent.com/hugoalh/env-es/v0.1.0/env.ts";
+import { getEnv } from "https://raw.githubusercontent.com/hugoalh/env-es/v0.2.0/env.ts";
 import type {
 	JSONObjectExtend,
 	JSONValueExtend
