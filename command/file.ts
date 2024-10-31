@@ -3,18 +3,20 @@ import { EOL } from "jsr:@std/fs@^1.0.5/eol";
 import { getEnv } from "https://raw.githubusercontent.com/hugoalh/env-es/v0.2.0/env.ts";
 import { isStringSingleLine } from "https://raw.githubusercontent.com/hugoalh/is-string-singleline-es/v1.0.4/mod.ts";
 import type { KeyValueLike } from "../common.ts";
-export const commandFileType = [
-	"pairs",
-	"raw",
-	"values"
-] as const;
 /**
  * GitHub Actions file command type.
  */
-export type GitHubActionsFileCommandType = typeof commandFileType[number];
+export enum GitHubActionsFileCommandType {
+	pairs = "pairs",
+	Pairs = "pairs",
+	raw = "raw",
+	Raw = "raw",
+	values = "values",
+	Values = "values"
+}
 interface GitHubActionsFileCommandEntry {
 	name: string;
-	type: GitHubActionsFileCommandType;
+	type: `${GitHubActionsFileCommandType}`;
 }
 const commandsFile: GitHubActionsFileCommandEntry[] = [
 	{
@@ -209,14 +211,14 @@ export function clearFileCommand(command: string): void {
  * >   - File System - Write (`write`)
  * >     - *Resources*
  * @param {string} command File command.
- * @param {GitHubActionsFileCommandType} [type="raw"] Type of the file command; Only used when the {@linkcode command} is not known.
+ * @param {GitHubActionsFileCommandType | keyof typeof GitHubActionsFileCommandType} [type="raw"] Type of the file command; Only used when the {@linkcode command} is not known.
  * @returns {void}
  */
-export function optimizeFileCommand(command: string, type: GitHubActionsFileCommandType = "raw"): void {
+export function optimizeFileCommand(command: string, type: GitHubActionsFileCommandType | keyof typeof GitHubActionsFileCommandType = "raw"): void {
 	const path: string = getFileCommandPath(command);
 	switch (commandsFile.find(({ name }: GitHubActionsFileCommandEntry): boolean => {
 		return (name === command);
-	})?.type ?? type) {
+	})?.type ?? GitHubActionsFileCommandType[type]) {
 		case "pairs": {
 			const pairs: Map<string, string> = new Map<string, string>();
 			const content: string[] = Deno.readTextFileSync(path).split(/\r?\n/g);
@@ -268,7 +270,7 @@ export function optimizeFileCommand(command: string, type: GitHubActionsFileComm
 			return Deno.writeTextFileSync(path, (content.size > 0) ? `${Array.from(content.values()).join(EOL)}${EOL}` : "");
 		}
 		default:
-			throw new RangeError(`\`${type}\` is not a valid GitHub Actions file command type! Only accept these values: ${commandFileType.join(", ")}`);
+			throw new RangeError(`\`${type}\` is not a valid GitHub Actions file command type! Only accept these values: ${Object.keys(GitHubActionsFileCommandType).join(", ")}`);
 	}
 };
 export interface GitHubActionsFileCommandOptions {

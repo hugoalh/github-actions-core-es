@@ -2,11 +2,10 @@ export {
 	appendFileLineCommand,
 	appendFileMapCommand,
 	clearFileCommand,
-	commandFileType,
 	getFileCommandPath,
+	GitHubActionsFileCommandType,
 	optimizeFileCommand,
-	type GitHubActionsFileCommandOptions,
-	type GitHubActionsFileCommandType
+	type GitHubActionsFileCommandOptions
 } from "./command/file.ts";
 export {
 	disableEchoStdOutCommand,
@@ -82,6 +81,8 @@ export {
 	getRunnerWorkspacePath,
 	isInRunner,
 	isRunnerDebug,
+	runnerArchitectures,
+	runnerOSes,
 	validateInRunner,
 	type GitHubActionsRunnerArchitecture,
 	type GitHubActionsRunnerOS,

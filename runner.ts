@@ -1,5 +1,5 @@
 import { isAbsolute as isPathAbsolute } from "jsr:@std/path@^1.0.6/is-absolute";
-const runnerArchitectures = [
+export const runnerArchitectures = [
 	"ARM",
 	"ARM64",
 	"X64",
@@ -75,7 +75,7 @@ export function getRunnerName(): string {
 	}
 	return value;
 }
-const runnerOSes = [
+export const runnerOSes = [
 	"Linux",
 	"macOS",
 	"Windows"
