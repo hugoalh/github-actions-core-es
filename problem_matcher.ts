@@ -1,4 +1,4 @@
-import { isStringSingleLine } from "https://raw.githubusercontent.com/hugoalh-studio/is-string-singleline-es/v1.0.2/mod.ts";
+import { isStringSingleLine } from "https://raw.githubusercontent.com/hugoalh/is-string-singleline-es/v1.0.4/mod.ts";
 import { GitHubActionsStdOutCommand } from "./command/stdout.ts";
 /**
  * Add problem matcher to scan the logs by specified regular expression patterns and automatically surface that information prominently in the user interface, both annotation and log decoration will create when a match is detected.
@@ -10,7 +10,7 @@ import { GitHubActionsStdOutCommand } from "./command/stdout.ts";
 export function addProblemMatcher(...paths: string[]): void {
 	paths.forEach((path: string): void => {
 		if (!(isStringSingleLine(path) && path.length > 0)) {
-			throw new SyntaxError(`\`${path}\` is not a string which is non-empty and single line!`);
+			throw new SyntaxError(`\`${path}\` is not a string which is non empty and single line!`);
 		}
 	});
 	paths.forEach((path: string): void => {
@@ -27,7 +27,7 @@ export function addProblemMatcher(...paths: string[]): void {
 export function removeProblemMatcher(...names: string[]): void {
 	names.forEach((name: string): void => {
 		if (!(isStringSingleLine(name) && name.length > 0)) {
-			throw new SyntaxError(`\`${name}\` is not a string which is non-empty and single line!`);
+			throw new SyntaxError(`\`${name}\` is not a string which is non empty and single line!`);
 		}
 	});
 	names.forEach((name: string): void => {

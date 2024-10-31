@@ -1,16 +1,20 @@
-import { isStringSingleLine } from "https://raw.githubusercontent.com/hugoalh-studio/is-string-singleline-es/v1.0.2/mod.ts";
-import { disableProcessStdOutCommand, enableProcessStdOutCommand, GitHubActionsStdOutCommand } from "./command/stdout.ts";
+import { isStringSingleLine } from "https://raw.githubusercontent.com/hugoalh/is-string-singleline-es/v1.0.4/mod.ts";
+import {
+	disableProcessStdOutCommand,
+	enableProcessStdOutCommand,
+	GitHubActionsStdOutCommand
+} from "./command/stdout.ts";
 /**
- * Make secret get masked from the log.
- * @param {...string} values Secret that need to get masked from the log.
+ * Make secrets get masked from the log.
+ * @param {...string} values Secrets that need to get masked from the log.
  * @returns {void}
  */
 export function addSecretMask(...values: string[]): void {
-	for (const value of values) {
+	values.forEach((value: string): void => {
 		if (value.length > 0) {
 			new GitHubActionsStdOutCommand("add-mask", value).dispatch();
 		}
-	}
+	});
 }
 export {
 	addSecretMask as addMask,
@@ -23,9 +27,9 @@ export {
  */
 export function enterLogGroup(title: string = ""): void {
 	if (!isStringSingleLine(title)) {
-		throw new SyntaxError(`\`${title}\` is not a string which is non-empty and single line!`);
+		throw new SyntaxError(`\`${title}\` (parameter \`title\`) is not a string which is single line!`);
 	}
-	return new GitHubActionsStdOutCommand("group", title).dispatch();
+	new GitHubActionsStdOutCommand("group", title).dispatch();
 }
 export {
 	enterLogGroup as startLogGroup
@@ -36,7 +40,7 @@ const commandLogGroupExit = new GitHubActionsStdOutCommand("endgroup");
  * @returns {void}
  */
 export function exitLogGroup(): void {
-	return commandLogGroupExit.dispatch();
+	commandLogGroupExit.dispatch();
 }
 export {
 	exitLogGroup as endLogGroup
@@ -97,49 +101,57 @@ export interface GitHubActionsAnnotationProperties {
  * @returns {void}
  */
 export function writeAnnotation(type: GitHubActionsAnnotationType | keyof typeof GitHubActionsAnnotationType, data: string, properties: GitHubActionsAnnotationProperties = {}): void {
-	const typeStringify: GitHubActionsAnnotationType | undefined = GitHubActionsAnnotationType[type];
-	if (typeof typeStringify === "undefined") {
+	const typeFmt: GitHubActionsAnnotationType | undefined = GitHubActionsAnnotationType[type];
+	if (typeof typeFmt === "undefined") {
 		throw new RangeError(`\`${type}\` is not a valid GitHub Actions annotation type! Only accept these values: ${Array.from<string>(new Set(Object.keys(GitHubActionsAnnotationType).sort()).values()).join(", ")}`);
 	}
-	const commandAnnotation: GitHubActionsStdOutCommand = new GitHubActionsStdOutCommand(typeStringify);
-	const { column, columnEnd, file, line, lineEnd, summary, title }: GitHubActionsAnnotationProperties = properties;
+	const {
+		column,
+		columnEnd,
+		file,
+		line,
+		lineEnd,
+		summary,
+		title
+	}: GitHubActionsAnnotationProperties = properties;
+	const propertiesFmt: Map<string, string> = new Map<string, string>();
 	if (typeof file === "string" && file.length > 0) {
-		commandAnnotation.setProperty("file", file);
+		propertiesFmt.set("file", file);
 	}
 	if (typeof line === "number") {
 		if (!(Number.isSafeInteger(line) && line >= 0)) {
-			throw new RangeError(`Argument \`line\` is not a number which is integer, positive, and safe!`);
+			throw new RangeError(`\`${line}\` (parameter \`properties.line\`) is not a number which is integer, positive, and safe!`);
 		}
 		if (line > 0) {
-			commandAnnotation.setProperty("line", line.toString());
+			propertiesFmt.set("line", line.toString());
 		}
 	}
 	if (typeof column === "number") {
 		if (!(Number.isSafeInteger(column) && column >= 0)) {
-			throw new RangeError(`Argument \`column\` is not a number which is integer, positive, and safe!`);
+			throw new RangeError(`\`${column}\` (parameter \`properties.column\`) is not a number which is integer, positive, and safe!`);
 		}
 		if (column > 0) {
-			commandAnnotation.setProperty("col", column.toString());
+			propertiesFmt.set("col", column.toString());
 		}
 	}
 	if (typeof lineEnd === "number") {
 		if (!(Number.isSafeInteger(lineEnd) && lineEnd >= 0)) {
-			throw new RangeError(`Argument \`lineEnd\` is not a number which is integer, positive, and safe!`);
+			throw new RangeError(`\`${lineEnd}\` (parameter \`properties.lineEnd\`) is not a number which is integer, positive, and safe!`);
 		}
 		if (lineEnd > 0) {
-			commandAnnotation.setProperty("endLine", lineEnd.toString());
+			propertiesFmt.set("endLine", lineEnd.toString());
 		}
 	}
 	if (typeof columnEnd === "number") {
 		if (!(Number.isSafeInteger(columnEnd) && columnEnd >= 0)) {
-			throw new RangeError(`Argument \`columnEnd\` is not a number which is integer, positive, and safe!`);
+			throw new RangeError(`\`${columnEnd}\` (parameter \`properties.columnEnd\`) is not a number which is integer, positive, and safe!`);
 		}
 		if (columnEnd > 0) {
-			commandAnnotation.setProperty("endColumn", columnEnd.toString());
+			propertiesFmt.set("endColumn", columnEnd.toString());
 		}
 	}
 	if (typeof title === "string" && title.length > 0) {
-		commandAnnotation.setProperty("title", title);
+		propertiesFmt.set("title", title);
 	}
 	if (data.length > 4096 && typeof summary === "string" && summary.length > 0) {
 		if (data.trim().startsWith("::")) {
@@ -149,9 +161,9 @@ export function writeAnnotation(type: GitHubActionsAnnotationType | keyof typeof
 		} else {
 			console.log(data);
 		}
-		commandAnnotation.setMessage(summary).dispatch();
+		new GitHubActionsStdOutCommand(typeFmt, propertiesFmt, summary).dispatch();
 	} else {
-		commandAnnotation.setMessage(data).dispatch();
+		new GitHubActionsStdOutCommand(typeFmt, propertiesFmt, data).dispatch();
 	}
 }
 /**
@@ -160,9 +172,8 @@ export function writeAnnotation(type: GitHubActionsAnnotationType | keyof typeof
  * @returns {void}
  */
 export function writeDebug(...data: string[]): void {
-	const commandLogDebug: GitHubActionsStdOutCommand = new GitHubActionsStdOutCommand("debug");
 	for (const item of data) {
-		commandLogDebug.setMessage(item).dispatch();
+		new GitHubActionsStdOutCommand("debug", item).dispatch();
 	}
 }
 /**

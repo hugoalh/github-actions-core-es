@@ -1,99 +1,293 @@
-import env from "https://raw.githubusercontent.com/hugoalh-studio/cross-env-es/v1.1.0/env.ts";
-import { isStringSingleLine } from "https://raw.githubusercontent.com/hugoalh-studio/is-string-singleline-es/v1.0.2/mod.ts";
-import { GitHubActionsFileMapCommand, type GitHubActionsFileCommandOptions } from "./command/file.ts";
+import { getEnv } from "https://raw.githubusercontent.com/hugoalh/env-es/v0.2.0/env.ts";
+import { isStringSingleLine } from "https://raw.githubusercontent.com/hugoalh/is-string-singleline-es/v1.0.4/mod.ts";
+import {
+	appendFileMapCommand,
+	clearFileCommand,
+	optimizeFileCommand,
+	type GitHubActionsFileCommandOptions
+} from "./command/file.ts";
 import type { KeyValueLike } from "./common.ts";
-export interface GitHubActionsInputOptions {
+/**
+ * **\[🅰️ Advanced\]** Clear the outputs which set in the current step.
+ * 
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - `GITHUB_OUTPUT`
+ * >   - File System - Read (`read`)
+ * >     - *Resources*
+ * >   - File System - Write (`write`)
+ * >     - *Resources*
+ * @returns {void}
+ */
+export function clearOutput(): void {
+	clearFileCommand("GITHUB_OUTPUT");
+}
+/**
+ * **\[🅰️ Advanced\]** Clear the states which set in the current step.
+ * 
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - `GITHUB_STATE`
+ * >   - File System - Read (`read`)
+ * >     - *Resources*
+ * >   - File System - Write (`write`)
+ * >     - *Resources*
+ * @returns {void}
+ */
+export function clearState(): void {
+	clearFileCommand("GITHUB_STATE");
+}
+/**
+ * **\[🅰️ Advanced\]** Optimize the outputs which set in the current step to reduce size whenever possible.
+ * 
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - `GITHUB_OUTPUT`
+ * >   - File System - Read (`read`)
+ * >     - *Resources*
+ * >   - File System - Write (`write`)
+ * >     - *Resources*
+ * @returns {void}
+ */
+export function optimizeOutput(): void {
+	optimizeFileCommand("GITHUB_OUTPUT");
+}
+/**
+ * **\[🅰️ Advanced\]** Optimize the states which set in the current step to reduce size whenever possible.
+ * 
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - `GITHUB_STATE`
+ * >   - File System - Read (`read`)
+ * >     - *Resources*
+ * >   - File System - Write (`write`)
+ * >     - *Resources*
+ * @returns {void}
+ */
+export function optimizeState(): void {
+	optimizeFileCommand("GITHUB_STATE");
+}
+const regexpBigInt = /^(?:0b1*[01]+|0o[1-7]*[0-7]+|[1-9]*\d|0x[1-9A-Fa-f]*[\dA-Fa-f]+)n?$/;
+const regexpBooleanFalse = /^[Ff]alse$|^FALSE$/;
+const regexpBooleanTrue = /^[Tt]rue$|^TRUE$/;
+export interface GitHubActionsGetParameterOptions {
 	/**
-	 * Whether the input is require.
-	 * @default false
+	 * Whether to return the default value of the parameter when the parameter is not require and defined.
+	 * 
+	 * Different parameter type has different default value:
+	 * 
+	 * - **{@linkcode getInput} / {@linkcode getState}:** `""`
+	 * - **{@linkcode getInputBigInt} / {@linkcode getStateBigInt}:** `0n`
+	 * - **{@linkcode getInputBoolean} / {@linkcode getStateBoolean}:** `false`
+	 * - **{@linkcode getInputNumber} / {@linkcode getStateNumber}:** `0`
+	 * @default {true}
+	 */
+	returnDefaultValueOnUndefined?: boolean;
+	/**
+	 * Whether the parameter is require.
+	 * @default {false}
 	 */
 	require?: boolean;
 }
 /**
  * Get the raw value of an input.
  * 
- * > **🛡️ Permissions**
- * >
- * > | **Target** | **Type** | **Coverage** |
- * > |:--|:--|:--|
- * > | Deno | Environment Variable (`allow-env`) | Resource |
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - *Resources*
  * @param {string} key Key of the input.
  * @returns {string | undefined} Raw value of the input.
  */
-export function getInputRaw(key: string): string | undefined {
+function getInputInternal(key: string): string | undefined {
 	if (!isStringSingleLine(key)) {
 		throw new SyntaxError(`\`${key}\` is not a valid GitHub Actions input key!`);
 	}
-	return env.get(`INPUT_${key.replaceAll(" ", "_").toUpperCase()}`);
+	return getEnv(`INPUT_${key.replaceAll(" ", "_").toUpperCase()}`);
 }
 /**
- * Get the value of an input.
+ * Get the string value of an input.
  * 
- * > **🛡️ Permissions**
- * >
- * > | **Target** | **Type** | **Coverage** |
- * > |:--|:--|:--|
- * > | Deno | Environment Variable (`allow-env`) | Resource |
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - *Resources*
  * @param {string} key Key of the input.
- * @param {GitHubActionsInputOptions} [options={}] Options.
- * @returns {string} Value of the input.
+ * @param {GitHubActionsGetParameterOptions & { returnDefaultValueOnUndefined?: true; require?: false; }} [options={}] Options.
+ * @returns {string} String value of the input.
  */
-export function getInput(key: string, options: GitHubActionsInputOptions = {}): string {
-	const value: string | undefined = getInputRaw(key);
+export function getInput(key: string, options?: GitHubActionsGetParameterOptions & { returnDefaultValueOnUndefined?: true; require?: false; }): string;
+/**
+ * Get the string value of an input.
+ * 
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - *Resources*
+ * @param {string} key Key of the input.
+ * @param {GitHubActionsGetParameterOptions & { require: true; }} options Options.
+ * @returns {string} String value of the input.
+ */
+export function getInput(key: string, options: GitHubActionsGetParameterOptions & { require: true; }): string;
+/**
+ * Get the string value of an input.
+ * 
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - *Resources*
+ * @param {string} key Key of the input.
+ * @param {GitHubActionsGetParameterOptions & { returnDefaultValueOnUndefined: false; require?: false; }} options Options.
+ * @returns {string | undefined} String value of the input.
+ */
+export function getInput(key: string, options: GitHubActionsGetParameterOptions & { returnDefaultValueOnUndefined: false; require?: false; }): string | undefined;
+export function getInput(key: string, options: GitHubActionsGetParameterOptions = {}): string | undefined {
+	const {
+		returnDefaultValueOnUndefined = true,
+		require = false
+	}: GitHubActionsGetParameterOptions = options;
+	const value: string | undefined = getInputInternal(key);
 	if (typeof value === "undefined") {
-		if (options.require) {
+		if (require) {
 			throw new ReferenceError(`Input \`${key}\` is not defined!`);
 		}
-		return "";
+		return (returnDefaultValueOnUndefined ? "" : undefined);
 	}
 	return value;
 }
+export {
+	getInput as getInputString
+};
 /**
  * Get the big integer value of an input.
  * 
- * > **🛡️ Permissions**
- * >
- * > | **Target** | **Type** | **Coverage** |
- * > |:--|:--|:--|
- * > | Deno | Environment Variable (`allow-env`) | Resource |
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - *Resources*
  * @param {string} key Key of the input.
- * @param {GitHubActionsInputOptions} [options={}] Options.
+ * @param {GitHubActionsGetParameterOptions & { returnDefaultValueOnUndefined?: true; require?: false; }} [options={}] Options.
  * @returns {bigint} Big integer value of the input.
  */
-export function getInputBigInt(key: string, options: GitHubActionsInputOptions = {}): bigint {
-	const value: string = getInput(key, options);
-	if (value.length === 0) {
-		if (options.require) {
+export function getInputBigInt(key: string, options?: GitHubActionsGetParameterOptions & { returnDefaultValueOnUndefined?: true; require?: false; }): bigint;
+/**
+ * Get the big integer value of an input.
+ * 
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - *Resources*
+ * @param {string} key Key of the input.
+ * @param {GitHubActionsGetParameterOptions & { require: true; }} options Options.
+ * @returns {bigint} Big integer value of the input.
+ */
+export function getInputBigInt(key: string, options: GitHubActionsGetParameterOptions & { require: true; }): bigint;
+/**
+ * Get the big integer value of an input.
+ * 
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - *Resources*
+ * @param {string} key Key of the input.
+ * @param {GitHubActionsGetParameterOptions & { returnDefaultValueOnUndefined: false; require?: false; }} options Options.
+ * @returns {bigint | undefined} Big integer value of the input.
+ */
+export function getInputBigInt(key: string, options: GitHubActionsGetParameterOptions & { returnDefaultValueOnUndefined: false; require?: false; }): bigint | undefined;
+export function getInputBigInt(key: string, options: GitHubActionsGetParameterOptions = {}): bigint | undefined {
+	const {
+		returnDefaultValueOnUndefined = true,
+		require = false
+	}: GitHubActionsGetParameterOptions = options;
+	const value: string | undefined = getInputInternal(key);
+	if (typeof value === "undefined") {
+		if (require) {
 			throw new ReferenceError(`Input \`${key}\` is not defined!`);
 		}
-		return 0n;
+		return (returnDefaultValueOnUndefined ? 0n : undefined);
 	}
-	return BigInt(value.replace(/n$/, ""));
+	try {
+		if (!regexpBigInt.test(value)) {
+			throw undefined;
+		}
+		return BigInt(value.replace(/n$/, ""));
+	} catch {
+		throw new SyntaxError(`\`${value}\` (input \`${key}\`) is not a valid big integer!`);
+	}
 }
+export {
+	getInputBigInt as getInputBigInteger
+};
 /**
  * Get the boolean value of an input.
  * 
- * > **🛡️ Permissions**
- * >
- * > | **Target** | **Type** | **Coverage** |
- * > |:--|:--|:--|
- * > | Deno | Environment Variable (`allow-env`) | Resource |
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - *Resources*
  * @param {string} key Key of the input.
- * @param {GitHubActionsInputOptions} [options={}] Options.
+ * @param {GitHubActionsGetParameterOptions & { returnDefaultValueOnUndefined?: true; require?: false; }} [options={}] Options.
  * @returns {boolean} Boolean value of the input.
  */
-export function getInputBoolean(key: string, options: GitHubActionsInputOptions = {}): boolean {
-	const value: string = getInput(key, options);
-	if (value.length === 0) {
-		if (options.require) {
+export function getInputBoolean(key: string, options?: GitHubActionsGetParameterOptions & { returnDefaultValueOnUndefined?: true; require?: false; }): boolean;
+/**
+ * Get the boolean value of an input.
+ * 
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - *Resources*
+ * @param {string} key Key of the input.
+ * @param {GitHubActionsGetParameterOptions & { require: true; }} options Options.
+ * @returns {boolean} Boolean value of the input.
+ */
+export function getInputBoolean(key: string, options: GitHubActionsGetParameterOptions & { require: true; }): boolean;
+/**
+ * Get the boolean value of an input.
+ * 
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - *Resources*
+ * @param {string} key Key of the input.
+ * @param {GitHubActionsGetParameterOptions & { returnDefaultValueOnUndefined: false; require?: false; }} options Options.
+ * @returns {boolean | undefined} Boolean value of the input.
+ */
+export function getInputBoolean(key: string, options: GitHubActionsGetParameterOptions & { returnDefaultValueOnUndefined: false; require?: false; }): boolean | undefined;
+export function getInputBoolean(key: string, options: GitHubActionsGetParameterOptions = {}): boolean | undefined {
+	const {
+		returnDefaultValueOnUndefined = true,
+		require = false
+	}: GitHubActionsGetParameterOptions = options;
+	const value: string | undefined = getInputInternal(key);
+	if (typeof value === "undefined") {
+		if (require) {
 			throw new ReferenceError(`Input \`${key}\` is not defined!`);
 		}
+		return (returnDefaultValueOnUndefined ? false : undefined);
+	}
+	if (regexpBooleanFalse.test(value)) {
 		return false;
 	}
-	if (/^[Ff]alse$|^FALSE$/.test(value)) {
-		return false;
-	}
-	if (/^[Tt]rue$|^TRUE$/.test(value)) {
+	if (regexpBooleanTrue.test(value)) {
 		return true;
 	}
 	throw new SyntaxError(`\`${value}\` (input \`${key}\`) is not a valid boolean!`);
@@ -101,154 +295,425 @@ export function getInputBoolean(key: string, options: GitHubActionsInputOptions 
 /**
  * Get the number value of an input.
  * 
- * > **🛡️ Permissions**
- * >
- * > | **Target** | **Type** | **Coverage** |
- * > |:--|:--|:--|
- * > | Deno | Environment Variable (`allow-env`) | Resource |
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - *Resources*
  * @param {string} key Key of the input.
- * @param {GitHubActionsInputOptions} [options={}] Options.
+ * @param {GitHubActionsGetParameterOptions & { returnDefaultValueOnUndefined?: true; require?: false; }} [options={}] Options.
  * @returns {number} Number value of the input.
  */
-export function getInputNumber(key: string, options: GitHubActionsInputOptions = {}): number {
-	const value: string = getInput(key, options);
-	if (value.length === 0) {
-		if (options.require) {
-			throw new ReferenceError(`Input \`${key}\` is not defined!`);
-		}
-		return 0;
-	}
-	return Number(value);
-}
+export function getInputNumber(key: string, options?: GitHubActionsGetParameterOptions & { returnDefaultValueOnUndefined?: true; require?: false; }): number;
 /**
- * **\[🧪 EXPERIMENTAL\]** Get the regular expression value of an input.
+ * Get the number value of an input.
  * 
- * > **🛡️ Permissions**
- * >
- * > | **Target** | **Type** | **Coverage** |
- * > |:--|:--|:--|
- * > | Deno | Environment Variable (`allow-env`) | Resource |
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - *Resources*
  * @param {string} key Key of the input.
- * @param {GitHubActionsInputOptions} [options={}] Options.
- * @returns {RegExp} Regular expression value of the input.
+ * @param {GitHubActionsGetParameterOptions & { require: true; }} options Options.
+ * @returns {number} Number value of the input.
  */
-export function getInputRegExp(key: string, options: GitHubActionsInputOptions = {}): RegExp {
-	const value: string = getInput(key, options);
-	if (value.length === 0) {
-		if (options.require) {
+export function getInputNumber(key: string, options: GitHubActionsGetParameterOptions & { require: true; }): number;
+/**
+ * Get the number value of an input.
+ * 
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - *Resources*
+ * @param {string} key Key of the input.
+ * @param {GitHubActionsGetParameterOptions & { returnDefaultValueOnUndefined: false; require?: false; }} options Options.
+ * @returns {number | undefined} Number value of the input.
+ */
+export function getInputNumber(key: string, options: GitHubActionsGetParameterOptions & { returnDefaultValueOnUndefined: false; require?: false; }): number | undefined;
+export function getInputNumber(key: string, options: GitHubActionsGetParameterOptions = {}): number | undefined {
+	const {
+		returnDefaultValueOnUndefined = true,
+		require = false
+	}: GitHubActionsGetParameterOptions = options;
+	const value: string | undefined = getInputInternal(key);
+	if (typeof value === "undefined") {
+		if (require) {
 			throw new ReferenceError(`Input \`${key}\` is not defined!`);
 		}
-		return /.*/m;
+		return (returnDefaultValueOnUndefined ? 0 : undefined);
 	}
-	const matches: RegExpMatchArray | null = value.match(/^\/(?<expression>.+)\/(?<flag>.*)$/);
-	if (matches !== null && typeof matches.groups !== "undefined" && typeof matches.groups.expression !== "undefined" && typeof matches.groups.flag !== "undefined") {
-		return new RegExp(matches.groups.expression, matches.groups.flag);
+	try {
+		return Number(value);
+	} catch {
+		throw new SyntaxError(`\`${value}\` (input \`${key}\`) is not a valid number!`);
 	}
-	throw new SyntaxError(`\`${value}\` (input \`${key}\`) is not a valid regular expression!`);
 }
 /**
- * **\[🅰️ ADVANCED\]** Handle the outputs in the GitHub Actions runner.
+ * Get the raw value of a state.
  * 
- * > **🛡️ Permissions**
- * >
- * > | **Target** | **Type** | **Coverage** |
- * > |:--|:--|:--|
- * > | Deno | Environment Variable (`allow-env`) | Resource |
- * > | Deno | File System - Read (`allow-read`) | Resource |
- * > | Deno | File System - Write (`allow-write`) | Resource |
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - *Resources*
+ * @param {string} key Key of the state.
+ * @returns {string | undefined} Raw value of the state.
  */
-export class GitHubActionsOutput {
-	#command: GitHubActionsFileMapCommand = new GitHubActionsFileMapCommand("GITHUB_OUTPUT");
-	/**
-	 * Clear the outputs which set in the current step.
-	 * @returns {this}
-	 */
-	clear(): this {
-		this.#command.clear();
-		return this;
+function getStateInternal(key: string): string | undefined {
+	if (!isStringSingleLine(key)) {
+		throw new SyntaxError(`\`${key}\` is not a valid GitHub Actions state key!`);
 	}
-	/**
-	 * Optimize the outputs which set in the current step to reduce size whenever possible.
-	 * @returns {this}
-	 */
-	optimize(): this {
-		this.#command.optimize();
-		return this;
+	return getEnv(`STATE_${key.replaceAll(" ", "_").toUpperCase()}`);
+}
+/**
+ * Get the string value of a state.
+ * 
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - *Resources*
+ * @param {string} key Key of the state.
+ * @param {GitHubActionsGetParameterOptions & { returnDefaultValueOnUndefined?: true; require?: false; }} [options={}] Options.
+ * @returns {string} String value of the state.
+ */
+export function getState(key: string, options?: GitHubActionsGetParameterOptions & { returnDefaultValueOnUndefined?: true; require?: false; }): string;
+/**
+ * Get the string value of a state.
+ * 
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - *Resources*
+ * @param {string} key Key of the state.
+ * @param {GitHubActionsGetParameterOptions & { require: true; }} options Options.
+ * @returns {string} String value of the state.
+ */
+export function getState(key: string, options: GitHubActionsGetParameterOptions & { require: true; }): string;
+/**
+ * Get the string value of a state.
+ * 
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - *Resources*
+ * @param {string} key Key of the state.
+ * @param {GitHubActionsGetParameterOptions & { returnDefaultValueOnUndefined: false; require?: false; }} options Options.
+ * @returns {string | undefined} String value of the state.
+ */
+export function getState(key: string, options: GitHubActionsGetParameterOptions & { returnDefaultValueOnUndefined: false; require?: false; }): string | undefined;
+export function getState(key: string, options: GitHubActionsGetParameterOptions = {}): string | undefined {
+	const {
+		returnDefaultValueOnUndefined = true,
+		require = false
+	}: GitHubActionsGetParameterOptions = options;
+	const value: string | undefined = getStateInternal(key);
+	if (typeof value === "undefined") {
+		if (require) {
+			throw new ReferenceError(`State \`${key}\` is not defined!`);
+		}
+		return (returnDefaultValueOnUndefined ? "" : undefined);
 	}
-	/**
-	 * Set an output.
-	 * @param {string} key Key of the output.
-	 * @param {string} value Value of the output.
-	 * @returns {this}
-	 */
-	set(key: string, value: string): this;
-	/**
-	 * Set the outputs.
-	 * @param {KeyValueLike} pairs Pairs of the output.
-	 * @returns {this}
-	 */
-	set(pairs: KeyValueLike): this;
-	set(param0: string | KeyValueLike, param1?: string): this {
-		const pairs: Map<string, string> = new Map<string, string>();
-		if (typeof param0 === "string") {
-			if (!isStringSingleLine(param0)) {
-				throw new SyntaxError(`\`${param0}\` is not a valid GitHub Actions output key!`);
-			}
-			pairs.set(param0, param1!);
-		} else {
-			for (const [key, value] of ((param0 instanceof Map) ? param0.entries() : Object.entries(param0))) {
-				if (!isStringSingleLine(key)) {
-					throw new SyntaxError(`\`${key}\` is not a valid GitHub Actions output key!`);
-				}
-				pairs.set(key, value);
-			}
+	return value;
+}
+export {
+	getState as getStateString
+};
+/**
+ * Get the big integer value of a state.
+ * 
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - *Resources*
+ * @param {string} key Key of the state.
+ * @param {GitHubActionsGetParameterOptions & { returnDefaultValueOnUndefined?: true; require?: false; }} [options={}] Options.
+ * @returns {bigint} Big integer value of the state.
+ */
+export function getStateBigInt(key: string, options?: GitHubActionsGetParameterOptions & { returnDefaultValueOnUndefined?: true; require?: false; }): bigint;
+/**
+ * Get the big integer value of a state.
+ * 
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - *Resources*
+ * @param {string} key Key of the state.
+ * @param {GitHubActionsGetParameterOptions & { require: true; }} options Options.
+ * @returns {bigint} Big integer value of the state.
+ */
+export function getStateBigInt(key: string, options: GitHubActionsGetParameterOptions & { require: true; }): bigint;
+/**
+ * Get the big integer value of a state.
+ * 
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - *Resources*
+ * @param {string} key Key of the state.
+ * @param {GitHubActionsGetParameterOptions & { returnDefaultValueOnUndefined: false; require?: false; }} options Options.
+ * @returns {bigint | undefined} Big integer value of the state.
+ */
+export function getStateBigInt(key: string, options: GitHubActionsGetParameterOptions & { returnDefaultValueOnUndefined: false; require?: false; }): bigint | undefined;
+export function getStateBigInt(key: string, options: GitHubActionsGetParameterOptions = {}): bigint | undefined {
+	const {
+		returnDefaultValueOnUndefined = true,
+		require = false
+	}: GitHubActionsGetParameterOptions = options;
+	const value: string | undefined = getStateInternal(key);
+	if (typeof value === "undefined") {
+		if (require) {
+			throw new ReferenceError(`State \`${key}\` is not defined!`);
 		}
-		if (pairs.size > 0) {
-			this.#command.append(pairs);
+		return (returnDefaultValueOnUndefined ? 0n : undefined);
+	}
+	try {
+		if (!regexpBigInt.test(value)) {
+			throw undefined;
 		}
-		return this;
+		return BigInt(value.replace(/n$/, ""));
+	} catch {
+		throw new SyntaxError(`\`${value}\` (state \`${key}\`) is not a valid big integer!`);
+	}
+}
+export {
+	getStateBigInt as getStateBigInteger
+};
+/**
+ * Get the boolean value of a state.
+ * 
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - *Resources*
+ * @param {string} key Key of the state.
+ * @param {GitHubActionsGetParameterOptions & { returnDefaultValueOnUndefined?: true; require?: false; }} [options={}] Options.
+ * @returns {boolean} Boolean value of the state.
+ */
+export function getStateBoolean(key: string, options?: GitHubActionsGetParameterOptions & { returnDefaultValueOnUndefined?: true; require?: false; }): boolean;
+/**
+ * Get the boolean value of a state.
+ * 
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - *Resources*
+ * @param {string} key Key of the state.
+ * @param {GitHubActionsGetParameterOptions & { require: true; }} options Options.
+ * @returns {boolean} Boolean value of the state.
+ */
+export function getStateBoolean(key: string, options: GitHubActionsGetParameterOptions & { require: true; }): boolean;
+/**
+ * Get the boolean value of a state.
+ * 
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - *Resources*
+ * @param {string} key Key of the state.
+ * @param {GitHubActionsGetParameterOptions & { returnDefaultValueOnUndefined: false; require?: false; }} options Options.
+ * @returns {boolean | undefined} Boolean value of the state.
+ */
+export function getStateBoolean(key: string, options: GitHubActionsGetParameterOptions & { returnDefaultValueOnUndefined: false; require?: false; }): boolean | undefined;
+export function getStateBoolean(key: string, options: GitHubActionsGetParameterOptions = {}): boolean | undefined {
+	const {
+		returnDefaultValueOnUndefined = true,
+		require = false
+	}: GitHubActionsGetParameterOptions = options;
+	const value: string | undefined = getStateInternal(key);
+	if (typeof value === "undefined") {
+		if (require) {
+			throw new ReferenceError(`State \`${key}\` is not defined!`);
+		}
+		return (returnDefaultValueOnUndefined ? false : undefined);
+	}
+	if (regexpBooleanFalse.test(value)) {
+		return false;
+	}
+	if (regexpBooleanTrue.test(value)) {
+		return true;
+	}
+	throw new SyntaxError(`\`${value}\` (state \`${key}\`) is not a valid boolean!`);
+}
+/**
+ * Get the number value of a state.
+ * 
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - *Resources*
+ * @param {string} key Key of the state.
+ * @param {GitHubActionsGetParameterOptions & { returnDefaultValueOnUndefined?: true; require?: false; }} [options={}] Options.
+ * @returns {number} Number value of the state.
+ */
+export function getStateNumber(key: string, options?: GitHubActionsGetParameterOptions & { returnDefaultValueOnUndefined?: true; require?: false; }): number;
+/**
+ * Get the number value of a state.
+ * 
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - *Resources*
+ * @param {string} key Key of the state.
+ * @param {GitHubActionsGetParameterOptions & { require: true; }} options Options.
+ * @returns {number} Number value of the state.
+ */
+export function getStateNumber(key: string, options: GitHubActionsGetParameterOptions & { require: true; }): number;
+/**
+ * Get the number value of a state.
+ * 
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - *Resources*
+ * @param {string} key Key of the state.
+ * @param {GitHubActionsGetParameterOptions & { returnDefaultValueOnUndefined: false; require?: false; }} options Options.
+ * @returns {number | undefined} Number value of the state.
+ */
+export function getStateNumber(key: string, options: GitHubActionsGetParameterOptions & { returnDefaultValueOnUndefined: false; require?: false; }): number | undefined;
+export function getStateNumber(key: string, options: GitHubActionsGetParameterOptions = {}): number | undefined {
+	const {
+		returnDefaultValueOnUndefined = true,
+		require = false
+	}: GitHubActionsGetParameterOptions = options;
+	const value: string | undefined = getStateInternal(key);
+	if (typeof value === "undefined") {
+		if (require) {
+			throw new ReferenceError(`State \`${key}\` is not defined!`);
+		}
+		return (returnDefaultValueOnUndefined ? 0 : undefined);
+	}
+	try {
+		return Number(value);
+	} catch {
+		throw new SyntaxError(`\`${value}\` (state \`${key}\`) is not a valid number!`);
 	}
 }
 /**
  * Set an output.
  * 
- * > **🛡️ Permissions**
- * >
- * > | **Target** | **Type** | **Coverage** |
- * > |:--|:--|:--|
- * > | Deno | Environment Variable (`allow-env`) | Resource |
- * > | Deno | File System - Read (`allow-read`) | Resource |
- * > | Deno | File System - Write (`allow-write`) | Resource |
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - `GITHUB_OUTPUT`
+ * >   - File System - Read (`read`)
+ * >     - *Resources*
+ * >   - File System - Write (`write`)
+ * >     - *Resources*
  * @param {string} key Key of the output.
  * @param {string} value Value of the output.
  * @param {GitHubActionsFileCommandOptions} [options={}] Options.
  * @returns {void}
  */
-export function setOutput(key: string, value: string, options: GitHubActionsFileCommandOptions={}): void {
-	const instance: GitHubActionsOutput = new GitHubActionsOutput();
-	instance.set(key,value);
-	if (options.optimize) {
-		instance.optimize();
-	}
-}
+export function setOutput(key: string, value: string, options?: GitHubActionsFileCommandOptions): void;
 /**
  * Set the outputs.
  * 
- * > **🛡️ Permissions**
- * >
- * > | **Target** | **Type** | **Coverage** |
- * > |:--|:--|:--|
- * > | Deno | Environment Variable (`allow-env`) | Resource |
- * > | Deno | File System - Read (`allow-read`) | Resource |
- * > | Deno | File System - Write (`allow-write`) | Resource |
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - `GITHUB_OUTPUT`
+ * >   - File System - Read (`read`)
+ * >     - *Resources*
+ * >   - File System - Write (`write`)
+ * >     - *Resources*
  * @param {KeyValueLike} pairs Pairs of the output.
  * @param {GitHubActionsFileCommandOptions} [options={}] Options.
  * @returns {void}
  */
-export function setOutputs(pairs: KeyValueLike, options: GitHubActionsFileCommandOptions={}): void{
-	const instance: GitHubActionsOutput = new GitHubActionsOutput();
-	instance.set(pairs);
-	if (options.optimize) {
-		instance.optimize();
+export function setOutput(pairs: KeyValueLike, options?: GitHubActionsFileCommandOptions): void;
+export function setOutput(param0: string | KeyValueLike, param1?: string | GitHubActionsFileCommandOptions, param2?: GitHubActionsFileCommandOptions): void {
+	const { optimize = false }: GitHubActionsFileCommandOptions = ((typeof param0 === "string") ? (param1 as (GitHubActionsFileCommandOptions) | undefined) : param2) ?? {};
+	const pairs: Map<string, string> = new Map<string, string>();
+	if (typeof param0 === "string") {
+		if (!isStringSingleLine(param0)) {
+			throw new SyntaxError(`\`${param0}\` is not a valid GitHub Actions output key!`);
+		}
+		pairs.set(param0, param1 as string);
+	} else {
+		for (const [key, value] of ((param0 instanceof Map) ? param0.entries() : Object.entries(param0))) {
+			if (!isStringSingleLine(key)) {
+				throw new SyntaxError(`\`${key}\` is not a valid GitHub Actions output key!`);
+			}
+			pairs.set(key, value);
+		}
+	}
+	if (pairs.size > 0) {
+		appendFileMapCommand("GITHUB_OUTPUT", pairs);
+	}
+	if (optimize) {
+		optimizeOutput();
+	}
+}
+/**
+ * Set a state.
+ * 
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - `GITHUB_STATE`
+ * >   - File System - Read (`read`)
+ * >     - *Resources*
+ * >   - File System - Write (`write`)
+ * >     - *Resources*
+ * @param {string} key Key of the state.
+ * @param {string} value Value of the state.
+ * @param {GitHubActionsFileCommandOptions} [options={}] Options.
+ * @returns {void}
+ */
+export function setState(key: string, value: string, options?: GitHubActionsFileCommandOptions): void;
+/**
+ * Set the states.
+ * 
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - `GITHUB_STATE`
+ * >   - File System - Read (`read`)
+ * >     - *Resources*
+ * >   - File System - Write (`write`)
+ * >     - *Resources*
+ * @param {KeyValueLike} pairs Pairs of the state.
+ * @param {GitHubActionsFileCommandOptions} [options={}] Options.
+ * @returns {void}
+ */
+export function setState(pairs: KeyValueLike, options?: GitHubActionsFileCommandOptions): void;
+export function setState(param0: string | KeyValueLike, param1?: string | GitHubActionsFileCommandOptions, param2?: GitHubActionsFileCommandOptions): void {
+	const { optimize = false }: GitHubActionsFileCommandOptions = ((typeof param0 === "string") ? (param1 as (GitHubActionsFileCommandOptions) | undefined) : param2) ?? {};
+	const pairs: Map<string, string> = new Map<string, string>();
+	if (typeof param0 === "string") {
+		if (!isStringSingleLine(param0)) {
+			throw new SyntaxError(`\`${param0}\` is not a valid GitHub Actions state key!`);
+		}
+		pairs.set(param0, param1 as string);
+	} else {
+		for (const [key, value] of ((param0 instanceof Map) ? param0.entries() : Object.entries(param0))) {
+			if (!isStringSingleLine(key)) {
+				throw new SyntaxError(`\`${key}\` is not a valid GitHub Actions state key!`);
+			}
+			pairs.set(key, value);
+		}
+	}
+	if (pairs.size > 0) {
+		appendFileMapCommand("GITHUB_STATE", pairs);
+	}
+	if (optimize) {
+		optimizeState();
 	}
 }

@@ -1,4 +1,28 @@
-import { getGitHubAPIURL, getGitHubGraphQLAPIURL, getGitHubServerURL, getWorkflowName, getWorkflowReferencePath, getWorkflowRepository, getWorkflowRepositoryID, getWorkflowRepositoryOwner, getWorkflowRepositoryOwnerID, getWorkflowRunActionID, getWorkflowRunActorID, getWorkflowRunActorName, getWorkflowRunCommitSHA, getWorkflowRunEventName, getWorkflowRunID, getWorkflowRunJobID, getWorkflowRunNumber, getWorkflowRunReference, getWorkflowRunRetentionDays, getWorkflowRunRunAttempt, getWorkflowRunURL, getWorkflowRunWebhookEventPayload, getWorkflowSHA } from "./utility.ts";
+import {
+	getGitHubAPIURL,
+	getGitHubGraphQLAPIURL,
+	getGitHubServerURL,
+	getWorkflowName,
+	getWorkflowReferencePath,
+	getWorkflowRepository,
+	getWorkflowRepositoryID,
+	getWorkflowRepositoryOwner,
+	getWorkflowRepositoryOwnerID,
+	getWorkflowRunActionID,
+	getWorkflowRunActorID,
+	getWorkflowRunActorName,
+	getWorkflowRunCommitSHA,
+	getWorkflowRunEventName,
+	getWorkflowRunID,
+	getWorkflowRunJobID,
+	getWorkflowRunNumber,
+	getWorkflowRunReference,
+	getWorkflowRunRetentionDays,
+	getWorkflowRunRunAttempt,
+	getWorkflowRunURL,
+	getWorkflowRunWebhookEventPayload,
+	getWorkflowSHA
+} from "./utility.ts";
 const isInGitHubActionsRunner = Deno.env.get("GITHUB_ACTIONS") === "true";
 Deno.test("GitHub API URL", {
 	ignore: !isInGitHubActionsRunner,
@@ -183,9 +207,7 @@ Deno.test("Workflow Run URL", {
 Deno.test("Workflow Run Webhook Event Payload", {
 	ignore: !isInGitHubActionsRunner,
 	permissions: {
-		env: [
-			"GITHUB_EVENT_PATH"
-		],
+		env: ["GITHUB_EVENT_PATH"],
 		read: true
 	}
 }, () => {

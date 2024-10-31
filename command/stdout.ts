@@ -1,6 +1,6 @@
-import { isStringSingleLine } from "https://raw.githubusercontent.com/hugoalh-studio/is-string-singleline-es/v1.0.2/mod.ts";
+import { isStringSingleLine } from "https://raw.githubusercontent.com/hugoalh/is-string-singleline-es/v1.0.4/mod.ts";
 import type { KeyValueLike } from "../common.ts";
-const commandsStdOutCurrent: Set<string> = new Set<string>([
+const commandsStdOutCurrent: string[] = [
 	"add-mask",
 	"add-matcher",
 	"debug",
@@ -12,17 +12,16 @@ const commandsStdOutCurrent: Set<string> = new Set<string>([
 	"remove-matcher",
 	"stop-commands",
 	"warning"
-]);
-const commandsStdOutLegacy: Set<string> = new Set<string>([
+];
+const commandsStdOutForbid: string[] = [
 	"add-path",
 	"save-state",
 	"set-env",
 	"set-output"
-]);
+];
 const regexpCommandStdout = /^(?:[\da-z][\da-z._-]*)?[\da-z]$/;
 /**
  * Escape GitHub Actions runner stdout command value.
- * @access private
  * @param {string} item
  * @returns {string}
  */
@@ -31,7 +30,6 @@ function escapeStdOutCommandValue(item: string): string {
 }
 /**
  * Escape GitHub Actions runner stdout command property value.
- * @access private
  * @param {string} item
  * @returns {string}
  */
@@ -39,88 +37,66 @@ function escapeStdOutCommandPropertyValue(item: string): string {
 	return escapeStdOutCommandValue(item).replaceAll(",", "%2C").replaceAll(":", "%3A");
 }
 /**
- * **\[🅰️ ADVANCED\]** Communicate with the GitHub Actions runner via stdout command.
+ * **\[🅰️ Advanced\]** Communicate with the GitHub Actions runner via the stdout command.
  */
 export class GitHubActionsStdOutCommand {
-	#command: string;
-	#message = "";
-	#properties: Map<string, string> = new Map<string, string>();
+	get [Symbol.toStringTag](): string {
+		return "GitHubActionsStdOutCommand";
+	}
+	#result: string;
 	/**
-	 * **\[🅰️ ADVANCED\]** Create new instance to communicate with the GitHub Actions runner via stdout command.
+	 * **\[🅰️ Advanced\]** Create new stdout command to communicate with the GitHub Actions runner.
 	 * @param {string} command StdOut command.
 	 * @param {string} [message] Message of the stdout command.
 	 */
 	constructor(command: string, message?: string);
 	/**
-	 * **\[🅰️ ADVANCED\]** Create new instance to communicate with the GitHub Actions runner via stdout command.
+	 * **\[🅰️ Advanced\]** Create new stdout command to communicate with the GitHub Actions runner.
 	 * @param {string} command StdOut command.
 	 * @param {KeyValueLike} properties Properties of the stdout command.
 	 * @param {string} [message] Message of the stdout command.
 	 */
 	constructor(command: string, properties: KeyValueLike, message?: string);
 	constructor(command: string, param1?: string | KeyValueLike, param2?: string) {
+		let message: string = "";
+		const properties: Map<string, string> = new Map<string, string>();
 		if (!(
-			commandsStdOutCurrent.has(command) ||
+			commandsStdOutCurrent.includes(command) ||
 			regexpCommandStdout.test(command)
 		)) {
 			throw new SyntaxError(`\`${command}\` is not a valid GitHub Actions stdout command!`);
 		}
-		if (commandsStdOutLegacy.has(command)) {
+		if (commandsStdOutForbid.includes(command)) {
 			throw new Error(`\`${command}\` is a forbidden GitHub Actions stdout command!`);
 		}
-		this.#command = command;
 		switch (typeof param1) {
 			case "string":
-				this.#message = param1;
+				message = param1;
 				break;
 			case "undefined":
 				break;
 			default:
-				this.#message = param2 ?? "";
-				this.setProperties(param1);
+				if (typeof param2 !== "undefined") {
+					message = param2;
+				}
+				for (const [key, value] of ((param1 instanceof Map) ? param1.entries() : Object.entries(param1))) {
+					if (!isStringSingleLine(key)) {
+						throw new SyntaxError(`\`${key}\` is not a valid GitHub Actions stdout command property key!`);
+					}
+					properties.set(key, value);
+				}
+				break;
 		}
-	}
-	/**
-	 * Set message of the stdout command.
-	 * @param {string} message Message of the stdout command.
-	 * @returns {this}
-	 */
-	setMessage(message: string): this {
-		this.#message = message;
-		return this;
-	}
-	/**
-	 * Set property of the stdout command.
-	 * @param {string} key Key of the property of the stdout command.
-	 * @param {string} value Value of the property of the stdout command.
-	 * @returns {this}
-	 */
-	setProperty(key: string, value: string): this {
-		if (!isStringSingleLine(key)) {
-			throw new SyntaxError(`\`${key}\` is not a valid GitHub Actions stdout command property key!`);
-		}
-		this.#properties.set(key, value);
-		return this;
-	}
-	/**
-	 * Set properties of the stdout command.
-	 * @param {KeyValueLike} properties Properties of the stdout command.
-	 * @returns {this}
-	 */
-	setProperties(properties: KeyValueLike): this {
-		for (const [key, value] of ((properties instanceof Map) ? properties.entries() : Object.entries(properties))) {
-			this.setProperty(key, value);
-		}
-		return this;
+		this.#result = `::${command}${properties.size > 0 ? " " : ""}${Array.from(properties.entries(), ([key, value]: [string, string]): string => {
+			return `${key}=${escapeStdOutCommandPropertyValue(value)}`;
+		}).join(",")}::${escapeStdOutCommandValue(message)}`;
 	}
 	/**
 	 * Stringify the stdout command.
 	 * @returns {string}
 	 */
 	toString(): string {
-		return `::${this.#command}${this.#properties.size > 0 ? " " : ""}${Array.from<[string, string], string>(this.#properties.entries(), ([key, value]: [string, string]): string => {
-			return `${key}=${escapeStdOutCommandPropertyValue(value)}`;
-		}).join(",")}::${escapeStdOutCommandValue(this.#message)}`;
+		return this.#result;
 	}
 	/**
 	 * Dispatch the stdout command.
@@ -138,7 +114,7 @@ const commandEchoDisable: GitHubActionsStdOutCommand = new GitHubActionsStdOutCo
  * @returns {void}
  */
 export function disableEchoStdOutCommand(): void {
-	return commandEchoDisable.dispatch();
+	commandEchoDisable.dispatch();
 }
 const commandEchoEnable: GitHubActionsStdOutCommand = new GitHubActionsStdOutCommand("echo", "on");
 /**
@@ -148,17 +124,16 @@ const commandEchoEnable: GitHubActionsStdOutCommand = new GitHubActionsStdOutCom
  * @returns {void}
  */
 export function enableEchoStdOutCommand(): void {
-	return commandEchoEnable.dispatch();
+	commandEchoEnable.dispatch();
 }
 /**
  * Validate the item is a valid GitHub Actions stdout command end token.
- * @access private
  * @param {string} item Item that need to determine.
  * @returns {void}
  */
 function validateStdOutCommandEndToken(item: string): void {
-	if (!(!commandsStdOutCurrent.has(item) && !commandsStdOutLegacy.has(item) && regexpCommandStdout.test(item) && item.length >= 4)) {
-		throw new SyntaxError(`Argument \`endToken\` is not a string which is single line, more than or equal to 4 characters, and not match any GitHub Actions commands!`);
+	if (!(!commandsStdOutCurrent.includes(item) && !commandsStdOutForbid.includes(item) && regexpCommandStdout.test(item) && item.length >= 4)) {
+		throw new SyntaxError(`Parameter \`endToken\` is not a string which is single line, more than or equal to 4 characters, and not match any GitHub Actions command!`);
 	}
 }
 /**
@@ -167,14 +142,13 @@ function validateStdOutCommandEndToken(item: string): void {
  * @returns {string} An end token for re-enable stdout command process.
  */
 export function disableProcessStdOutCommand(endToken?: string): string {
-	const commandProcessDisable: GitHubActionsStdOutCommand = new GitHubActionsStdOutCommand("stop-commands");
 	if (typeof endToken === "undefined") {
 		const endTokenGenerate: string = crypto.randomUUID().replaceAll("-", "");
-		commandProcessDisable.setMessage(endTokenGenerate).dispatch();
+		new GitHubActionsStdOutCommand("stop-commands", endTokenGenerate).dispatch();
 		return endTokenGenerate;
 	}
 	validateStdOutCommandEndToken(endToken);
-	commandProcessDisable.setMessage(endToken).dispatch();
+	new GitHubActionsStdOutCommand("stop-commands", endToken).dispatch();
 	return endToken;
 }
 /**
@@ -184,5 +158,5 @@ export function disableProcessStdOutCommand(endToken?: string): string {
  */
 export function enableProcessStdOutCommand(endToken: string): void {
 	validateStdOutCommandEndToken(endToken);
-	return new GitHubActionsStdOutCommand(endToken).dispatch();
+	new GitHubActionsStdOutCommand(endToken).dispatch();
 }

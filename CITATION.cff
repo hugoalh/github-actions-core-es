@@ -4,8 +4,8 @@ title: "GitHub Actions - Core (ES)"
 message: "If you use this software, please cite it using the metadata from this file."
 type: "software"
 authors:
-  - name: "hugoalh Studio"
-repository-code: "https://github.com/hugoalh-studio/github-actions-core-es"
+  - name: "hugoalh"
+repository-code: "https://github.com/hugoalh/github-actions-core-es"
 keywords:
   - "core"
   - "es"

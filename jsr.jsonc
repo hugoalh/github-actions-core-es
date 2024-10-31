@@ -1,25 +1,26 @@
 {
 	"$schema": "https://deno.land/x/deno/cli/schemas/config-file.v1.json",
 	"name": "@hugoalh/github-actions-core",
-	"version": "0.2.1",
+	"version": "0.3.0",
 	"exports": {
 		"./command/file": "./command/file.ts",
 		"./command/stdout": "./command/stdout.ts",
+		"./common": "./common.ts",
+		"./env": "./environment_variable.ts",
 		"./environment-variable": "./environment_variable.ts",
 		"./log": "./log.ts",
 		"./parameter": "./parameter.ts",
 		"./problem-matcher": "./problem_matcher.ts",
 		"./runner": "./runner.ts",
-		"./state": "./state.ts",
 		"./summary": "./summary.ts",
 		"./utility": "./utility.ts",
 		".": "./mod.ts"
 	},
 	"imports": {
-		"https://raw.githubusercontent.com/hugoalh-studio/cross-env-es/v1.1.0/env.ts": "jsr:@hugoalh/cross-env@1.1.0/env",
-		"https://raw.githubusercontent.com/hugoalh-studio/cross-env-es/v1.1.0/path.ts": "jsr:@hugoalh/cross-env@1.1.0/path",
-		"https://raw.githubusercontent.com/hugoalh-studio/is-json-es/v1.0.2/mod.ts": "jsr:@hugoalh/is-json@1.0.2",
-		"https://raw.githubusercontent.com/hugoalh-studio/is-string-singleline-es/v1.0.2/mod.ts": "jsr:@hugoalh/is-string-singleline@1.0.2"
+		"https://raw.githubusercontent.com/hugoalh/env-es/v0.2.0/env.ts": "jsr:@hugoalh/env@^0.2.0/env",
+		"https://raw.githubusercontent.com/hugoalh/env-es/v0.2.0/path.ts": "jsr:@hugoalh/env@^0.2.0/path",
+		"https://raw.githubusercontent.com/hugoalh/is-json-es/v1.0.4/mod.ts": "jsr:@hugoalh/is-json@^1.0.4",
+		"https://raw.githubusercontent.com/hugoalh/is-string-singleline-es/v1.0.4/mod.ts": "jsr:@hugoalh/is-string-singleline@^1.0.4"
 	},
 	"publish": {
 		"exclude": [
@@ -35,8 +36,8 @@
 			"**/bench.tsx",
 			"**/test.ts",
 			"**/test.tsx",
-			".dnt.ts",
-			"npm/**"
+			"npm/**",
+			".dnt.ts"
 		],
 		"include": [
 			"**/*.json",

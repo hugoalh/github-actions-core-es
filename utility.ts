@@ -1,70 +1,82 @@
-import { readFileSync } from "node:fs";
-import { isAbsolute as isPathAbsolute } from "node:path";
-import env from "https://raw.githubusercontent.com/hugoalh-studio/cross-env-es/v1.1.0/env.ts";
-import type { JSONObjectExtend, JSONValueExtend } from "https://raw.githubusercontent.com/hugoalh-studio/is-json-es/v1.0.2/mod.ts";
+import { isAbsolute as isPathAbsolute } from "jsr:@std/path@^1.0.6/is-absolute";
+import { getEnv } from "https://raw.githubusercontent.com/hugoalh/env-es/v0.1.0/env.ts";
+import type {
+	JSONObjectExtend,
+	JSONValueExtend
+} from "https://raw.githubusercontent.com/hugoalh/is-json-es/v1.0.4/mod.ts";
 /**
  * Get the URL of the GitHub API.
  * 
- * > **🛡️ Permissions**
- * >
- * > | **Target** | **Type** | **Coverage** |
- * > |:--|:--|:--|
- * > | Deno | Environment Variable (`allow-env`) | Resource |
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - `GITHUB_API_URL`
  * @returns {URL} URL of the GitHub API.
  * @example
+ * ```ts
  * getGitHubAPIURL();
  * //=> https://api.github.com
+ * ```
  */
 export function getGitHubAPIURL(): URL {
-	return new URL(env.get("GITHUB_API_URL") ?? "https://api.github.com");
+	return new URL(getEnv("GITHUB_API_URL") ?? "https://api.github.com");
 }
 /**
  * Get the URL of the GitHub GraphQL API.
  * 
- * > **🛡️ Permissions**
- * >
- * > | **Target** | **Type** | **Coverage** |
- * > |:--|:--|:--|
- * > | Deno | Environment Variable (`allow-env`) | Resource |
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - `GITHUB_GRAPHQL_URL`
  * @returns {URL} URL of the GitHub GraphQL API.
  * @example
+ * ```ts
  * getGitHubGraphQLAPIURL();
  * //=> https://api.github.com/graphql
+ * ```
  */
 export function getGitHubGraphQLAPIURL(): URL {
-	return new URL(env.get("GITHUB_GRAPHQL_URL") ?? "https://api.github.com/graphql");
+	return new URL(getEnv("GITHUB_GRAPHQL_URL") ?? "https://api.github.com/graphql");
 }
 /**
  * Get the URL of the GitHub server.
  * 
- * > **🛡️ Permissions**
- * >
- * > | **Target** | **Type** | **Coverage** |
- * > |:--|:--|:--|
- * > | Deno | Environment Variable (`allow-env`) | Resource |
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - `GITHUB_SERVER_URL`
  * @returns {URL} URL of the GitHub server.
  * @example
+ * ```ts
  * getGitHubServerURL();
  * //=> https://github.com
+ * ```
  */
 export function getGitHubServerURL(): URL {
-	return new URL(env.get("GITHUB_SERVER_URL") ?? "https://github.com");
+	return new URL(getEnv("GITHUB_SERVER_URL") ?? "https://github.com");
 }
 /**
- * Get the name of the workflow; If the workflow file does not specify a name, then the value is the full path of the workflow file in the repository.
+ * Get the name of the workflow.
  * 
- * > **🛡️ Permissions**
- * >
- * > | **Target** | **Type** | **Coverage** |
- * > |:--|:--|:--|
- * > | Deno | Environment Variable (`allow-env`) | Resource |
+ * If the workflow file does not specify a name, then the value is the full path of the workflow file in the repository.
+ * 
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - `GITHUB_WORKFLOW`
  * @returns {string} Name of the workflow.
  * @example
+ * ```ts
  * getWorkflowName();
  * //=> "My test workflow"
+ * ```
  */
 export function getWorkflowName(): string {
-	const value: string | undefined = env.get("GITHUB_WORKFLOW");
+	const value: string | undefined = getEnv("GITHUB_WORKFLOW");
 	if (typeof value === "undefined") {
 		throw new ReferenceError(`Unable to get the GitHub Actions workflow name, environment variable \`GITHUB_WORKFLOW\` is not defined!`);
 	}
@@ -73,18 +85,20 @@ export function getWorkflowName(): string {
 /**
  * Get the reference path of the workflow.
  * 
- * > **🛡️ Permissions**
- * >
- * > | **Target** | **Type** | **Coverage** |
- * > |:--|:--|:--|
- * > | Deno | Environment Variable (`allow-env`) | Resource |
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - `GITHUB_WORKFLOW_REF`
  * @returns {string} Reference path of the workflow.
  * @example
+ * ```ts
  * getWorkflowPath();
  * //=> "octocat/hello-world/.github/workflows/my-workflow.yml@refs/heads/my_branch"
+ * ```
  */
 export function getWorkflowReferencePath(): string {
-	const value: string | undefined = env.get("GITHUB_WORKFLOW_REF");
+	const value: string | undefined = getEnv("GITHUB_WORKFLOW_REF");
 	if (typeof value === "undefined") {
 		throw new ReferenceError(`Unable to get the GitHub Actions workflow reference path, environment variable \`GITHUB_WORKFLOW_REF\` is not defined!`);
 	}
@@ -93,18 +107,20 @@ export function getWorkflowReferencePath(): string {
 /**
  * Get the repository of the workflow.
  * 
- * > **🛡️ Permissions**
- * >
- * > | **Target** | **Type** | **Coverage** |
- * > |:--|:--|:--|
- * > | Deno | Environment Variable (`allow-env`) | Resource |
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - `GITHUB_REPOSITORY`
  * @returns {string} Repository of the workflow.
  * @example
+ * ```ts
  * getWorkflowRepository();
  * //=> "octocat/Hello-World"
+ * ```
  */
 export function getWorkflowRepository(): string {
-	const value: string | undefined = env.get("GITHUB_REPOSITORY");
+	const value: string | undefined = getEnv("GITHUB_REPOSITORY");
 	if (typeof value === "undefined") {
 		throw new ReferenceError(`Unable to get the GitHub Actions workflow repository, environment variable \`GITHUB_REPOSITORY\` is not defined!`);
 	}
@@ -113,38 +129,42 @@ export function getWorkflowRepository(): string {
 /**
  * Get the repository ID of the workflow.
  * 
- * > **🛡️ Permissions**
- * >
- * > | **Target** | **Type** | **Coverage** |
- * > |:--|:--|:--|
- * > | Deno | Environment Variable (`allow-env`) | Resource |
- * @returns {number} Repository ID of the workflow.
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - `GITHUB_REPOSITORY_ID`
+ * @returns {string} Repository ID of the workflow.
  * @example
+ * ```ts
  * getWorkflowRepositoryID();
- * //=> 123456789
+ * //=> "123456789"
+ * ```
  */
-export function getWorkflowRepositoryID(): number {
-	const value: string | undefined = env.get("GITHUB_REPOSITORY_ID");
+export function getWorkflowRepositoryID(): string {
+	const value: string | undefined = getEnv("GITHUB_REPOSITORY_ID");
 	if (typeof value === "undefined") {
 		throw new ReferenceError(`Unable to get the GitHub Actions workflow repository ID, environment variable \`GITHUB_REPOSITORY_ID\` is not defined!`);
 	}
-	return Number.parseInt(value, 10);
+	return value;
 }
 /**
  * Get the repository owner of the workflow.
  * 
- * > **🛡️ Permissions**
- * >
- * > | **Target** | **Type** | **Coverage** |
- * > |:--|:--|:--|
- * > | Deno | Environment Variable (`allow-env`) | Resource |
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - `GITHUB_REPOSITORY_OWNER`
  * @returns {string} Repository owner of the workflow.
  * @example
+ * ```ts
  * getWorkflowRepositoryOwner();
  * //=> "octocat"
+ * ```
  */
 export function getWorkflowRepositoryOwner(): string {
-	const value: string | undefined = env.get("GITHUB_REPOSITORY_OWNER");
+	const value: string | undefined = getEnv("GITHUB_REPOSITORY_OWNER");
 	if (typeof value === "undefined") {
 		throw new ReferenceError(`Unable to get the GitHub Actions workflow repository owner, environment variable \`GITHUB_REPOSITORY_OWNER\` is not defined!`);
 	}
@@ -153,38 +173,42 @@ export function getWorkflowRepositoryOwner(): string {
 /**
  * Get the repository owner ID of the workflow.
  * 
- * > **🛡️ Permissions**
- * >
- * > | **Target** | **Type** | **Coverage** |
- * > |:--|:--|:--|
- * > | Deno | Environment Variable (`allow-env`) | Resource |
- * @returns {number} Repository owner ID of the workflow.
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - `GITHUB_REPOSITORY_OWNER_ID`
+ * @returns {string} Repository owner ID of the workflow.
  * @example
+ * ```ts
  * getWorkflowRepositoryOwnerID();
- * //=> 1234567
+ * //=> "1234567"
+ * ```
  */
-export function getWorkflowRepositoryOwnerID(): number {
-	const value: string | undefined = env.get("GITHUB_REPOSITORY_OWNER_ID");
+export function getWorkflowRepositoryOwnerID(): string {
+	const value: string | undefined = getEnv("GITHUB_REPOSITORY_OWNER_ID");
 	if (typeof value === "undefined") {
 		throw new ReferenceError(`Unable to get the GitHub Actions workflow repository owner ID, environment variable \`GITHUB_REPOSITORY_OWNER_ID\` is not defined!`);
 	}
-	return Number.parseInt(value, 10);
+	return value;
 }
 /**
  * Get the action ID of the workflow run.
  * 
- * > **🛡️ Permissions**
- * >
- * > | **Target** | **Type** | **Coverage** |
- * > |:--|:--|:--|
- * > | Deno | Environment Variable (`allow-env`) | Resource |
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - `GITHUB_ACTION`
  * @returns {string} Action ID of the workflow run.
  * @example
+ * ```ts
  * getWorkflowRunActionID();
  * //=> "__repo-owner_name-of-action-repo"
+ * ```
  */
 export function getWorkflowRunActionID(): string {
-	const value: string | undefined = env.get("GITHUB_ACTION");
+	const value: string | undefined = getEnv("GITHUB_ACTION");
 	if (typeof value === "undefined") {
 		throw new ReferenceError(`Unable to get the GitHub Actions workflow run action ID, environment variable \`GITHUB_ACTION\` is not defined!`);
 	}
@@ -193,38 +217,42 @@ export function getWorkflowRunActionID(): string {
 /**
  * Get the actor ID of the workflow run.
  * 
- * > **🛡️ Permissions**
- * >
- * > | **Target** | **Type** | **Coverage** |
- * > |:--|:--|:--|
- * > | Deno | Environment Variable (`allow-env`) | Resource |
- * @returns {number} Actor ID of the workflow run.
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - `GITHUB_ACTOR_ID`
+ * @returns {string} Actor ID of the workflow run.
  * @example
+ * ```ts
  * getWorkflowRunActorID();
- * //=> 1234567
+ * //=> "1234567"
+ * ```
  */
-export function getWorkflowRunActorID(): number {
-	const value: string | undefined = env.get("GITHUB_ACTOR_ID");
+export function getWorkflowRunActorID(): string {
+	const value: string | undefined = getEnv("GITHUB_ACTOR_ID");
 	if (typeof value === "undefined") {
 		throw new ReferenceError(`Unable to get the GitHub Actions workflow run actor ID, environment variable \`GITHUB_ACTOR_ID\` is not defined!`);
 	}
-	return Number.parseInt(value, 10);
+	return value;
 }
 /**
  * Get the actor name that initiate the workflow run.
  * 
- * > **🛡️ Permissions**
- * >
- * > | **Target** | **Type** | **Coverage** |
- * > |:--|:--|:--|
- * > | Deno | Environment Variable (`allow-env`) | Resource |
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - `GITHUB_ACTOR`
  * @returns {string} Actor name that initiate the workflow run.
  * @example
+ * ```ts
  * getWorkflowRunActorName();
  * //=> "octocat"
+ * ```
  */
 export function getWorkflowRunActorName(): string {
-	const value: string | undefined = env.get("GITHUB_ACTOR");
+	const value: string | undefined = getEnv("GITHUB_ACTOR");
 	if (typeof value === "undefined") {
 		throw new ReferenceError(`Unable to get the GitHub Actions workflow run actor name, environment variable \`GITHUB_ACTOR\` is not defined!`);
 	}
@@ -233,24 +261,26 @@ export function getWorkflowRunActorName(): string {
 /**
  * Get the commit SHA that trigger the workflow run.
  * 
- * > **🛡️ Permissions**
- * >
- * > | **Target** | **Type** | **Coverage** |
- * > |:--|:--|:--|
- * > | Deno | Environment Variable (`allow-env`) | Resource |
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - `GITHUB_SHA`
  * @returns {string} Commit SHA that trigger the workflow run.
  * @example
+ * ```ts
  * getWorkflowRunCommitSHA();
  * //=> "ffac537e6cbbf934b08745a378932722df287a53"
+ * ```
  */
 export function getWorkflowRunCommitSHA(): string {
-	const value: string | undefined = env.get("GITHUB_SHA");
+	const value: string | undefined = getEnv("GITHUB_SHA");
 	if (typeof value === "undefined") {
 		throw new ReferenceError(`Unable to get the GitHub Actions workflow run commit SHA, environment variable \`GITHUB_SHA\` is not defined!`);
 	}
 	return value;
 }
-const eventsName = [
+export const eventsName = [
 	"branch_protection_rule",
 	"check_run",
 	"check_suite",
@@ -268,11 +298,12 @@ const eventsName = [
 	"merge_group",
 	"milestone",
 	"page_build",
-	"project",
-	"project_card",
-	"project_column",
+	"project",// Legacy.
+	"project_card",// Legacy.
+	"project_column",// Legacy.
 	"public",
 	"pull_request",
+	"pull_request_comment",
 	"pull_request_review",
 	"pull_request_review_comment",
 	"pull_request_target",
@@ -294,18 +325,20 @@ export type GitHubActionsEventName = typeof eventsName[number];
 /**
  * Get the event name of the workflow run.
  * 
- * > **🛡️ Permissions**
- * >
- * > | **Target** | **Type** | **Coverage** |
- * > |:--|:--|:--|
- * > | Deno | Environment Variable (`allow-env`) | Resource |
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - `GITHUB_EVENT_NAME`
  * @returns {GitHubActionsEventName} Event name of the workflow run.
  * @example
+ * ```ts
  * getWorkflowRunEventName();
  * //=> "workflow_dispatch"
+ * ```
  */
 export function getWorkflowRunEventName(): GitHubActionsEventName {
-	const value: string | undefined = env.get("GITHUB_EVENT_NAME");
+	const value: string | undefined = getEnv("GITHUB_EVENT_NAME");
 	if (typeof value === "undefined") {
 		throw new ReferenceError(`Unable to get the GitHub Actions workflow run event name, environment variable \`GITHUB_EVENT_NAME\` is not defined!`);
 	}
@@ -315,66 +348,76 @@ export function getWorkflowRunEventName(): GitHubActionsEventName {
 	return value as GitHubActionsEventName;
 }
 /**
- * Get the ID of the workflow run; This is a unique number for each workflow run within a repository, and does not change when re-run the workflow run.
+ * Get the ID of the workflow run.
  * 
- * > **🛡️ Permissions**
- * >
- * > | **Target** | **Type** | **Coverage** |
- * > |:--|:--|:--|
- * > | Deno | Environment Variable (`allow-env`) | Resource |
- * @returns {number} ID of the workflow run.
+ * This is unique for each workflow run within a repository, and does not change when re-run the workflow run.
+ * 
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - `GITHUB_RUN_ID`
+ * @returns {string} ID of the workflow run.
  * @example
+ * ```ts
  * getWorkflowRunID();
  * //=> 1658821493
+ * ```
  */
-export function getWorkflowRunID(): number {
-	const value: string | undefined = env.get("GITHUB_RUN_ID");
+export function getWorkflowRunID(): string {
+	const value: string | undefined = getEnv("GITHUB_RUN_ID");
 	if (typeof value === "undefined") {
 		throw new ReferenceError(`Unable to get the GitHub Actions workflow run ID, environment variable \`GITHUB_RUN_ID\` is not defined!`);
 	}
-	return Number.parseInt(value, 10);
+	return value;
 }
 /**
  * Get the job ID of the workflow run.
  * 
- * > **🛡️ Permissions**
- * >
- * > | **Target** | **Type** | **Coverage** |
- * > |:--|:--|:--|
- * > | Deno | Environment Variable (`allow-env`) | Resource |
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - `GITHUB_JOB`
  * @returns {string} Job ID of the workflow run.
  * @example
+ * ```ts
  * getWorkflowRunJobID();
  * //=> "greeting_job"
+ * ```
  */
 export function getWorkflowRunJobID(): string {
-	const value: string | undefined = env.get("GITHUB_JOB");
+	const value: string | undefined = getEnv("GITHUB_JOB");
 	if (typeof value === "undefined") {
 		throw new ReferenceError(`Unable to get the GitHub Actions workflow run job ID, environment variable \`GITHUB_JOB\` is not defined!`);
 	}
 	return value;
 }
 /**
- * Get the run number of the workflow; This is a unique number for each run of a particular workflow in a repository, begins at `1` for the workflow's first run, and increments with each new run; This number does not change when re-run the workflow run.
+ * Get the run number of the workflow.
  * 
- * > **🛡️ Permissions**
- * >
- * > | **Target** | **Type** | **Coverage** |
- * > |:--|:--|:--|
- * > | Deno | Environment Variable (`allow-env`) | Resource |
+ * This is unique for each run of a particular workflow in a repository, begins at `1` for the workflow's first run, and increments with each new run; This number does not change when re-run the workflow run.
+ * 
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - `GITHUB_RUN_NUMBER`
  * @returns {number} Run number of the workflow.
  * @example
+ * ```ts
  * getWorkflowRunNumber();
  * //=> 3
+ * ```
  */
 export function getWorkflowRunNumber(): number {
-	const value: string | undefined = env.get("GITHUB_RUN_NUMBER");
+	const value: string | undefined = getEnv("GITHUB_RUN_NUMBER");
 	if (typeof value === "undefined") {
 		throw new ReferenceError(`Unable to get the GitHub Actions workflow run number, environment variable \`GITHUB_RUN_NUMBER\` is not defined!`);
 	}
 	return Number.parseInt(value, 10);
 }
-const referenceTypes = [
+export const referenceTypes = [
 	"branch",
 	"tag"
 ] as const;
@@ -392,7 +435,7 @@ export interface GitHubReferenceMeta {
 	 * The fully formed reference of the branch or tag that trigger the workflow run.
 	 * 
 	 * | **Event** | **Format** | **Description** |
-	 * |:-:|:-:|:--|
+	 * |:--|:--|:--|
 	 * | `push` | `refs/heads/<branch_name>` | The branch or tag reference that was pushed. |
 	 * | `pull_request` | `refs/pull/<pr_number>/merge` | The pull request merge branch. |
 	 * | `release` | `refs/tags/<tag_name>` | The release tag created. |
@@ -425,25 +468,30 @@ export interface GitHubReferenceMeta {
 /**
  * Get the reference of the workflow run.
  * 
- * > **🛡️ Permissions**
- * >
- * > | **Target** | **Type** | **Coverage** |
- * > |:--|:--|:--|
- * > | Deno | Environment Variable (`allow-env`) | Resource |
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - `GITHUB_BASE_REF`
+ * >     - `GITHUB_HEAD_REF`
+ * >     - `GITHUB_REF`
+ * >     - `GITHUB_REF_NAME`
+ * >     - `GITHUB_REF_PROTECTED`
+ * >     - `GITHUB_REF_TYPE`
  * @returns {GitHubReferenceMeta} Reference of the workflow run.
  */
 export function getWorkflowRunReference(): GitHubReferenceMeta {
-	const base: string | undefined = env.get("GITHUB_BASE_REF");
-	const full: string | undefined = env.get("GITHUB_REF");
+	const base: string | undefined = getEnv("GITHUB_BASE_REF");
+	const full: string | undefined = getEnv("GITHUB_REF");
 	if (typeof full === "undefined") {
 		throw new ReferenceError(`Unable to get the GitHub Actions workflow run reference, environment variable \`GITHUB_REF\` is not defined!`);
 	}
-	const head: string | undefined = env.get("GITHUB_HEAD_REF");
-	const short: string | undefined = env.get("GITHUB_REF_NAME");
+	const head: string | undefined = getEnv("GITHUB_HEAD_REF");
+	const short: string | undefined = getEnv("GITHUB_REF_NAME");
 	if (typeof short === "undefined") {
 		throw new ReferenceError(`Unable to get the GitHub Actions workflow run reference, environment variable \`GITHUB_REF_NAME\` is not defined!`);
 	}
-	const type: string | undefined = env.get("GITHUB_REF_TYPE");
+	const type: string | undefined = getEnv("GITHUB_REF_TYPE");
 	if (typeof type === "undefined") {
 		throw new ReferenceError(`Unable to get the GitHub Actions workflow run reference, environment variable \`GITHUB_REF_TYPE\` is not defined!`);
 	}
@@ -454,7 +502,7 @@ export function getWorkflowRunReference(): GitHubReferenceMeta {
 		base: (typeof base === "string" && base.length > 0) ? base : undefined,
 		full,
 		head: (typeof head === "string" && head.length > 0) ? head : undefined,
-		protected: env.get("GITHUB_REF_PROTECTED") === "true",
+		protected: getEnv("GITHUB_REF_PROTECTED") === "true",
 		short,
 		type: type as GitHubReferenceType
 	};
@@ -462,38 +510,44 @@ export function getWorkflowRunReference(): GitHubReferenceMeta {
 /**
  * Get the retention days of the workflow run.
  * 
- * > **🛡️ Permissions**
- * >
- * > | **Target** | **Type** | **Coverage** |
- * > |:--|:--|:--|
- * > | Deno | Environment Variable (`allow-env`) | Resource |
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - `GITHUB_RETENTION_DAYS`
  * @returns {number} Retention days of the workflow run.
  * @example
+ * ```ts
  * getWorkflowRunRetentionDays();
  * //=> 90
+ * ```
  */
 export function getWorkflowRunRetentionDays(): number {
-	const value: string | undefined = env.get("GITHUB_RETENTION_DAYS");
+	const value: string | undefined = getEnv("GITHUB_RETENTION_DAYS");
 	if (typeof value === "undefined") {
 		throw new ReferenceError(`Unable to get the GitHub Actions workflow run retention days, environment variable \`GITHUB_RETENTION_DAYS\` is not defined!`);
 	}
 	return Number.parseInt(value, 10);
 }
 /**
- * Get the run attempt of the workflow run; This is a unique number for each attempt of a particular workflow run in a repository, begins at `1` for the workflow run's first attempt, and increments with each re-run.
+ * Get the run attempt of the workflow run.
  * 
- * > **🛡️ Permissions**
- * >
- * > | **Target** | **Type** | **Coverage** |
- * > |:--|:--|:--|
- * > | Deno | Environment Variable (`allow-env`) | Resource |
+ * This is unique for each attempt of a particular workflow run in a repository, begins at `1` for the workflow run's first attempt, and increments with each re-run.
+ * 
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - `GITHUB_RUN_ATTEMPT`
  * @returns {number} Run attempt of the workflow run.
  * @example
+ * ```ts
  * getWorkflowRunRunAttempt();
  * //=> 3
+ * ```
  */
 export function getWorkflowRunRunAttempt(): number {
-	const value: string | undefined = env.get("GITHUB_RUN_ATTEMPT");
+	const value: string | undefined = getEnv("GITHUB_RUN_ATTEMPT");
 	if (typeof value === "undefined") {
 		throw new ReferenceError(`Unable to get the GitHub Actions workflow run run attempt, environment variable \`GITHUB_RUN_ATTEMPT\` is not defined!`);
 	}
@@ -502,18 +556,20 @@ export function getWorkflowRunRunAttempt(): number {
 /**
  * Get the URL of the workflow run.
  * 
- * > **🛡️ Permissions**
- * >
- * > | **Target** | **Type** | **Coverage** |
- * > |:--|:--|:--|
- * > | Deno | Environment Variable (`allow-env`) | Resource |
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - `GITHUB_REPOSITORY`
  * @returns {URL} URL of the workflow run.
  * @example
+ * ```ts
  * getWorkflowRunURL();
  * //=> https://github.com/octocat/Hello-World/actions/runs/1658821493
+ * ```
  */
 export function getWorkflowRunURL(): URL {
-	const repository: string | undefined = env.get("GITHUB_REPOSITORY");
+	const repository: string | undefined = getEnv("GITHUB_REPOSITORY");
 	if (typeof repository === "undefined") {
 		throw new ReferenceError(`Unable to get the GitHub Actions workflow run URI, environment variable \`GITHUB_REPOSITORY\` is not defined!`);
 	}
@@ -566,36 +622,37 @@ export interface GitHubActionsWebhookEventPayload extends JSONObjectExtend {
 /**
  * Get the webhook event payload of the workflow run.
  * 
- * > **🛡️ Permissions**
- * >
- * > | **Target** | **Type** | **Coverage** |
- * > |:--|:--|:--|
- * > | Deno | Environment Variable (`allow-env`) | Resource |
- * > - File System - Read (`allow-read`)
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - `GITHUB_EVENT_PATH`
+ * >   - File System - Read (`read`)
+ * >     - *Resources*
  * @returns {GitHubActionsWebhookEventPayload} Webhook event payload of the workflow run.
  */
 export function getWorkflowRunWebhookEventPayload(): GitHubActionsWebhookEventPayload {
-	const path: string | undefined = env.get("GITHUB_EVENT_PATH");
+	const path: string | undefined = getEnv("GITHUB_EVENT_PATH");
 	if (typeof path === "undefined") {
 		throw new ReferenceError(`Unable to get the GitHub Actions workflow run webhook event payload, environment variable \`GITHUB_EVENT_PATH\` is not defined!`);
 	}
 	if (!isPathAbsolute(path)) {
 		throw new ReferenceError(`Unable to get the GitHub Actions workflow run webhook event payload, \`${path}\` (environment variable \`GITHUB_EVENT_PATH\`) is not a valid absolute path!`);
 	}
-	return JSON.parse(readFileSync(path, { encoding: "utf-8" })) as GitHubActionsWebhookEventPayload;
+	return JSON.parse(Deno.readTextFileSync(path)) as GitHubActionsWebhookEventPayload;
 }
 /**
  * Get the SHA of the workflow.
  * 
- * > **🛡️ Permissions**
- * >
- * > | **Target** | **Type** | **Coverage** |
- * > |:--|:--|:--|
- * > | Deno | Environment Variable (`allow-env`) | Resource |
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - `GITHUB_WORKFLOW_SHA`
  * @returns {string} SHA of the workflow.
  */
 export function getWorkflowSHA(): string {
-	const value: string | undefined = env.get("GITHUB_WORKFLOW_SHA");
+	const value: string | undefined = getEnv("GITHUB_WORKFLOW_SHA");
 	if (typeof value === "undefined") {
 		throw new ReferenceError(`Unable to get the GitHub Actions workflow SHA, environment variable \`GITHUB_WORKFLOW_SHA\` is not defined!`);
 	}

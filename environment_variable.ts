@@ -1,12 +1,152 @@
-import env from "https://raw.githubusercontent.com/hugoalh-studio/cross-env-es/v1.1.0/env.ts";
-import envPath from "https://raw.githubusercontent.com/hugoalh-studio/cross-env-es/v1.1.0/path.ts";
-import { isStringSingleLine } from "https://raw.githubusercontent.com/hugoalh-studio/is-string-singleline-es/v1.0.2/mod.ts";
-import { GitHubActionsFileLineCommand, GitHubActionsFileMapCommand, type GitHubActionsFileCommandOptions } from "./command/file.ts";
+import { isAbsolute as isPathAbsolute } from "jsr:@std/path@^1.0.6/is-absolute";
+import { setEnv } from "https://raw.githubusercontent.com/hugoalh/env-es/v0.2.0/env.ts";
+import { addEnvPath } from "https://raw.githubusercontent.com/hugoalh/env-es/v0.2.0/path.ts";
+import { isStringSingleLine } from "https://raw.githubusercontent.com/hugoalh/is-string-singleline-es/v1.0.4/mod.ts";
+import {
+	appendFileLineCommand,
+	appendFileMapCommand,
+	clearFileCommand,
+	optimizeFileCommand,
+	type GitHubActionsFileCommandOptions
+} from "./command/file.ts";
 import type { KeyValueLike } from "./common.ts";
+/**
+ * **\[🅰️ Advanced\]** Clear the environment variables for all of the subsequent steps which set in the current step.
+ * 
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - `GITHUB_ENV`
+ * >   - File System - Read (`read`)
+ * >     - *Resources*
+ * >   - File System - Write (`write`)
+ * >     - *Resources*
+ * @returns {void}
+ */
+export function clearEnvironmentVariableSubsequent(): void {
+	clearFileCommand("GITHUB_ENV");
+}
+export {
+	clearEnvironmentVariableSubsequent as clearEnvSubsequent
+};
+/**
+ * **\[🅰️ Advanced\]** Clear the `PATH` for all of the subsequent steps which set in the current step.
+ * 
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - `GITHUB_PATH`
+ * >   - File System - Read (`read`)
+ * >     - *Resources*
+ * >   - File System - Write (`write`)
+ * >     - *Resources*
+ * @returns {void}
+ */
+export function clearPATHSubsequent(): void {
+	clearFileCommand("GITHUB_PATH");
+}
+/**
+ * **\[🅰️ Advanced\]** Optimize the environment variables for all of the subsequent steps which set in the current step to reduce size whenever possible.
+ * 
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - `GITHUB_ENV`
+ * >   - File System - Read (`read`)
+ * >     - *Resources*
+ * >   - File System - Write (`write`)
+ * >     - *Resources*
+ * @returns {void}
+ */
+export function optimizeEnvironmentVariableSubsequent(): void {
+	optimizeFileCommand("GITHUB_ENV");
+}
+export {
+	optimizeEnvironmentVariableSubsequent as optimizeEnvSubsequent
+};
+/**
+ * **\[🅰️ Advanced\]** Optimize the `PATH` for all of the subsequent steps which set in the current step to reduce size whenever possible.
+ * 
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - `GITHUB_PATH`
+ * >   - File System - Read (`read`)
+ * >     - *Resources*
+ * >   - File System - Write (`write`)
+ * >     - *Resources*
+ * @returns {void}
+ */
+export function optimizePATHSubsequent(): void {
+	optimizeFileCommand("GITHUB_PATH");
+}
+/**
+ * Add value to the `PATH`.
+ * 
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - `GITHUB_PATH`
+ * >     - `PATH`
+ * >   - File System - Read (`read`)
+ * >     - *Resources*
+ * >   - File System - Write (`write`)
+ * >     - *Resources*
+ * @param {string} path Value that need to add to the `PATH`.
+ * @param {GitHubActionsSetEnvironmentVariableOptions & GitHubActionsFileCommandOptions} [options={}] Options.
+ * @returns {void}
+ */
+export function addPATH(path: string, options?: GitHubActionsSetEnvironmentVariableOptions & GitHubActionsFileCommandOptions): void;
+/**
+ * Add value to the `PATH`.
+ * 
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - `GITHUB_PATH`
+ * >     - `PATH`
+ * >   - File System - Read (`read`)
+ * >     - *Resources*
+ * >   - File System - Write (`write`)
+ * >     - *Resources*
+ * @param {string[]} paths Value that need to add to the `PATH`.
+ * @param {GitHubActionsSetEnvironmentVariableOptions & GitHubActionsFileCommandOptions} [options={}] Options.
+ * @returns {void}
+ */
+export function addPATH(paths: string[], options?: GitHubActionsSetEnvironmentVariableOptions & GitHubActionsFileCommandOptions): void;
+export function addPATH(param0: string | string[], options: GitHubActionsSetEnvironmentVariableOptions & GitHubActionsFileCommandOptions = {}): void {
+	const {
+		optimize = false,
+		scopeCurrent = true,
+		scopeSubsequent = true
+	}: GitHubActionsSetEnvironmentVariableOptions & GitHubActionsFileCommandOptions = options;
+	const paths: string[] = (typeof param0 === "string") ? [param0] : param0;
+	paths.forEach((path: string): void => {
+		if (!isPathAbsolute(path)) {
+			throw new SyntaxError(`\`${path}\` is not a valid absolute path!`);
+		}
+	});
+	if (paths.length > 0) {
+		if (scopeCurrent) {
+			addEnvPath(...paths);
+		}
+		if (scopeSubsequent) {
+			appendFileLineCommand("GITHUB_PATH", ...paths);
+		}
+	}
+	if (optimize) {
+		optimizePATHSubsequent();
+	}
+}
 const regexpEnvironmentVariableKeyForbidden = /^(?:CI|PATH)$|^(?:ACTIONS|GITHUB|RUNNER)_/i;
 /**
  * Validate the item is a valid GitHub Actions environment variable key.
- * @access private
  * @param {string} item Item that need to determine.
  * @returns {void}
  */
@@ -18,240 +158,84 @@ function validateEnvironmentVariableKey(item: string): void {
 		throw new Error(`Modify environment variable \`${item}\` is forbidden!`);
 	}
 }
-export interface GitHubActionsEnvironmentVariableOptions {
+export interface GitHubActionsSetEnvironmentVariableOptions {
 	/**
 	 * Whether to set for the current step.
-	 * @default true
+	 * @default {true}
 	 */
 	scopeCurrent?: boolean;
 	/**
 	 * Whether to set for all of the subsequent steps.
-	 * @default true
+	 * @default {true}
 	 */
 	scopeSubsequent?: boolean;
 }
 /**
- * **\[🅰️ ADVANCED\]** Handle the exportation of environment variables in the GitHub Actions runner.
- * 
- * > **🛡️ Permissions**
- * >
- * > | **Target** | **Type** | **Coverage** |
- * > |:--|:--|:--|
- * > | Deno | Environment Variable (`allow-env`) | Resource |
- * > | Deno | File System - Read (`allow-read`) | Resource |
- * > | Deno | File System - Write (`allow-write`) | Resource |
- */
-export class GitHubActionsEnvironmentVariableExportation {
-	#command: GitHubActionsFileMapCommand = new GitHubActionsFileMapCommand("GITHUB_ENV");
-	#scopeCurrent: boolean;
-	#scopeSubsequent: boolean;
-	/**
-	 * **\[🅰️ ADVANCED\]** Create new instance to handle the exportation of environment variables in the GitHub Actions runner.
-	 * 
-	 * > **🛡️ Permissions**
-	 * >
-	 * > | **Target** | **Type** | **Coverage** |
-	 * > |:--|:--|:--|
-	 * > | Deno | Environment Variable (`allow-env`) | Resource |
-	 * > | Deno | File System - Read (`allow-read`) | Resource |
-	 * > | Deno | File System - Write (`allow-write`) | Resource |
-	 * @param {GitHubActionsEnvironmentVariableOptions} [options={}] Options.
-	 */
-	constructor(options: GitHubActionsEnvironmentVariableOptions = {}) {
-		this.#scopeCurrent = options.scopeCurrent ?? true;
-		this.#scopeSubsequent = options.scopeSubsequent ?? true;
-	}
-	/**
-	 * Clear the environment variables for all of the subsequent steps which set in the current step.
-	 * @returns {this}
-	 */
-	clearSubsequent(): this {
-		if (this.#scopeSubsequent) {
-			this.#command.clear();
-		}
-		return this;
-	}
-	/**
-	 * Optimize the environment variables for all of the subsequent steps which set in the current step to reduce size whenever possible.
-	 * @returns {this}
-	 */
-	optimizeSubsequent(): this {
-		if (this.#scopeSubsequent) {
-			this.#command.optimize();
-		}
-		return this;
-	}
-	/**
-	 * Set an environment variable.
-	 * @param {string} key Key of the environment variable.
-	 * @param {string} value Value of the environment variable.
-	 * @returns {this}
-	 */
-	set(key: string, value: string): this;
-	/**
-	 * Set the environment variables.
-	 * @param {KeyValueLike} pairs Pairs of the environment variable.
-	 * @returns {this}
-	 */
-	set(pairs: KeyValueLike): this;
-	set(param0: string | KeyValueLike, param1?: string): this {
-		const pairs: Map<string, string> = new Map<string, string>();
-		if (typeof param0 === "string") {
-			validateEnvironmentVariableKey(param0);
-			pairs.set(param0, param1!);
-		} else {
-			for (const [key, value] of ((param0 instanceof Map) ? param0.entries() : Object.entries(param0))) {
-				validateEnvironmentVariableKey(key);
-				pairs.set(key, value);
-			}
-		}
-		if (pairs.size > 0) {
-			if (this.#scopeCurrent) {
-				for (const [key, value] of pairs.values()) {
-					env.set(key, value);
-				}
-			}
-			if (this.#scopeSubsequent) {
-				this.#command.append(pairs);
-			}
-		}
-		return this;
-	}
-}
-/**
  * Set an environment variable.
  * 
- * > **🛡️ Permissions**
- * >
- * > | **Target** | **Type** | **Coverage** |
- * > |:--|:--|:--|
- * > | Deno | Environment Variable (`allow-env`) | Resource |
- * > | Deno | File System - Read (`allow-read`) | Resource |
- * > | Deno | File System - Write (`allow-write`) | Resource |
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - *Resources*
+ * >   - File System - Read (`read`)
+ * >     - *Resources*
+ * >   - File System - Write (`write`)
+ * >     - *Resources*
  * @param {string} key Key of the environment variable.
  * @param {string} value Value of the environment variable.
- * @param {GitHubActionsEnvironmentVariableOptions & GitHubActionsFileCommandOptions} [options={}] Options.
+ * @param {GitHubActionsSetEnvironmentVariableOptions & GitHubActionsFileCommandOptions} [options={}] Options.
  * @returns {void}
  */
-export function setEnvironmentVariable(key: string, value: string, options: GitHubActionsEnvironmentVariableOptions & GitHubActionsFileCommandOptions = {}): void {
-	const instance: GitHubActionsEnvironmentVariableExportation = new GitHubActionsEnvironmentVariableExportation(options);
-	instance.set(key, value);
-	if (options.optimize) {
-		instance.optimizeSubsequent();
-	}
-}
+export function setEnvironmentVariable(key: string, value: string, options?: GitHubActionsSetEnvironmentVariableOptions & GitHubActionsFileCommandOptions): void;
 /**
  * Set the environment variables.
  * 
- * > **🛡️ Permissions**
- * >
- * > | **Target** | **Type** | **Coverage** |
- * > |:--|:--|:--|
- * > | Deno | Environment Variable (`allow-env`) | Resource |
- * > | Deno | File System - Read (`allow-read`) | Resource |
- * > | Deno | File System - Write (`allow-write`) | Resource |
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - `GITHUB_ENV`
+ * >     - *Resources*
+ * >   - File System - Read (`read`)
+ * >     - *Resources*
+ * >   - File System - Write (`write`)
+ * >     - *Resources*
  * @param {KeyValueLike} pairs Pairs of the environment variable.
- * @param {GitHubActionsEnvironmentVariableOptions & GitHubActionsFileCommandOptions} [options={}] Options.
+ * @param {GitHubActionsSetEnvironmentVariableOptions & GitHubActionsFileCommandOptions} [options={}] Options.
  * @returns {void}
  */
-export function setEnvironmentVariables(pairs: KeyValueLike, options: GitHubActionsEnvironmentVariableOptions & GitHubActionsFileCommandOptions = {}): void {
-	const instance: GitHubActionsEnvironmentVariableExportation = new GitHubActionsEnvironmentVariableExportation(options);
-	instance.set(pairs);
-	if (options.optimize) {
-		instance.optimizeSubsequent();
+export function setEnvironmentVariable(pairs: KeyValueLike, options?: GitHubActionsSetEnvironmentVariableOptions & GitHubActionsFileCommandOptions): void;
+export function setEnvironmentVariable(param0: string | KeyValueLike, param1?: string | GitHubActionsSetEnvironmentVariableOptions & GitHubActionsFileCommandOptions, param2?: GitHubActionsSetEnvironmentVariableOptions & GitHubActionsFileCommandOptions): void {
+	const {
+		optimize = false,
+		scopeCurrent = true,
+		scopeSubsequent = true
+	}: GitHubActionsSetEnvironmentVariableOptions & GitHubActionsFileCommandOptions = ((typeof param0 === "string") ? (param1 as (GitHubActionsSetEnvironmentVariableOptions & GitHubActionsFileCommandOptions) | undefined) : param2) ?? {};
+	const pairs: Map<string, string> = new Map<string, string>();
+	if (typeof param0 === "string") {
+		validateEnvironmentVariableKey(param0);
+		pairs.set(param0, param1 as string);
+	} else {
+		for (const [key, value] of ((param0 instanceof Map) ? param0.entries() : Object.entries(param0))) {
+			validateEnvironmentVariableKey(key);
+			pairs.set(key, value);
+		}
 	}
-}
-/**
- * **\[🅰️ ADVANCED\]** Handle the exportation of `PATH` in the GitHub Actions runner.
- * 
- * > **🛡️ Permissions**
- * >
- * > | **Target** | **Type** | **Coverage** |
- * > |:--|:--|:--|
- * > | Deno | Environment Variable (`allow-env`) | Resource |
- * > | Deno | File System - Read (`allow-read`) | Resource |
- * > | Deno | File System - Write (`allow-write`) | Resource |
- */
-export class GitHubActionsPATHExportation {
-	#command: GitHubActionsFileLineCommand = new GitHubActionsFileLineCommand("GITHUB_PATH");
-	#scopeCurrent: boolean;
-	#scopeSubsequent: boolean;
-	/**
-	 * **\[🅰️ ADVANCED\]** Create new instance to handle the exportation of `PATH` in the GitHub Actions runner.
-	 * 
-	 * > **🛡️ Permissions**
-	 * >
-	 * > | **Target** | **Type** | **Coverage** |
-	 * > |:--|:--|:--|
-	 * > | Deno | Environment Variable (`allow-env`) | Resource |
-	 * > | Deno | File System - Read (`allow-read`) | Resource |
-	 * > | Deno | File System - Write (`allow-write`) | Resource |
-	 * @param {GitHubActionsEnvironmentVariableOptions} [options={}] Options.
-	 */
-	constructor(options: GitHubActionsEnvironmentVariableOptions = {}) {
-		this.#scopeCurrent = options.scopeCurrent ?? true;
-		this.#scopeSubsequent = options.scopeSubsequent ?? true;
-	}
-	/**
-	 * Add the `PATH`.
-	 * @param {...string} paths
-	 * @returns {this}
-	 */
-	add(...paths: string[]): this {
-		paths.forEach((path: string): void => {
-			if (!(isStringSingleLine(path) && path.length > 0)) {
-				throw new SyntaxError(`\`${path}\` is not a string which is non-empty and single line!`);
-			}
-		});
-		if (paths.length > 0) {
-			if (this.#scopeCurrent) {
-				envPath.add(...paths);
-			}
-			if (this.#scopeSubsequent) {
-				this.#command.append(...paths);
+	if (pairs.size > 0) {
+		if (scopeCurrent) {
+			for (const [key, value] of pairs.values()) {
+				setEnv(key, value);
 			}
 		}
-		return this;
-	}
-	/**
-	 * Clear the `PATH` for all of the subsequent steps which set in the current step.
-	 * @returns {this}
-	 */
-	clearSubsequent(): this {
-		if (this.#scopeSubsequent) {
-			this.#command.clear();
+		if (scopeSubsequent) {
+			appendFileMapCommand("GITHUB_ENV", pairs);
 		}
-		return this;
 	}
-	/**
-	 * Optimize the `PATH` for all of the subsequent steps which set in the current step to reduce size whenever possible.
-	 * @returns {this}
-	 */
-	optimizeSubsequent(): this {
-		if (this.#scopeSubsequent) {
-			this.#command.optimize();
-		}
-		return this;
+	if (optimize) {
+		optimizeEnvironmentVariableSubsequent();
 	}
 }
-/**
- * Add the `PATH`.
- * 
- * > **🛡️ Permissions**
- * >
- * > | **Target** | **Type** | **Coverage** |
- * > |:--|:--|:--|
- * > | Deno | Environment Variable (`allow-env`) | Resource |
- * > | Deno | File System - Read (`allow-read`) | Resource |
- * > | Deno | File System - Write (`allow-write`) | Resource |
- * @param {string} path
- * @param {GitHubActionsEnvironmentVariableOptions & GitHubActionsFileCommandOptions} [options={}] Options.
- * @returns {void}
- */
-export function addPATH(path: string, options: GitHubActionsEnvironmentVariableOptions & GitHubActionsFileCommandOptions = {}): void {
-	const instance: GitHubActionsPATHExportation = new GitHubActionsPATHExportation(options);
-	instance.add(path);
-	if (options.optimize) {
-		instance.optimizeSubsequent();
-	}
-}
+export {
+	setEnvironmentVariable as setEnv
+};
