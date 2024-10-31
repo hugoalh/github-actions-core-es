@@ -63,21 +63,22 @@ export interface GitHubActionsGetParameterOptions {
 	require?: boolean;
 }
 /**
- * Get the raw value of an input.
+ * Get the raw value of a parameter.
  * 
  * > **🛡️ Require Runtime Permissions**
  * > 
  * > - Deno
  * >   - Environment Variable (`env`)
  * >     - *Resources*
- * @param {string} key Key of the input.
- * @returns {string | undefined} Raw value of the input.
+ * @param {string} type Type of the parameter.
+ * @param {string} key Key of the parameter.
+ * @returns {string | undefined} Raw value of the parameter.
  */
-function getInputInternal(key: string): string | undefined {
+function getParameter(type: string, key: string): string | undefined {
 	if (!isStringSingleLine(key)) {
-		throw new SyntaxError(`\`${key}\` is not a valid GitHub Actions input key!`);
+		throw new SyntaxError(`\`${key}\` is not a valid GitHub Actions ${type.toLowerCase()} key!`);
 	}
-	return getEnv(`INPUT_${key.replaceAll(" ", "_").toUpperCase()}`);
+	return getEnv(`${type.toUpperCase()}_${key.replaceAll(" ", "_").toUpperCase()}`);
 }
 /**
  * Get the string value of an input.
@@ -123,7 +124,7 @@ export function getInput(key: string, options: GitHubActionsGetParameterOptions 
 		returnDefaultValueOnUndefined = true,
 		require = false
 	}: GitHubActionsGetParameterOptions = options;
-	const value: string | undefined = getInputInternal(key);
+	const value: string | undefined = getParameter("input", key);
 	if (typeof value === "undefined") {
 		if (require) {
 			throw new ReferenceError(`Input \`${key}\` is not defined!`);
@@ -179,7 +180,7 @@ export function getInputBigInt(key: string, options: GitHubActionsGetParameterOp
 		returnDefaultValueOnUndefined = true,
 		require = false
 	}: GitHubActionsGetParameterOptions = options;
-	const value: string | undefined = getInputInternal(key);
+	const value: string | undefined = getParameter("input", key);
 	if (typeof value === "undefined") {
 		if (require) {
 			throw new ReferenceError(`Input \`${key}\` is not defined!`);
@@ -242,7 +243,7 @@ export function getInputBoolean(key: string, options: GitHubActionsGetParameterO
 		returnDefaultValueOnUndefined = true,
 		require = false
 	}: GitHubActionsGetParameterOptions = options;
-	const value: string | undefined = getInputInternal(key);
+	const value: string | undefined = getParameter("input", key);
 	if (typeof value === "undefined") {
 		if (require) {
 			throw new ReferenceError(`Input \`${key}\` is not defined!`);
@@ -301,7 +302,7 @@ export function getInputNumber(key: string, options: GitHubActionsGetParameterOp
 		returnDefaultValueOnUndefined = true,
 		require = false
 	}: GitHubActionsGetParameterOptions = options;
-	const value: string | undefined = getInputInternal(key);
+	const value: string | undefined = getParameter("input", key);
 	if (typeof value === "undefined") {
 		if (require) {
 			throw new ReferenceError(`Input \`${key}\` is not defined!`);
@@ -313,23 +314,6 @@ export function getInputNumber(key: string, options: GitHubActionsGetParameterOp
 	} catch {
 		throw new SyntaxError(`\`${value}\` (input \`${key}\`) is not a valid number!`);
 	}
-}
-/**
- * Get the raw value of a state.
- * 
- * > **🛡️ Require Runtime Permissions**
- * > 
- * > - Deno
- * >   - Environment Variable (`env`)
- * >     - *Resources*
- * @param {string} key Key of the state.
- * @returns {string | undefined} Raw value of the state.
- */
-function getStateInternal(key: string): string | undefined {
-	if (!isStringSingleLine(key)) {
-		throw new SyntaxError(`\`${key}\` is not a valid GitHub Actions state key!`);
-	}
-	return getEnv(`STATE_${key.replaceAll(" ", "_").toUpperCase()}`);
 }
 /**
  * Get the string value of a state.
@@ -375,7 +359,7 @@ export function getState(key: string, options: GitHubActionsGetParameterOptions 
 		returnDefaultValueOnUndefined = true,
 		require = false
 	}: GitHubActionsGetParameterOptions = options;
-	const value: string | undefined = getStateInternal(key);
+	const value: string | undefined = getParameter("state", key);
 	if (typeof value === "undefined") {
 		if (require) {
 			throw new ReferenceError(`State \`${key}\` is not defined!`);
@@ -431,7 +415,7 @@ export function getStateBigInt(key: string, options: GitHubActionsGetParameterOp
 		returnDefaultValueOnUndefined = true,
 		require = false
 	}: GitHubActionsGetParameterOptions = options;
-	const value: string | undefined = getStateInternal(key);
+	const value: string | undefined = getParameter("state", key);
 	if (typeof value === "undefined") {
 		if (require) {
 			throw new ReferenceError(`State \`${key}\` is not defined!`);
@@ -494,7 +478,7 @@ export function getStateBoolean(key: string, options: GitHubActionsGetParameterO
 		returnDefaultValueOnUndefined = true,
 		require = false
 	}: GitHubActionsGetParameterOptions = options;
-	const value: string | undefined = getStateInternal(key);
+	const value: string | undefined = getParameter("state", key);
 	if (typeof value === "undefined") {
 		if (require) {
 			throw new ReferenceError(`State \`${key}\` is not defined!`);
@@ -553,7 +537,7 @@ export function getStateNumber(key: string, options: GitHubActionsGetParameterOp
 		returnDefaultValueOnUndefined = true,
 		require = false
 	}: GitHubActionsGetParameterOptions = options;
-	const value: string | undefined = getStateInternal(key);
+	const value: string | undefined = getParameter("state", key);
 	if (typeof value === "undefined") {
 		if (require) {
 			throw new ReferenceError(`State \`${key}\` is not defined!`);
