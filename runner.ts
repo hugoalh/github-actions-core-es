@@ -1,4 +1,5 @@
 import { isAbsolute as isPathAbsolute } from "jsr:@std/path@^1.0.6/is-absolute";
+import { getEnv } from "https://raw.githubusercontent.com/hugoalh/env-es/v0.2.0/env.ts";
 export const runnerArchitectures = [
 	"ARM",
 	"ARM64",
@@ -25,7 +26,7 @@ export type GitHubActionsRunnerArchitecture = typeof runnerArchitectures[number]
  * ```
  */
 export function getRunnerArchitecture(): GitHubActionsRunnerArchitecture {
-	const value: string | undefined = Deno.env.get("RUNNER_ARCH");
+	const value: string | undefined = getEnv("RUNNER_ARCH");
 	if (typeof value === "undefined") {
 		throw new ReferenceError(`Unable to get the GitHub Actions runner architecture, environment variable \`RUNNER_ARCH\` is not defined!`);
 	}
@@ -48,7 +49,7 @@ export {
  * @returns {boolean} Debug status of the GitHub Actions runner.
  */
 export function getRunnerDebugStatus(): boolean {
-	return (Deno.env.get("RUNNER_DEBUG") === "1");
+	return (getEnv("RUNNER_DEBUG") === "1");
 }
 export {
 	getRunnerDebugStatus as isRunnerDebug
@@ -69,7 +70,7 @@ export {
  * ```
  */
 export function getRunnerName(): string {
-	const value: string | undefined = Deno.env.get("RUNNER_NAME");
+	const value: string | undefined = getEnv("RUNNER_NAME");
 	if (typeof value === "undefined") {
 		throw new ReferenceError(`Unable to get the GitHub Actions runner name, environment variable \`RUNNER_NAME\` is not defined!`);
 	}
@@ -100,7 +101,7 @@ export type GitHubActionsRunnerOS = typeof runnerOSes[number];
  * ```
  */
 export function getRunnerOS(): GitHubActionsRunnerOS {
-	const value: string | undefined = Deno.env.get("RUNNER_OS");
+	const value: string | undefined = getEnv("RUNNER_OS");
 	if (typeof value === "undefined") {
 		throw new ReferenceError(`Unable to get the GitHub Actions runner OS, environment variable \`RUNNER_OS\` is not defined!`);
 	}
@@ -127,7 +128,7 @@ export function getRunnerOS(): GitHubActionsRunnerOS {
  * ```
  */
 export function getRunnerTempPath(): string {
-	const value: string | undefined = Deno.env.get("RUNNER_TEMP");
+	const value: string | undefined = getEnv("RUNNER_TEMP");
 	if (typeof value === "undefined") {
 		throw new ReferenceError(`Unable to get the GitHub Actions runner TEMP path, environment variable \`RUNNER_TEMP\` is not defined!`);
 	}
@@ -152,7 +153,7 @@ export function getRunnerTempPath(): string {
  * ```
  */
 export function getRunnerToolCachePath(): string | undefined {
-	const value: string | undefined = Deno.env.get("RUNNER_TOOL_CACHE");
+	const value: string | undefined = getEnv("RUNNER_TOOL_CACHE");
 	if (typeof value !== "undefined" && !isPathAbsolute(value)) {
 		throw new Error(`\`${value}\` (environment variable \`RUNNER_TOOL_CACHE\`) is not a valid absolute path!`);
 	}
@@ -174,7 +175,7 @@ export function getRunnerToolCachePath(): string | undefined {
  * ```
  */
 export function getRunnerWorkspacePath(): string {
-	const value: string | undefined = Deno.env.get("GITHUB_WORKSPACE");
+	const value: string | undefined = getEnv("GITHUB_WORKSPACE");
 	if (typeof value === "undefined") {
 		throw new ReferenceError(`Unable to get the GitHub Actions runner workspace path, environment variable \`GITHUB_WORKSPACE\` is not defined!`);
 	}
@@ -321,7 +322,7 @@ export function isInRunner(options: GitHubActionsRunnerTestOptions = {}): boolea
 	return !(envs.filter(({ need }: GitHubActionsDefaultEnvironmentVariableMeta): boolean => {
 		return (need ?? true);
 	}).map(({ key, value: valueExpected }: GitHubActionsDefaultEnvironmentVariableMeta): boolean => {
-		const valueCurrent: string | undefined = Deno.env.get(key);
+		const valueCurrent: string | undefined = getEnv(key);
 		if (
 			typeof valueCurrent === "undefined" ||
 			(typeof valueExpected !== "undefined" && valueCurrent !== valueExpected)
