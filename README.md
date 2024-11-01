@@ -79,14 +79,14 @@ This is a partial refactor of [the official toolkit][official-toolkit], not all 
   function exitLogGroup(): void;
   ```
 - ```ts
-  function getInput(key: string, options?: GitHubActionsGetParameterOptions & { noDefaultFallbackValue?: false; require?: false; }): string;
+  function getInput(key: string, options?: GitHubActionsGetParameterOptions & { fallback?: true; require?: false; }): string;
   function getInput(key: string, options: GitHubActionsGetParameterOptions & { require: true; }): string;
-  function getInput(key: string, options: GitHubActionsGetParameterOptions & { noDefaultFallbackValue: true; require?: false; }): string | undefined;
+  function getInput(key: string, options: GitHubActionsGetParameterOptions & { fallback: false; require?: false; }): string | undefined;
   ```
 - ```ts
-  function getState(key: string, options?: GitHubActionsGetParameterOptions & { noDefaultFallbackValue?: false; require?: false; }): string;
+  function getState(key: string, options?: GitHubActionsGetParameterOptions & { fallback?: true; require?: false; }): string;
   function getState(key: string, options: GitHubActionsGetParameterOptions & { require: true; }): string;
-  function getState(key: string, options: GitHubActionsGetParameterOptions & { noDefaultFallbackValue: true; require?: false; }): string | undefined;
+  function getState(key: string, options: GitHubActionsGetParameterOptions & { fallback: false; require?: false; }): string | undefined;
   ```
 - ```ts
   function setEnvironmentVariable(key: string, value: string, options?: GitHubActionsSetEnvironmentVariableOptions): void;

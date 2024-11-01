@@ -45,9 +45,9 @@ const regexpBooleanFalse = /^[Ff]alse$|^FALSE$/;
 const regexpBooleanTrue = /^[Tt]rue$|^TRUE$/;
 export interface GitHubActionsGetParameterOptions {
 	/**
-	 * Whether to return `undefined` instead of the default fallback value when the parameter is not required and defined.
+	 * Whether to return the fallback value instead of `undefined` when the parameter is not required and defined.
 	 * 
-	 * Different parameter type has different fallback value:
+	 * Different parameter types have different fallback value:
 	 * 
 	 * - **`bigint`**: `0n`
 	 * - **`boolean`**: `false`
@@ -55,9 +55,9 @@ export interface GitHubActionsGetParameterOptions {
 	 * - **`string`**: `""`
 	 * 
 	 * If property {@linkcode require} is defined to `true`, define this property is pointless.
-	 * @default {false}
+	 * @default {true}
 	 */
-	noDefaultFallbackValue?: boolean;
+	fallback?: boolean;
 	/**
 	 * Whether the parameter is require.
 	 * 
@@ -93,10 +93,10 @@ function getParameter(source: string, key: string): string {
  * >   - Environment Variable (`env`)
  * >     - *Resources*
  * @param {string} key Key of the input.
- * @param {GitHubActionsGetParameterOptions & { noDefaultFallbackValue?: false; require?: false; }} [options={}] Options.
+ * @param {GitHubActionsGetParameterOptions & { fallback?: true; require?: false; }} [options={}] Options.
  * @returns {string} String value of the input.
  */
-export function getInput(key: string, options?: GitHubActionsGetParameterOptions & { noDefaultFallbackValue?: false; require?: false; }): string;
+export function getInput(key: string, options?: GitHubActionsGetParameterOptions & { fallback?: true; require?: false; }): string;
 /**
  * Get the string value of an input.
  * 
@@ -119,13 +119,13 @@ export function getInput(key: string, options: GitHubActionsGetParameterOptions 
  * >   - Environment Variable (`env`)
  * >     - *Resources*
  * @param {string} key Key of the input.
- * @param {GitHubActionsGetParameterOptions & { noDefaultFallbackValue: true; require?: false; }} options Options.
+ * @param {GitHubActionsGetParameterOptions & { fallback: false; require?: false; }} options Options.
  * @returns {string | undefined} String value of the input.
  */
-export function getInput(key: string, options: GitHubActionsGetParameterOptions & { noDefaultFallbackValue: true; require?: false; }): string | undefined;
+export function getInput(key: string, options: GitHubActionsGetParameterOptions & { fallback: false; require?: false; }): string | undefined;
 export function getInput(key: string, options: GitHubActionsGetParameterOptions = {}): string | undefined {
 	const {
-		noDefaultFallbackValue = false,
+		fallback = true,
 		require = false
 	}: GitHubActionsGetParameterOptions = options;
 	const value: string = getParameter("input", key);
@@ -133,7 +133,7 @@ export function getInput(key: string, options: GitHubActionsGetParameterOptions 
 		if (require) {
 			throw new ReferenceError(`Input \`${key}\` is not defined!`);
 		}
-		return (noDefaultFallbackValue ? undefined : "");
+		return (fallback ? "" : undefined);
 	}
 	return value;
 }
@@ -149,10 +149,10 @@ export {
  * >   - Environment Variable (`env`)
  * >     - *Resources*
  * @param {string} key Key of the input.
- * @param {GitHubActionsGetParameterOptions & { noDefaultFallbackValue?: false; require?: false; }} [options={}] Options.
+ * @param {GitHubActionsGetParameterOptions & { fallback?: true; require?: false; }} [options={}] Options.
  * @returns {bigint} Big integer value of the input.
  */
-export function getInputBigInt(key: string, options?: GitHubActionsGetParameterOptions & { noDefaultFallbackValue?: false; require?: false; }): bigint;
+export function getInputBigInt(key: string, options?: GitHubActionsGetParameterOptions & { fallback?: true; require?: false; }): bigint;
 /**
  * Get the big integer value of an input.
  * 
@@ -175,13 +175,13 @@ export function getInputBigInt(key: string, options: GitHubActionsGetParameterOp
  * >   - Environment Variable (`env`)
  * >     - *Resources*
  * @param {string} key Key of the input.
- * @param {GitHubActionsGetParameterOptions & { noDefaultFallbackValue: true; require?: false; }} options Options.
+ * @param {GitHubActionsGetParameterOptions & { fallback: false; require?: false; }} options Options.
  * @returns {bigint | undefined} Big integer value of the input.
  */
-export function getInputBigInt(key: string, options: GitHubActionsGetParameterOptions & { noDefaultFallbackValue: true; require?: false; }): bigint | undefined;
+export function getInputBigInt(key: string, options: GitHubActionsGetParameterOptions & { fallback: false; require?: false; }): bigint | undefined;
 export function getInputBigInt(key: string, options: GitHubActionsGetParameterOptions = {}): bigint | undefined {
 	const {
-		noDefaultFallbackValue = false,
+		fallback = true,
 		require = false
 	}: GitHubActionsGetParameterOptions = options;
 	const value: string = getParameter("input", key);
@@ -189,7 +189,7 @@ export function getInputBigInt(key: string, options: GitHubActionsGetParameterOp
 		if (require) {
 			throw new ReferenceError(`Input \`${key}\` is not defined!`);
 		}
-		return (noDefaultFallbackValue ? undefined : 0n);
+		return (fallback ? 0n : undefined);
 	}
 	try {
 		if (!regexpBigInt.test(value)) {
@@ -212,10 +212,10 @@ export {
  * >   - Environment Variable (`env`)
  * >     - *Resources*
  * @param {string} key Key of the input.
- * @param {GitHubActionsGetParameterOptions & { noDefaultFallbackValue?: false; require?: false; }} [options={}] Options.
+ * @param {GitHubActionsGetParameterOptions & { fallback?: true; require?: false; }} [options={}] Options.
  * @returns {boolean} Boolean value of the input.
  */
-export function getInputBoolean(key: string, options?: GitHubActionsGetParameterOptions & { noDefaultFallbackValue?: false; require?: false; }): boolean;
+export function getInputBoolean(key: string, options?: GitHubActionsGetParameterOptions & { fallback?: true; require?: false; }): boolean;
 /**
  * Get the boolean value of an input.
  * 
@@ -238,13 +238,13 @@ export function getInputBoolean(key: string, options: GitHubActionsGetParameterO
  * >   - Environment Variable (`env`)
  * >     - *Resources*
  * @param {string} key Key of the input.
- * @param {GitHubActionsGetParameterOptions & { noDefaultFallbackValue: true; require?: false; }} options Options.
+ * @param {GitHubActionsGetParameterOptions & { fallback: false; require?: false; }} options Options.
  * @returns {boolean | undefined} Boolean value of the input.
  */
-export function getInputBoolean(key: string, options: GitHubActionsGetParameterOptions & { noDefaultFallbackValue: true; require?: false; }): boolean | undefined;
+export function getInputBoolean(key: string, options: GitHubActionsGetParameterOptions & { fallback: false; require?: false; }): boolean | undefined;
 export function getInputBoolean(key: string, options: GitHubActionsGetParameterOptions = {}): boolean | undefined {
 	const {
-		noDefaultFallbackValue = false,
+		fallback = true,
 		require = false
 	}: GitHubActionsGetParameterOptions = options;
 	const value: string = getParameter("input", key);
@@ -252,7 +252,7 @@ export function getInputBoolean(key: string, options: GitHubActionsGetParameterO
 		if (require) {
 			throw new ReferenceError(`Input \`${key}\` is not defined!`);
 		}
-		return (noDefaultFallbackValue ? undefined : false);
+		return (fallback ? false : undefined);
 	}
 	if (regexpBooleanFalse.test(value)) {
 		return false;
@@ -271,10 +271,10 @@ export function getInputBoolean(key: string, options: GitHubActionsGetParameterO
  * >   - Environment Variable (`env`)
  * >     - *Resources*
  * @param {string} key Key of the input.
- * @param {GitHubActionsGetParameterOptions & { noDefaultFallbackValue?: false; require?: false; }} [options={}] Options.
+ * @param {GitHubActionsGetParameterOptions & { fallback?: true; require?: false; }} [options={}] Options.
  * @returns {number} Number value of the input.
  */
-export function getInputNumber(key: string, options?: GitHubActionsGetParameterOptions & { noDefaultFallbackValue?: false; require?: false; }): number;
+export function getInputNumber(key: string, options?: GitHubActionsGetParameterOptions & { fallback?: true; require?: false; }): number;
 /**
  * Get the number value of an input.
  * 
@@ -297,13 +297,13 @@ export function getInputNumber(key: string, options: GitHubActionsGetParameterOp
  * >   - Environment Variable (`env`)
  * >     - *Resources*
  * @param {string} key Key of the input.
- * @param {GitHubActionsGetParameterOptions & { noDefaultFallbackValue: true; require?: false; }} options Options.
+ * @param {GitHubActionsGetParameterOptions & { fallback: false; require?: false; }} options Options.
  * @returns {number | undefined} Number value of the input.
  */
-export function getInputNumber(key: string, options: GitHubActionsGetParameterOptions & { noDefaultFallbackValue: true; require?: false; }): number | undefined;
+export function getInputNumber(key: string, options: GitHubActionsGetParameterOptions & { fallback: false; require?: false; }): number | undefined;
 export function getInputNumber(key: string, options: GitHubActionsGetParameterOptions = {}): number | undefined {
 	const {
-		noDefaultFallbackValue = false,
+		fallback = true,
 		require = false
 	}: GitHubActionsGetParameterOptions = options;
 	const value: string = getParameter("input", key);
@@ -311,7 +311,7 @@ export function getInputNumber(key: string, options: GitHubActionsGetParameterOp
 		if (require) {
 			throw new ReferenceError(`Input \`${key}\` is not defined!`);
 		}
-		return (noDefaultFallbackValue ? undefined : 0);
+		return (fallback ? 0 : undefined);
 	}
 	try {
 		return Number(value);
@@ -328,10 +328,10 @@ export function getInputNumber(key: string, options: GitHubActionsGetParameterOp
  * >   - Environment Variable (`env`)
  * >     - *Resources*
  * @param {string} key Key of the state.
- * @param {GitHubActionsGetParameterOptions & { noDefaultFallbackValue?: false; require?: false; }} [options={}] Options.
+ * @param {GitHubActionsGetParameterOptions & { fallback?: true; require?: false; }} [options={}] Options.
  * @returns {string} String value of the state.
  */
-export function getState(key: string, options?: GitHubActionsGetParameterOptions & { noDefaultFallbackValue?: false; require?: false; }): string;
+export function getState(key: string, options?: GitHubActionsGetParameterOptions & { fallback?: true; require?: false; }): string;
 /**
  * Get the string value of a state.
  * 
@@ -354,13 +354,13 @@ export function getState(key: string, options: GitHubActionsGetParameterOptions 
  * >   - Environment Variable (`env`)
  * >     - *Resources*
  * @param {string} key Key of the state.
- * @param {GitHubActionsGetParameterOptions & { noDefaultFallbackValue: true; require?: false; }} options Options.
+ * @param {GitHubActionsGetParameterOptions & { fallback: false; require?: false; }} options Options.
  * @returns {string | undefined} String value of the state.
  */
-export function getState(key: string, options: GitHubActionsGetParameterOptions & { noDefaultFallbackValue: true; require?: false; }): string | undefined;
+export function getState(key: string, options: GitHubActionsGetParameterOptions & { fallback: false; require?: false; }): string | undefined;
 export function getState(key: string, options: GitHubActionsGetParameterOptions = {}): string | undefined {
 	const {
-		noDefaultFallbackValue = false,
+		fallback = true,
 		require = false
 	}: GitHubActionsGetParameterOptions = options;
 	const value: string = getParameter("state", key);
@@ -368,7 +368,7 @@ export function getState(key: string, options: GitHubActionsGetParameterOptions 
 		if (require) {
 			throw new ReferenceError(`State \`${key}\` is not defined!`);
 		}
-		return (noDefaultFallbackValue ? undefined : "");
+		return (fallback ? "" : undefined);
 	}
 	return value;
 }
@@ -384,10 +384,10 @@ export {
  * >   - Environment Variable (`env`)
  * >     - *Resources*
  * @param {string} key Key of the state.
- * @param {GitHubActionsGetParameterOptions & { noDefaultFallbackValue?: false; require?: false; }} [options={}] Options.
+ * @param {GitHubActionsGetParameterOptions & { fallback?: true; require?: false; }} [options={}] Options.
  * @returns {bigint} Big integer value of the state.
  */
-export function getStateBigInt(key: string, options?: GitHubActionsGetParameterOptions & { noDefaultFallbackValue?: false; require?: false; }): bigint;
+export function getStateBigInt(key: string, options?: GitHubActionsGetParameterOptions & { fallback?: true; require?: false; }): bigint;
 /**
  * Get the big integer value of a state.
  * 
@@ -410,13 +410,13 @@ export function getStateBigInt(key: string, options: GitHubActionsGetParameterOp
  * >   - Environment Variable (`env`)
  * >     - *Resources*
  * @param {string} key Key of the state.
- * @param {GitHubActionsGetParameterOptions & { noDefaultFallbackValue: true; require?: false; }} options Options.
+ * @param {GitHubActionsGetParameterOptions & { fallback: false; require?: false; }} options Options.
  * @returns {bigint | undefined} Big integer value of the state.
  */
-export function getStateBigInt(key: string, options: GitHubActionsGetParameterOptions & { noDefaultFallbackValue: true; require?: false; }): bigint | undefined;
+export function getStateBigInt(key: string, options: GitHubActionsGetParameterOptions & { fallback: false; require?: false; }): bigint | undefined;
 export function getStateBigInt(key: string, options: GitHubActionsGetParameterOptions = {}): bigint | undefined {
 	const {
-		noDefaultFallbackValue = false,
+		fallback = true,
 		require = false
 	}: GitHubActionsGetParameterOptions = options;
 	const value: string = getParameter("state", key);
@@ -424,7 +424,7 @@ export function getStateBigInt(key: string, options: GitHubActionsGetParameterOp
 		if (require) {
 			throw new ReferenceError(`State \`${key}\` is not defined!`);
 		}
-		return (noDefaultFallbackValue ? undefined : 0n);
+		return (fallback ? 0n : undefined);
 	}
 	try {
 		if (!regexpBigInt.test(value)) {
@@ -447,10 +447,10 @@ export {
  * >   - Environment Variable (`env`)
  * >     - *Resources*
  * @param {string} key Key of the state.
- * @param {GitHubActionsGetParameterOptions & { noDefaultFallbackValue?: false; require?: false; }} [options={}] Options.
+ * @param {GitHubActionsGetParameterOptions & { fallback?: true; require?: false; }} [options={}] Options.
  * @returns {boolean} Boolean value of the state.
  */
-export function getStateBoolean(key: string, options?: GitHubActionsGetParameterOptions & { noDefaultFallbackValue?: false; require?: false; }): boolean;
+export function getStateBoolean(key: string, options?: GitHubActionsGetParameterOptions & { fallback?: true; require?: false; }): boolean;
 /**
  * Get the boolean value of a state.
  * 
@@ -473,13 +473,13 @@ export function getStateBoolean(key: string, options: GitHubActionsGetParameterO
  * >   - Environment Variable (`env`)
  * >     - *Resources*
  * @param {string} key Key of the state.
- * @param {GitHubActionsGetParameterOptions & { noDefaultFallbackValue: true; require?: false; }} options Options.
+ * @param {GitHubActionsGetParameterOptions & { fallback: false; require?: false; }} options Options.
  * @returns {boolean | undefined} Boolean value of the state.
  */
-export function getStateBoolean(key: string, options: GitHubActionsGetParameterOptions & { noDefaultFallbackValue: true; require?: false; }): boolean | undefined;
+export function getStateBoolean(key: string, options: GitHubActionsGetParameterOptions & { fallback: false; require?: false; }): boolean | undefined;
 export function getStateBoolean(key: string, options: GitHubActionsGetParameterOptions = {}): boolean | undefined {
 	const {
-		noDefaultFallbackValue = false,
+		fallback = true,
 		require = false
 	}: GitHubActionsGetParameterOptions = options;
 	const value: string = getParameter("state", key);
@@ -487,7 +487,7 @@ export function getStateBoolean(key: string, options: GitHubActionsGetParameterO
 		if (require) {
 			throw new ReferenceError(`State \`${key}\` is not defined!`);
 		}
-		return (noDefaultFallbackValue ? undefined : false);
+		return (fallback ? false : undefined);
 	}
 	if (regexpBooleanFalse.test(value)) {
 		return false;
@@ -506,10 +506,10 @@ export function getStateBoolean(key: string, options: GitHubActionsGetParameterO
  * >   - Environment Variable (`env`)
  * >     - *Resources*
  * @param {string} key Key of the state.
- * @param {GitHubActionsGetParameterOptions & { noDefaultFallbackValue?: false; require?: false; }} [options={}] Options.
+ * @param {GitHubActionsGetParameterOptions & { fallback?: true; require?: false; }} [options={}] Options.
  * @returns {number} Number value of the state.
  */
-export function getStateNumber(key: string, options?: GitHubActionsGetParameterOptions & { noDefaultFallbackValue?: false; require?: false; }): number;
+export function getStateNumber(key: string, options?: GitHubActionsGetParameterOptions & { fallback?: true; require?: false; }): number;
 /**
  * Get the number value of a state.
  * 
@@ -532,13 +532,13 @@ export function getStateNumber(key: string, options: GitHubActionsGetParameterOp
  * >   - Environment Variable (`env`)
  * >     - *Resources*
  * @param {string} key Key of the state.
- * @param {GitHubActionsGetParameterOptions & { noDefaultFallbackValue: true; require?: false; }} options Options.
+ * @param {GitHubActionsGetParameterOptions & { fallback: false; require?: false; }} options Options.
  * @returns {number | undefined} Number value of the state.
  */
-export function getStateNumber(key: string, options: GitHubActionsGetParameterOptions & { noDefaultFallbackValue: true; require?: false; }): number | undefined;
+export function getStateNumber(key: string, options: GitHubActionsGetParameterOptions & { fallback: false; require?: false; }): number | undefined;
 export function getStateNumber(key: string, options: GitHubActionsGetParameterOptions = {}): number | undefined {
 	const {
-		noDefaultFallbackValue = false,
+		fallback = true,
 		require = false
 	}: GitHubActionsGetParameterOptions = options;
 	const value: string = getParameter("state", key);
@@ -546,7 +546,7 @@ export function getStateNumber(key: string, options: GitHubActionsGetParameterOp
 		if (require) {
 			throw new ReferenceError(`State \`${key}\` is not defined!`);
 		}
-		return (noDefaultFallbackValue ? undefined : 0);
+		return (fallback ? 0 : undefined);
 	}
 	try {
 		return Number(value);
