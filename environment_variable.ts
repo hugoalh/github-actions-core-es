@@ -22,6 +22,11 @@ import type { KeyValueLike } from "./common.ts";
  * >     - *Resources*
  * >   - File System - Write (`write`)
  * >     - *Resources*
+ * > - NodeJS (>= v20.9.0) 🧪
+ * >   - File System - Read (`fs-read`)
+ * >     - *Resources*
+ * >   - File System - Write (`fs-write`)
+ * >     - *Resources*
  * @param {string} path Value that need to add to the `PATH`.
  * @param {GitHubActionsSetEnvironmentVariableOptions} [options={}] Options.
  * @returns {void}
@@ -39,6 +44,11 @@ export function addPATH(path: string, options?: GitHubActionsSetEnvironmentVaria
  * >   - File System - Read (`read`)
  * >     - *Resources*
  * >   - File System - Write (`write`)
+ * >     - *Resources*
+ * > - NodeJS (>= v20.9.0) 🧪
+ * >   - File System - Read (`fs-read`)
+ * >     - *Resources*
+ * >   - File System - Write (`fs-write`)
  * >     - *Resources*
  * @param {string[]} paths Value that need to add to the `PATH`.
  * @param {GitHubActionsSetEnvironmentVariableOptions} [options={}] Options.
@@ -77,6 +87,11 @@ export function addPATH(param0: string | string[], options: GitHubActionsSetEnvi
  * >     - *Resources*
  * >   - File System - Write (`write`)
  * >     - *Resources*
+ * > - NodeJS (>= v20.9.0) 🧪
+ * >   - File System - Read (`fs-read`)
+ * >     - *Resources*
+ * >   - File System - Write (`fs-write`)
+ * >     - *Resources*
  * @returns {void}
  */
 export function clearEnvironmentVariableSubsequent(): void {
@@ -97,6 +112,11 @@ export {
  * >     - *Resources*
  * >   - File System - Write (`write`)
  * >     - *Resources*
+ * > - NodeJS (>= v20.9.0) 🧪
+ * >   - File System - Read (`fs-read`)
+ * >     - *Resources*
+ * >   - File System - Write (`fs-write`)
+ * >     - *Resources*
  * @returns {void}
  */
 export function clearPATHSubsequent(): void {
@@ -113,6 +133,11 @@ export function clearPATHSubsequent(): void {
  * >   - File System - Read (`read`)
  * >     - *Resources*
  * >   - File System - Write (`write`)
+ * >     - *Resources*
+ * > - NodeJS (>= v20.9.0) 🧪
+ * >   - File System - Read (`fs-read`)
+ * >     - *Resources*
+ * >   - File System - Write (`fs-write`)
  * >     - *Resources*
  * @returns {void}
  */
@@ -133,6 +158,11 @@ export {
  * >   - File System - Read (`read`)
  * >     - *Resources*
  * >   - File System - Write (`write`)
+ * >     - *Resources*
+ * > - NodeJS (>= v20.9.0) 🧪
+ * >   - File System - Read (`fs-read`)
+ * >     - *Resources*
+ * >   - File System - Write (`fs-write`)
  * >     - *Resources*
  * @returns {void}
  */
@@ -177,6 +207,11 @@ export interface GitHubActionsSetEnvironmentVariableOptions {
  * >     - *Resources*
  * >   - File System - Write (`write`)
  * >     - *Resources*
+ * > - NodeJS (>= v20.9.0) 🧪
+ * >   - File System - Read (`fs-read`)
+ * >     - *Resources*
+ * >   - File System - Write (`fs-write`)
+ * >     - *Resources*
  * @param {string} key Key of the environment variable.
  * @param {string} value Value of the environment variable.
  * @param {GitHubActionsSetEnvironmentVariableOptions} [options={}] Options.
@@ -195,6 +230,11 @@ export function setEnvironmentVariable(key: string, value: string, options?: Git
  * >   - File System - Read (`read`)
  * >     - *Resources*
  * >   - File System - Write (`write`)
+ * >     - *Resources*
+ * > - NodeJS (>= v20.9.0) 🧪
+ * >   - File System - Read (`fs-read`)
+ * >     - *Resources*
+ * >   - File System - Write (`fs-write`)
  * >     - *Resources*
  * @param {KeyValueLike} pairs Pairs of the environment variable.
  * @param {GitHubActionsSetEnvironmentVariableOptions} [options={}] Options.

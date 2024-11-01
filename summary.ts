@@ -14,6 +14,11 @@ import {
  * >     - *Resources*
  * >   - File System - Write (`write`)
  * >     - *Resources*
+ * > - NodeJS (>= v20.9.0) 🧪
+ * >   - File System - Read (`fs-read`)
+ * >     - *Resources*
+ * >   - File System - Write (`fs-write`)
+ * >     - *Resources*
  * @param {string} data Data.
  * @returns {void}
  */
@@ -31,6 +36,11 @@ export function appendSummary(data: string): void {
  * >   - File System - Read (`read`)
  * >     - *Resources*
  * >   - File System - Write (`write`)
+ * >     - *Resources*
+ * > - NodeJS (>= v20.9.0) 🧪
+ * >   - File System - Read (`fs-read`)
+ * >     - *Resources*
+ * >   - File System - Write (`fs-write`)
  * >     - *Resources*
  * @returns {void}
  */

@@ -51,6 +51,9 @@ const regexpCommandFile = /^(?:[\dA-Z][\dA-Z_-]*)?[\dA-Z]$/;
  * >     - *Resources*
  * >   - File System - Read (`read`)
  * >     - *Resources*
+ * > - NodeJS (>= v20.9.0) 🧪
+ * >   - File System - Read (`fs-read`)
+ * >     - *Resources*
  * @param {string} command File command.
  * @returns {string} Path of the file command.
  */
@@ -115,6 +118,11 @@ function formatFilePairsCommand(inputs: Map<string, string>): string {
  * >     - *Resources*
  * >   - File System - Write (`write`)
  * >     - *Resources*
+ * > - NodeJS (>= v20.9.0) 🧪
+ * >   - File System - Read (`fs-read`)
+ * >     - *Resources*
+ * >   - File System - Write (`fs-write`)
+ * >     - *Resources*
  * @param {string} command File command.
  * @param {...string} values Value of the file line command.
  * @returns {void}
@@ -142,6 +150,11 @@ export function appendFileLineCommand(command: string, ...values: string[]): voi
  * >     - *Resources*
  * >   - File System - Write (`write`)
  * >     - *Resources*
+ * > - NodeJS (>= v20.9.0) 🧪
+ * >   - File System - Read (`fs-read`)
+ * >     - *Resources*
+ * >   - File System - Write (`fs-write`)
+ * >     - *Resources*
  * @param {string} command File command.
  * @param {string} key Key of the pair of the file map command.
  * @param {string} value Value of the pair of the file map command.
@@ -159,6 +172,11 @@ export function appendFileMapCommand(command: string, key: string, value: string
  * >   - File System - Read (`read`)
  * >     - *Resources*
  * >   - File System - Write (`write`)
+ * >     - *Resources*
+ * > - NodeJS (>= v20.9.0) 🧪
+ * >   - File System - Read (`fs-read`)
+ * >     - *Resources*
+ * >   - File System - Write (`fs-write`)
  * >     - *Resources*
  * @param {string} command File command.
  * @param {KeyValueLike} pairs Pairs of the file map command.
@@ -192,6 +210,11 @@ export function appendFileMapCommand(command: string, param1: string | KeyValueL
  * >     - *Resources*
  * >   - File System - Write (`write`)
  * >     - *Resources*
+ * > - NodeJS (>= v20.9.0) 🧪
+ * >   - File System - Read (`fs-read`)
+ * >     - *Resources*
+ * >   - File System - Write (`fs-write`)
+ * >     - *Resources*
  * @param {string} command File command.
  * @returns {void}
  */
@@ -209,6 +232,11 @@ export function clearFileCommand(command: string): void {
  * >   - File System - Read (`read`)
  * >     - *Resources*
  * >   - File System - Write (`write`)
+ * >     - *Resources*
+ * > - NodeJS (>= v20.9.0) 🧪
+ * >   - File System - Read (`fs-read`)
+ * >     - *Resources*
+ * >   - File System - Write (`fs-write`)
  * >     - *Resources*
  * @param {string} command File command.
  * @param {GitHubActionsFileCommandType | keyof typeof GitHubActionsFileCommandType} [type="raw"] Type of the file command; Only used when the {@linkcode command} is not known.

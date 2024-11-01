@@ -31,6 +31,11 @@ export type {
  * >     - *Resources*
  * >   - File System - Write (`write`)
  * >     - *Resources*
+ * > - NodeJS (>= v20.9.0) 🧪
+ * >   - File System - Read (`fs-read`)
+ * >     - *Resources*
+ * >   - File System - Write (`fs-write`)
+ * >     - *Resources*
  * @returns {void}
  */
 export function clearOutput(): void {
@@ -47,6 +52,11 @@ export function clearOutput(): void {
  * >   - File System - Read (`read`)
  * >     - *Resources*
  * >   - File System - Write (`write`)
+ * >     - *Resources*
+ * > - NodeJS (>= v20.9.0) 🧪
+ * >   - File System - Read (`fs-read`)
+ * >     - *Resources*
+ * >   - File System - Write (`fs-write`)
  * >     - *Resources*
  * @returns {void}
  */
@@ -1039,6 +1049,11 @@ export function getStateNumber(key: string, options: GitHubActionsGetParameterOp
  * >     - *Resources*
  * >   - File System - Write (`write`)
  * >     - *Resources*
+ * > - NodeJS (>= v20.9.0) 🧪
+ * >   - File System - Read (`fs-read`)
+ * >     - *Resources*
+ * >   - File System - Write (`fs-write`)
+ * >     - *Resources*
  * @returns {void}
  */
 export function optimizeOutput(): void {
@@ -1055,6 +1070,11 @@ export function optimizeOutput(): void {
  * >   - File System - Read (`read`)
  * >     - *Resources*
  * >   - File System - Write (`write`)
+ * >     - *Resources*
+ * > - NodeJS (>= v20.9.0) 🧪
+ * >   - File System - Read (`fs-read`)
+ * >     - *Resources*
+ * >   - File System - Write (`fs-write`)
  * >     - *Resources*
  * @returns {void}
  */
@@ -1073,6 +1093,11 @@ export function optimizeState(): void {
  * >     - *Resources*
  * >   - File System - Write (`write`)
  * >     - *Resources*
+ * > - NodeJS (>= v20.9.0) 🧪
+ * >   - File System - Read (`fs-read`)
+ * >     - *Resources*
+ * >   - File System - Write (`fs-write`)
+ * >     - *Resources*
  * @param {string} key Key of the output.
  * @param {string} value Value of the output.
  * @returns {void}
@@ -1089,6 +1114,11 @@ export function setOutput(key: string, value: string): void;
  * >   - File System - Read (`read`)
  * >     - *Resources*
  * >   - File System - Write (`write`)
+ * >     - *Resources*
+ * > - NodeJS (>= v20.9.0) 🧪
+ * >   - File System - Read (`fs-read`)
+ * >     - *Resources*
+ * >   - File System - Write (`fs-write`)
  * >     - *Resources*
  * @param {KeyValueLike} pairs Pairs of the output.
  * @returns {void}
@@ -1125,6 +1155,11 @@ export function setOutput(param0: string | KeyValueLike, param1?: string): void 
  * >     - *Resources*
  * >   - File System - Write (`write`)
  * >     - *Resources*
+ * > - NodeJS (>= v20.9.0) 🧪
+ * >   - File System - Read (`fs-read`)
+ * >     - *Resources*
+ * >   - File System - Write (`fs-write`)
+ * >     - *Resources*
  * @param {string} key Key of the state.
  * @param {string} value Value of the state.
  * @returns {void}
@@ -1141,6 +1176,11 @@ export function setState(key: string, value: string): void;
  * >   - File System - Read (`read`)
  * >     - *Resources*
  * >   - File System - Write (`write`)
+ * >     - *Resources*
+ * > - NodeJS (>= v20.9.0) 🧪
+ * >   - File System - Read (`fs-read`)
+ * >     - *Resources*
+ * >   - File System - Write (`fs-write`)
  * >     - *Resources*
  * @param {KeyValueLike} pairs Pairs of the state.
  * @returns {void}

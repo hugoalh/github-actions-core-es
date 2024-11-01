@@ -629,6 +629,9 @@ export interface GitHubActionsWebhookEventPayload extends JSONObjectExtend {
  * >     - `GITHUB_EVENT_PATH`
  * >   - File System - Read (`read`)
  * >     - *Resources*
+ * > - NodeJS (>= v20.9.0) 🧪
+ * >   - File System - Read (`fs-read`)
+ * >     - *Resources*
  * @returns {GitHubActionsWebhookEventPayload} Webhook event payload of the workflow run.
  */
 export function getWorkflowRunWebhookEventPayload(): GitHubActionsWebhookEventPayload {
