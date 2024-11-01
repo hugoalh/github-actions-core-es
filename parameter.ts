@@ -197,7 +197,7 @@ export function getInputBigInt(key: string, options: GitHubActionsGetParameterOp
 		}
 		return BigInt(value.replace(/n$/, ""));
 	} catch {
-		throw new SyntaxError(`\`${value}\` (input \`${key}\`) is not a valid big integer!`);
+		throw new SyntaxError(`Input \`${key}\` is not a valid big integer!`);
 	}
 }
 export {
@@ -260,7 +260,7 @@ export function getInputBoolean(key: string, options: GitHubActionsGetParameterO
 	if (regexpBooleanTrue.test(value)) {
 		return true;
 	}
-	throw new SyntaxError(`\`${value}\` (input \`${key}\`) is not a valid boolean!`);
+	throw new SyntaxError(`Input \`${key}\` is not a valid boolean!`);
 }
 /**
  * Get the number value of an input.
@@ -316,7 +316,7 @@ export function getInputNumber(key: string, options: GitHubActionsGetParameterOp
 	try {
 		return Number(value);
 	} catch {
-		throw new SyntaxError(`\`${value}\` (input \`${key}\`) is not a valid number!`);
+		throw new SyntaxError(`Input \`${key}\` is not a valid number!`);
 	}
 }
 /**
@@ -432,7 +432,7 @@ export function getStateBigInt(key: string, options: GitHubActionsGetParameterOp
 		}
 		return BigInt(value.replace(/n$/, ""));
 	} catch {
-		throw new SyntaxError(`\`${value}\` (state \`${key}\`) is not a valid big integer!`);
+		throw new SyntaxError(`State \`${key}\` is not a valid big integer!`);
 	}
 }
 export {
@@ -495,7 +495,7 @@ export function getStateBoolean(key: string, options: GitHubActionsGetParameterO
 	if (regexpBooleanTrue.test(value)) {
 		return true;
 	}
-	throw new SyntaxError(`\`${value}\` (state \`${key}\`) is not a valid boolean!`);
+	throw new SyntaxError(`State \`${key}\` is not a valid boolean!`);
 }
 /**
  * Get the number value of a state.
@@ -551,7 +551,7 @@ export function getStateNumber(key: string, options: GitHubActionsGetParameterOp
 	try {
 		return Number(value);
 	} catch {
-		throw new SyntaxError(`\`${value}\` (state \`${key}\`) is not a valid number!`);
+		throw new SyntaxError(`State \`${key}\` is not a valid number!`);
 	}
 }
 /**
