@@ -12,7 +12,7 @@ An ES (JavaScript & TypeScript) module to provide a better and easier way for Gi
 
 [official-toolkit]: https://github.com/actions/toolkit
 
-This is a partial refactor of [the official toolkit][official-toolkit], not all of the features in [the official toolkit][official-toolkit] are available here, and not all of the features in here are available in [the official toolkit][official-toolkit].
+This is a partial refactor of [the official toolkit][official-toolkit], not all of the features in [the official toolkit][official-toolkit] are available in here, and not all of the features in here are available in [the official toolkit][official-toolkit].
 
 ## 🌟 Features
 
