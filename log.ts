@@ -5,8 +5,8 @@ import {
 	GitHubActionsStdOutCommand
 } from "./command/stdout.ts";
 /**
- * Make secrets get masked from the log.
- * @param {...string} values Secrets that need to get masked from the log.
+ * Make secret get masked from the log.
+ * @param {...string} values Secret that need to get masked from the log.
  * @returns {void}
  */
 export function addSecretMask(...values: string[]): void {
