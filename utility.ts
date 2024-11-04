@@ -661,3 +661,20 @@ export function getWorkflowSHA(): string {
 	}
 	return value;
 }
+/**
+ * Test whether is inside the GitHub Enterprise Server.
+ * 
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - `GITHUB_SERVER_URL`
+ * @returns {boolean} Determine result.
+ */
+export function isGitHubEnterpriseServer(): boolean {
+	const hostname: string = getGitHubServerURL().hostname.trimEnd().toUpperCase();
+	const isGitHubHost: boolean = hostname === "GITHUB.COM";
+	const isGitHubEnterpriseHost: boolean = hostname.endsWith(".GHE.COM");
+	const isLocalHost: boolean = hostname.endsWith(".LOCALHOST") || hostname.endsWith(".GHE.LOCALHOST");
+	return (!isGitHubHost && !isGitHubEnterpriseHost && !isLocalHost);
+}

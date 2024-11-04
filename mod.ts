@@ -130,6 +130,7 @@ export {
 	getWorkflowRunURL,
 	getWorkflowRunWebhookEventPayload,
 	getWorkflowSHA,
+	isGitHubEnterpriseServer,
 	referenceTypes,
 	type GitHubActionsEventName,
 	type GitHubActionsWebhookEventPayload,
