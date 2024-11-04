@@ -184,12 +184,12 @@ export function getRunnerWorkspacePath(): string {
 	}
 	return value;
 }
-interface GitHubActionsDefaultEnvironmentVariableMeta {
+interface GitHubActionsRunnerDefaultEnvironmentVariableMeta {
 	key: string;
 	need?: boolean;
 	value?: string;
 }
-const envsDefault: GitHubActionsDefaultEnvironmentVariableMeta[] = [
+const runnerEnvsDefault: GitHubActionsRunnerDefaultEnvironmentVariableMeta[] = [
 	{ key: "CI", value: "true" },
 	{ key: "GITHUB_ACTION" },
 	{ key: "GITHUB_ACTIONS", value: "true" },
@@ -309,8 +309,8 @@ export function isInRunner(options: GitHubActionsRunnerTestOptions = {}): boolea
 		oidc = false,
 		toolCache = false
 	}: GitHubActionsRunnerTestOptions = options;
-	const envs: GitHubActionsDefaultEnvironmentVariableMeta[] = [
-		...envsDefault,
+	const envs: GitHubActionsRunnerDefaultEnvironmentVariableMeta[] = [
+		...runnerEnvsDefault,
 		{ key: "ACTIONS_RESULTS_URL", need: artifact },
 		{ key: "ACTIONS_RUNTIME_TOKEN", need: artifact || cache },
 		{ key: "ACTIONS_RUNTIME_URL", need: artifact },
@@ -319,9 +319,9 @@ export function isInRunner(options: GitHubActionsRunnerTestOptions = {}): boolea
 		{ key: "ACTIONS_ID_TOKEN_REQUEST_URL", need: oidc },
 		{ key: "RUNNER_TOOL_CACHE", need: toolCache }
 	];
-	return !(envs.filter(({ need }: GitHubActionsDefaultEnvironmentVariableMeta): boolean => {
+	return !(envs.filter(({ need }: GitHubActionsRunnerDefaultEnvironmentVariableMeta): boolean => {
 		return (need ?? true);
-	}).map(({ key, value: valueExpected }: GitHubActionsDefaultEnvironmentVariableMeta): boolean => {
+	}).map(({ key, value: valueExpected }: GitHubActionsRunnerDefaultEnvironmentVariableMeta): boolean => {
 		const valueCurrent: string | undefined = getEnv(key);
 		if (
 			typeof valueCurrent === "undefined" ||
