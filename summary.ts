@@ -19,11 +19,16 @@ import {
  * >     - *Resources*
  * >   - File System - Write (`fs-write`)
  * >     - *Resources*
- * @param {string} data Data.
+ * @param {string | Uint8Array} data Data.
  * @returns {void}
  */
-export function appendSummary(data: string): void {
-	Deno.writeTextFileSync(getFileCommandPath("GITHUB_STEP_SUMMARY"), data, { append: true });
+export function appendSummary(data: string | Uint8Array): void {
+	const path: string = getFileCommandPath("GITHUB_STEP_SUMMARY");
+	if (typeof data === "string") {
+		Deno.writeTextFileSync(path, data, { append: true });
+	} else {
+		Deno.writeFileSync(path, data, { append: true });
+	}
 }
 /**
  * Clear the summary which set in the current step.
