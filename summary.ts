@@ -26,7 +26,7 @@ export function appendSummary(data: string): void {
 	Deno.writeTextFileSync(getFileCommandPath("GITHUB_STEP_SUMMARY"), data, { append: true });
 }
 /**
- * **\[🅰️ Advanced\]** Clear the summary which set in the current step.
+ * Clear the summary which set in the current step.
  * 
  * > **🛡️ Require Runtime Permissions**
  * > 
