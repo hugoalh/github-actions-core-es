@@ -1,4 +1,4 @@
 /**
  * Type of key-value like.
  */
-export type KeyValueLike = { [key: string]: string; } | Map<string, string> | Record<string, string>;
+export type KeyValueLike<V = string> = { [key: string]: V; } | Map<string, V> | Record<string, V>;

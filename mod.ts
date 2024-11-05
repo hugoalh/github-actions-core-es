@@ -74,6 +74,7 @@ export {
 	setOutput,
 	setState,
 	type GitHubActionsGetParameterOptions,
+	type GitHubActionsSetParameterValueType,
 	type JSONArray,
 	type JSONObject,
 	type JSONPrimitive,
