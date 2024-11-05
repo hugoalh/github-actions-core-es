@@ -85,7 +85,7 @@ export interface GitHubActionsGetParameterOptions {
 	 * - **`JSONPrimitive`**: `null`
 	 * - **`JSONValue`**: `null`
 	 * 
-	 * If property {@linkcode require} is defined to `true`, define this property is pointless.
+	 * If the property {@linkcode require} is `true`, define this property is pointless.
 	 * @default {true}
 	 */
 	fallback?: boolean;
