@@ -1,4 +1,5 @@
 import { isAbsolute as isPathAbsolute } from "jsr:@std/path@^1.0.6/is-absolute";
+import { join as joinPath } from "jsr:@std/path@^1.0.6/join";
 import { getEnv } from "https://raw.githubusercontent.com/hugoalh/env-es/v0.2.0/env.ts";
 export const runnerArchitectures = [
 	"ARM",
@@ -111,20 +112,20 @@ export function getRunnerOS(): GitHubActionsRunnerOS {
 	return value as GitHubActionsRunnerOS;
 }
 /**
- * Get the path of the `TEMP` of the GitHub Actions runner.
+ * Get the absolute path of the `TEMP` directory of the GitHub Actions runner.
  * 
- * This directory is emptied at the beginning and end of each job, files will not be removed if the runner's user account does not have permission to delete them.
+ * `TEMP` directory is emptied at the beginning and end of each job, files will not be removed if the runner's user account does not have permission to delete them.
  * 
  * > **🛡️ Require Runtime Permissions**
  * > 
  * > - Deno
  * >   - Environment Variable (`env`)
  * >     - `RUNNER_TEMP`
- * @returns {string} Path of the `TEMP` of the GitHub Actions runner.
+ * @returns {string} Absolute path of the `TEMP` directory of the GitHub Actions runner.
  * @example
  * ```ts
  * getRunnerTempPath();
- * //=> "D:\a\_temp"
+ * //=> "D:\\a\\_temp"
  * ```
  */
 export function getRunnerTempPath(): string {
@@ -395,3 +396,102 @@ export function validateInRunner(options: GitHubActionsRunnerTestOptions = {}): 
 		throw new Error("This process requires to invoke inside the GitHub Actions environment!");
 	}
 }
+/**
+ * Clear the `TEMP` directory of the GitHub Actions runner.
+ * 
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - `RUNNER_TEMP`
+ * >   - File System - Read (`read`)
+ * >     - *Resources*
+ * >   - File System - Write (`write`)
+ * >     - *Resources*
+ * > - NodeJS (>= v20.9.0) 🧪
+ * >   - File System - Read (`fs-read`)
+ * >     - *Resources*
+ * >   - File System - Write (`fs-write`)
+ * >     - *Resources*
+ * @returns {void}
+ */
+export function clearRunnerTemp(): void {
+	const path: string = getRunnerTempPath();
+	const errors: Error[] = [];
+	for (const { name } of Deno.readDirSync(path)) {
+		try {
+			Deno.removeSync(joinPath(path, name), { recursive: true });
+		} catch (error) {
+			errors.push(error as Error);
+		}
+	}
+	if (errors.length > 0) {
+		throw new AggregateError(errors, `Unable to fully clear the \`TEMP\` directory of the GitHub Actions runner!`);
+	}
+}
+/**
+ * Create/Make a new temporary directory in the `TEMP` directory of the GitHub Actions runner, optionally include prefixing and suffixing the directory name with {@linkcode Deno.MakeTempOptions.prefix} and {@linkcode Deno.MakeTempOptions.suffix} respectively.
+ * 
+ * Multiple programs calling this function simultaneously will create different directories. It is the caller's responsibility to remove the directory when no longer needed.
+ * 
+ * `TEMP` directory is emptied at the beginning and end of each job, files will not be removed if the runner's user account does not have permission to delete them.
+ * 
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - `RUNNER_TEMP`
+ * >   - File System - Read (`read`)
+ * >     - *Resources*
+ * >   - File System - Write (`write`)
+ * >     - *Resources*
+ * > - NodeJS (>= v20.9.0) 🧪
+ * >   - File System - Read (`fs-read`)
+ * >     - *Resources*
+ * >   - File System - Write (`fs-write`)
+ * >     - *Resources*
+ * @returns {string} Absolute path of the new temporary directory in the `TEMP` directory.
+ */
+export function makeRunnerTempDir(options: Omit<Deno.MakeTempOptions, "dir"> = {}): string {
+	return Deno.makeTempDirSync({
+		...options,
+		dir: getRunnerTempPath()
+	});
+}
+export {
+	makeRunnerTempDir as createRunnerTempDir,
+	makeRunnerTempDir as createRunnerTempDirectory,
+	makeRunnerTempDir as makeRunnerTempDirectory
+};
+/**
+ * Create/Make a new temporary file in the `TEMP` directory of the GitHub Actions runner, optionally include prefixing and suffixing the file name with {@linkcode Deno.MakeTempOptions.prefix} and {@linkcode Deno.MakeTempOptions.suffix} respectively.
+ * 
+ * Multiple programs calling this function simultaneously will create different files. It is the caller's responsibility to remove the file when no longer needed.
+ * 
+ * `TEMP` directory is emptied at the beginning and end of each job, files will not be removed if the runner's user account does not have permission to delete them.
+ * 
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - `RUNNER_TEMP`
+ * >   - File System - Read (`read`)
+ * >     - *Resources*
+ * >   - File System - Write (`write`)
+ * >     - *Resources*
+ * > - NodeJS (>= v20.9.0) 🧪
+ * >   - File System - Read (`fs-read`)
+ * >     - *Resources*
+ * >   - File System - Write (`fs-write`)
+ * >     - *Resources*
+ * @returns {string} Absolute path of the new temporary file in the `TEMP` directory.
+ */
+export function makeRunnerTempFile(options: Omit<Deno.MakeTempOptions, "dir"> = {}): string {
+	return Deno.makeTempFileSync({
+		...options,
+		dir: getRunnerTempPath()
+	});
+}
+export {
+	makeRunnerTempFile as createRunnerTempFile
+};

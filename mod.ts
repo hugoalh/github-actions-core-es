@@ -85,6 +85,10 @@ export {
 	removeProblemMatcher
 } from "./problem_matcher.ts";
 export {
+	clearRunnerTemp,
+	createRunnerTempDir,
+	createRunnerTempDirectory,
+	createRunnerTempFile,
 	getRunnerArch,
 	getRunnerArchitecture,
 	getRunnerDebugStatus,
@@ -95,6 +99,9 @@ export {
 	getRunnerWorkspacePath,
 	isInRunner,
 	isRunnerDebug,
+	makeRunnerTempDir,
+	makeRunnerTempDirectory,
+	makeRunnerTempFile,
 	runnerArchitectures,
 	runnerOSes,
 	validateInRunner,
