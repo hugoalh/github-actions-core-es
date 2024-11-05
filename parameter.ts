@@ -8,11 +8,15 @@ import {
 } from "https://raw.githubusercontent.com/hugoalh/is-json-es/v1.0.4/mod.ts";
 import { isStringSingleLine } from "https://raw.githubusercontent.com/hugoalh/is-string-singleline-es/v1.0.4/mod.ts";
 import {
+	stringifyInput,
+	type KeyValueLike,
+	type StringizableType
+} from "./_share.ts";
+import {
 	appendFileMapCommand,
 	clearFileCommand,
 	optimizeFileCommand
 } from "./command/file.ts";
-import type { KeyValueLike } from "./common.ts";
 export type {
 	JSONArray,
 	JSONObject,
@@ -1081,21 +1085,6 @@ export function optimizeOutput(): void {
 export function optimizeState(): void {
 	optimizeFileCommand("GITHUB_STATE");
 }
-export type GitHubActionsSetParameterValueType = bigint | boolean | number | string | JSONArray | JSONObject | JSONPrimitive | JSONValue;
-function stringifyParameterValue(value: GitHubActionsSetParameterValueType): string {
-	switch (typeof value) {
-		case "bigint":
-			return String(value);
-		case "boolean":
-		case "number":
-		case "object":
-			return JSON.stringify(value);
-		case "string":
-			return value;
-		default:
-			throw new Error(`\`${value}\` is not a valid GitHub Actions parameter value type!`);
-	}
-}
 /**
  * Set an output.
  * 
@@ -1114,10 +1103,10 @@ function stringifyParameterValue(value: GitHubActionsSetParameterValueType): str
  * >   - File System - Write (`fs-write`)
  * >     - *Resources*
  * @param {string} key Key of the output.
- * @param {GitHubActionsSetParameterValueType} value Value of the output.
+ * @param {StringizableType} value Value of the output.
  * @returns {void}
  */
-export function setOutput(key: string, value: GitHubActionsSetParameterValueType): void;
+export function setOutput(key: string, value: StringizableType): void;
 /**
  * Set the outputs.
  * 
@@ -1135,23 +1124,23 @@ export function setOutput(key: string, value: GitHubActionsSetParameterValueType
  * >     - *Resources*
  * >   - File System - Write (`fs-write`)
  * >     - *Resources*
- * @param {KeyValueLike<GitHubActionsSetParameterValueType>} pairs Pairs of the output.
+ * @param {KeyValueLike<StringizableType>} pairs Pairs of the output.
  * @returns {void}
  */
-export function setOutput(pairs: KeyValueLike<GitHubActionsSetParameterValueType>): void;
-export function setOutput(param0: string | KeyValueLike<GitHubActionsSetParameterValueType>, param1?: GitHubActionsSetParameterValueType): void {
+export function setOutput(pairs: KeyValueLike<StringizableType>): void;
+export function setOutput(param0: string | KeyValueLike<StringizableType>, param1?: StringizableType): void {
 	const pairs: Map<string, string> = new Map<string, string>();
 	if (typeof param0 === "string") {
 		if (!isStringSingleLine(param0)) {
 			throw new SyntaxError(`\`${param0}\` is not a valid GitHub Actions output key!`);
 		}
-		pairs.set(param0, stringifyParameterValue(param1!));
+		pairs.set(param0, stringifyInput(param1!));
 	} else {
 		for (const [key, value] of ((param0 instanceof Map) ? param0.entries() : Object.entries(param0))) {
 			if (!isStringSingleLine(key)) {
 				throw new SyntaxError(`\`${key}\` is not a valid GitHub Actions output key!`);
 			}
-			pairs.set(key, stringifyParameterValue(value));
+			pairs.set(key, stringifyInput(value));
 		}
 	}
 	if (pairs.size > 0) {
@@ -1176,10 +1165,10 @@ export function setOutput(param0: string | KeyValueLike<GitHubActionsSetParamete
  * >   - File System - Write (`fs-write`)
  * >     - *Resources*
  * @param {string} key Key of the state.
- * @param {GitHubActionsSetParameterValueType} value Value of the state.
+ * @param {StringizableType} value Value of the state.
  * @returns {void}
  */
-export function setState(key: string, value: GitHubActionsSetParameterValueType): void;
+export function setState(key: string, value: StringizableType): void;
 /**
  * Set the states.
  * 
@@ -1197,23 +1186,23 @@ export function setState(key: string, value: GitHubActionsSetParameterValueType)
  * >     - *Resources*
  * >   - File System - Write (`fs-write`)
  * >     - *Resources*
- * @param {KeyValueLike<GitHubActionsSetParameterValueType>} pairs Pairs of the state.
+ * @param {KeyValueLike<StringizableType>} pairs Pairs of the state.
  * @returns {void}
  */
-export function setState(pairs: KeyValueLike<GitHubActionsSetParameterValueType>): void;
-export function setState(param0: string | KeyValueLike<GitHubActionsSetParameterValueType>, param1?: GitHubActionsSetParameterValueType): void {
+export function setState(pairs: KeyValueLike<StringizableType>): void;
+export function setState(param0: string | KeyValueLike<StringizableType>, param1?: StringizableType): void {
 	const pairs: Map<string, string> = new Map<string, string>();
 	if (typeof param0 === "string") {
 		if (!isStringSingleLine(param0)) {
 			throw new SyntaxError(`\`${param0}\` is not a valid GitHub Actions state key!`);
 		}
-		pairs.set(param0, stringifyParameterValue(param1!));
+		pairs.set(param0, stringifyInput(param1!));
 	} else {
 		for (const [key, value] of ((param0 instanceof Map) ? param0.entries() : Object.entries(param0))) {
 			if (!isStringSingleLine(key)) {
 				throw new SyntaxError(`\`${key}\` is not a valid GitHub Actions state key!`);
 			}
-			pairs.set(key, stringifyParameterValue(value));
+			pairs.set(key, stringifyInput(value));
 		}
 	}
 	if (pairs.size > 0) {

@@ -1,8 +1,8 @@
-import { isAbsolute as isPathAbsolute } from "jsr:@std/path@^1.0.6/is-absolute";
 import { EOL } from "jsr:@std/fs@^1.0.5/eol";
+import { isAbsolute as isPathAbsolute } from "jsr:@std/path@^1.0.6/is-absolute";
 import { getEnv } from "https://raw.githubusercontent.com/hugoalh/env-es/v0.2.0/env.ts";
 import { isStringSingleLine } from "https://raw.githubusercontent.com/hugoalh/is-string-singleline-es/v1.0.4/mod.ts";
-import type { KeyValueLike } from "../common.ts";
+import type { KeyValueLike } from "../_share.ts";
 /**
  * GitHub Actions file command type.
  */

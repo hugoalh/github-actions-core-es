@@ -5,7 +5,6 @@
 	"exports": {
 		"./command/file": "./command/file.ts",
 		"./command/stdout": "./command/stdout.ts",
-		"./common": "./common.ts",
 		"./env": "./environment_variable.ts",
 		"./environment-variable": "./environment_variable.ts",
 		"./log": "./log.ts",

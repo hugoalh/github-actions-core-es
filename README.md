@@ -89,16 +89,16 @@ This is a partial refactor of [the official toolkit][official-toolkit], not all 
   function getState(key: string, options: GitHubActionsGetParameterOptions & { fallback: false; require?: false; }): string | undefined;
   ```
 - ```ts
-  function setEnvironmentVariable(key: string, value: string, options?: GitHubActionsSetEnvironmentVariableOptions): void;
-  function setEnvironmentVariable(pairs: KeyValueLike, options?: GitHubActionsSetEnvironmentVariableOptions): void;
+  function setEnvironmentVariable(key: string, value: StringizableType, options?: GitHubActionsSetEnvironmentVariableOptions): void;
+  function setEnvironmentVariable(pairs: KeyValueLike<StringizableType>, options?: GitHubActionsSetEnvironmentVariableOptions): void;
   ```
 - ```ts
-  function setOutput(key: string, value: GitHubActionsSetParameterValueType): void;
-  function setOutput(pairs: KeyValueLike<GitHubActionsSetParameterValueType>): void;
+  function setOutput(key: string, value: StringizableType): void;
+  function setOutput(pairs: KeyValueLike<StringizableType>): void;
   ```
 - ```ts
-  function setState(key: string, value: GitHubActionsSetParameterValueType): void;
-  function setState(pairs: KeyValueLike<GitHubActionsSetParameterValueType>): void;
+  function setState(key: string, value: StringizableType): void;
+  function setState(pairs: KeyValueLike<StringizableType>): void;
   ```
 - ```ts
   function writeDebug(...data: string[]): void;

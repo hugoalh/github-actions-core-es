@@ -13,7 +13,10 @@ export {
 	enableProcessStdOutCommand,
 	GitHubActionsStdOutCommand
 } from "./command/stdout.ts";
-export { type KeyValueLike } from "./common.ts";
+export type {
+	KeyValueLike,
+	StringizableType
+} from "./_share.ts";
 export {
 	addPATH,
 	clearEnvironmentVariableSubsequent,
@@ -74,7 +77,6 @@ export {
 	setOutput,
 	setState,
 	type GitHubActionsGetParameterOptions,
-	type GitHubActionsSetParameterValueType,
 	type JSONArray,
 	type JSONObject,
 	type JSONPrimitive,

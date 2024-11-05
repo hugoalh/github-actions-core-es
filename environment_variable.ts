@@ -3,12 +3,16 @@ import { setEnv } from "https://raw.githubusercontent.com/hugoalh/env-es/v0.2.0/
 import { addEnvPath } from "https://raw.githubusercontent.com/hugoalh/env-es/v0.2.0/path.ts";
 import { isStringSingleLine } from "https://raw.githubusercontent.com/hugoalh/is-string-singleline-es/v1.0.4/mod.ts";
 import {
+	stringifyInput,
+	type KeyValueLike,
+	type StringizableType
+} from "./_share.ts";
+import {
 	appendFileLineCommand,
 	appendFileMapCommand,
 	clearFileCommand,
 	optimizeFileCommand
 } from "./command/file.ts";
-import type { KeyValueLike } from "./common.ts";
 /**
  * Add value to the `PATH`.
  * 
@@ -213,11 +217,11 @@ export interface GitHubActionsSetEnvironmentVariableOptions {
  * >   - File System - Write (`fs-write`)
  * >     - *Resources*
  * @param {string} key Key of the environment variable.
- * @param {string} value Value of the environment variable.
+ * @param {StringizableType} value Value of the environment variable.
  * @param {GitHubActionsSetEnvironmentVariableOptions} [options={}] Options.
  * @returns {void}
  */
-export function setEnvironmentVariable(key: string, value: string, options?: GitHubActionsSetEnvironmentVariableOptions): void;
+export function setEnvironmentVariable(key: string, value: StringizableType, options?: GitHubActionsSetEnvironmentVariableOptions): void;
 /**
  * Set the environment variables.
  * 
@@ -236,12 +240,12 @@ export function setEnvironmentVariable(key: string, value: string, options?: Git
  * >     - *Resources*
  * >   - File System - Write (`fs-write`)
  * >     - *Resources*
- * @param {KeyValueLike} pairs Pairs of the environment variable.
+ * @param {KeyValueLike<StringizableType>} pairs Pairs of the environment variable.
  * @param {GitHubActionsSetEnvironmentVariableOptions} [options={}] Options.
  * @returns {void}
  */
-export function setEnvironmentVariable(pairs: KeyValueLike, options?: GitHubActionsSetEnvironmentVariableOptions): void;
-export function setEnvironmentVariable(param0: string | KeyValueLike, param1?: string | GitHubActionsSetEnvironmentVariableOptions, param2?: GitHubActionsSetEnvironmentVariableOptions): void {
+export function setEnvironmentVariable(pairs: KeyValueLike<StringizableType>, options?: GitHubActionsSetEnvironmentVariableOptions): void;
+export function setEnvironmentVariable(param0: string | KeyValueLike<StringizableType>, param1?: StringizableType | GitHubActionsSetEnvironmentVariableOptions, param2?: GitHubActionsSetEnvironmentVariableOptions): void {
 	const {
 		scopeCurrent = true,
 		scopeSubsequent = true
@@ -249,11 +253,11 @@ export function setEnvironmentVariable(param0: string | KeyValueLike, param1?: s
 	const pairs: Map<string, string> = new Map<string, string>();
 	if (typeof param0 === "string") {
 		validateEnvironmentVariableKey(param0);
-		pairs.set(param0, param1 as string);
+		pairs.set(param0, stringifyInput(param1 as StringizableType));
 	} else {
 		for (const [key, value] of ((param0 instanceof Map) ? param0.entries() : Object.entries(param0))) {
 			validateEnvironmentVariableKey(key);
-			pairs.set(key, value);
+			pairs.set(key, stringifyInput(value));
 		}
 	}
 	if (pairs.size > 0) {
