@@ -321,7 +321,10 @@ export function isInRunner(options: GitHubActionsRunnerTestOptions = {}): boolea
 	];
 	return !(envs.filter(({ need }: GitHubActionsRunnerDefaultEnvironmentVariableMeta): boolean => {
 		return (need ?? true);
-	}).map(({ key, value: valueExpected }: GitHubActionsRunnerDefaultEnvironmentVariableMeta): boolean => {
+	}).map(({
+		key,
+		value: valueExpected
+	}: GitHubActionsRunnerDefaultEnvironmentVariableMeta): boolean => {
 		const valueCurrent: string | undefined = getEnv(key);
 		if (
 			typeof valueCurrent === "undefined" ||
