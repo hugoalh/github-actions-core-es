@@ -93,12 +93,12 @@ This is a partial refactor of [the official toolkit][official-toolkit], not all 
   function setEnvironmentVariable(pairs: KeyValueLike, options?: GitHubActionsSetEnvironmentVariableOptions): void;
   ```
 - ```ts
-  function setOutput(key: string, value: string): void;
-  function setOutput(pairs: KeyValueLike): void;
+  function setOutput(key: string, value: GitHubActionsSetParameterValueType): void;
+  function setOutput(pairs: KeyValueLike<GitHubActionsSetParameterValueType>): void;
   ```
 - ```ts
-  function setState(key: string, value: string): void;
-  function setState(pairs: KeyValueLike): void;
+  function setState(key: string, value: GitHubActionsSetParameterValueType): void;
+  function setState(pairs: KeyValueLike<GitHubActionsSetParameterValueType>): void;
   ```
 - ```ts
   function writeDebug(...data: string[]): void;
