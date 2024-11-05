@@ -52,3 +52,28 @@ export function appendSummary(data: string | Uint8Array): void {
 export function clearSummary(): void {
 	clearFileCommand("GITHUB_STEP_SUMMARY");
 }
+/**
+ * Get the size of the summary which set in the current step.
+ * 
+ * > **🛡️ Require Runtime Permissions**
+ * > 
+ * > - Deno
+ * >   - Environment Variable (`env`)
+ * >     - `GITHUB_STEP_SUMMARY`
+ * >   - File System - Read (`read`)
+ * >     - *Resources*
+ * > - NodeJS (>= v20.9.0) 🧪
+ * >   - File System - Read (`fs-read`)
+ * >     - *Resources*
+ * @returns {number} Size of the summary, in bytes.
+ */
+export function getSummarySize(): number {
+	try {
+		return Deno.statSync(getFileCommandPath("GITHUB_STEP_SUMMARY")).size;
+	} catch (error) {
+		if (error instanceof Deno.errors.NotFound) {
+			return 0;
+		}
+		throw error;
+	}
+}

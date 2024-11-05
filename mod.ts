@@ -103,7 +103,8 @@ export {
 } from "./runner.ts";
 export {
 	appendSummary,
-	clearSummary
+	clearSummary,
+	getSummarySize
 } from "./summary.ts";
 export {
 	eventsName,
