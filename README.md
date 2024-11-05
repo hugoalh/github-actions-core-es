@@ -110,7 +110,7 @@ This is a partial refactor of [the official toolkit][official-toolkit], not all 
   function writeNotice(data: string, properties: GitHubActionsAnnotationProperties = {}): void;
   ```
 - ```ts
-  function writeWarn(data: string, properties: GitHubActionsAnnotationProperties = {}): void;
+  function writeWarning(data: string, properties: GitHubActionsAnnotationProperties = {}): void;
   ```
 
 > [!NOTE]

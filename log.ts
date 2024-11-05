@@ -198,14 +198,14 @@ export {
 	writeNotice as writeNote
 };
 /**
- * Print a warn annotation to the log.
+ * Print a warning annotation to the log.
  * @param {string} data Data of the annotation.
  * @param {GitHubActionsAnnotationProperties} [properties={}] Properties of the annotation.
  * @returns {void}
  */
-export function writeWarn(data: string, properties: GitHubActionsAnnotationProperties = {}): void {
+export function writeWarning(data: string, properties: GitHubActionsAnnotationProperties = {}): void {
 	return writeAnnotation("warning", data, properties);
 }
 export {
-	writeWarn as writeWarning
+	writeWarning as writeWarn
 };
