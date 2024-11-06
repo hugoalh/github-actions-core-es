@@ -139,14 +139,16 @@ export function getRunnerTempPath(): string {
 	return value;
 }
 /**
- * Get the path of the tool cache of the GitHub hosted GitHub Actions runner.
+ * Get the absolute path of the tool cache directory of the GitHub hosted GitHub Actions runner.
+ * 
+ * For self hosted GitHub Actions runner, the tool cache directory may not exist and will return `undefined`.
  * 
  * > **🛡️ Require Runtime Permissions**
  * > 
  * > - Deno
  * >   - Environment Variable (`env`)
  * >     - `RUNNER_TOOL_CACHE`
- * @returns {string | undefined} Path of the tool cache of the GitHub hosted GitHub Actions runner.
+ * @returns {string | undefined} Absolute path of the tool cache directory of the GitHub hosted GitHub Actions runner.
  * @example
  * ```ts
  * getRunnerToolCachePath();
@@ -161,14 +163,14 @@ export function getRunnerToolCachePath(): string | undefined {
 	return value;
 }
 /**
- * Get the path of the workspace of the GitHub Actions runner; The default working directory on the runner for steps.
+ * Get the absolute path of the workspace of the GitHub Actions runner; The default working directory on the runner for steps.
  * 
  * > **🛡️ Require Runtime Permissions**
  * > 
  * > - Deno
  * >   - Environment Variable (`env`)
  * >     - `GITHUB_WORKSPACE`
- * @returns {string} Path of the workspace of the GitHub Actions runner.
+ * @returns {string} Absolute path of the workspace of the GitHub Actions runner.
  * @example
  * ```ts
  * getRunnerWorkspacePath();
