@@ -1,5 +1,5 @@
-import { isAbsolute as isPathAbsolute } from "jsr:@std/path@^1.0.6/is-absolute";
-import { join as joinPath } from "jsr:@std/path@^1.0.6/join";
+import { isAbsolute as isPathAbsolute } from "jsr:@std/path@^1.0.8/is-absolute";
+import { join as joinPath } from "jsr:@std/path@^1.0.8/join";
 import { getEnv } from "https://raw.githubusercontent.com/hugoalh/env-es/v0.2.0/env.ts";
 export const runnerArchitectures = [
 	"ARM",
