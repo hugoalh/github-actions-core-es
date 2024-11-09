@@ -67,9 +67,6 @@ export function clearOutput(): void {
 export function clearState(): void {
 	clearFileCommand("GITHUB_STATE");
 }
-const regexpBigInt = /^(?:0b1*[01]+|0o[1-7]*[0-7]+|[1-9]*\d|0x[1-9A-Fa-f]*[\dA-Fa-f]+)n?$/;
-const regexpBooleanFalse = /^[Ff]alse$|^FALSE$/;
-const regexpBooleanTrue = /^[Tt]rue$|^TRUE$/;
 export interface GitHubActionsGetParameterOptions {
 	/**
 	 * Whether to return the fallback value instead of `undefined` when the parameter is not required and defined.
@@ -223,9 +220,6 @@ export function getInputBigInt(key: string, options: GitHubActionsGetParameterOp
 		return (fallback ? 0n : undefined);
 	}
 	try {
-		if (!regexpBigInt.test(value)) {
-			throw undefined;
-		}
 		return BigInt(value.replace(/n$/, ""));
 	} catch {
 		throw new SyntaxError(`Input \`${key}\` is not a valid big integer!`);
@@ -285,13 +279,18 @@ export function getInputBoolean(key: string, options: GitHubActionsGetParameterO
 		}
 		return (fallback ? false : undefined);
 	}
-	if (regexpBooleanFalse.test(value)) {
-		return false;
+	switch (value) {
+		case "false":
+		case "False":
+		case "FALSE":
+			return false;
+		case "true":
+		case "True":
+		case "TRUE":
+			return true;
+		default:
+			throw new SyntaxError(`Input \`${key}\` is not a valid boolean!`);
 	}
-	if (regexpBooleanTrue.test(value)) {
-		return true;
-	}
-	throw new SyntaxError(`Input \`${key}\` is not a valid boolean!`);
 }
 /**
  * Get the JSON value of an input.
@@ -686,9 +685,6 @@ export function getStateBigInt(key: string, options: GitHubActionsGetParameterOp
 		return (fallback ? 0n : undefined);
 	}
 	try {
-		if (!regexpBigInt.test(value)) {
-			throw undefined;
-		}
 		return BigInt(value.replace(/n$/, ""));
 	} catch {
 		throw new SyntaxError(`State \`${key}\` is not a valid big integer!`);
@@ -748,13 +744,18 @@ export function getStateBoolean(key: string, options: GitHubActionsGetParameterO
 		}
 		return (fallback ? false : undefined);
 	}
-	if (regexpBooleanFalse.test(value)) {
-		return false;
+	switch (value) {
+		case "false":
+		case "False":
+		case "FALSE":
+			return false;
+		case "true":
+		case "True":
+		case "TRUE":
+			return true;
+		default:
+			throw new SyntaxError(`State \`${key}\` is not a valid boolean!`);
 	}
-	if (regexpBooleanTrue.test(value)) {
-		return true;
-	}
-	throw new SyntaxError(`State \`${key}\` is not a valid boolean!`);
 }
 /**
  * Get the JSON value of a state.
