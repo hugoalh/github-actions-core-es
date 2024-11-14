@@ -103,7 +103,7 @@ export interface GitHubActionsAnnotationProperties {
 export function writeAnnotation(type: GitHubActionsAnnotationType | keyof typeof GitHubActionsAnnotationType, data: string, properties: GitHubActionsAnnotationProperties = {}): void {
 	const typeFmt: GitHubActionsAnnotationType | undefined = GitHubActionsAnnotationType[type];
 	if (typeof typeFmt === "undefined") {
-		throw new RangeError(`\`${type}\` is not a valid GitHub Actions annotation type! Only accept these values: ${Array.from<string>(new Set(Object.keys(GitHubActionsAnnotationType).sort()).values()).join(", ")}`);
+		throw new RangeError(`\`${type}\` is not a valid GitHub Actions annotation type! Only accept these values: ${Array.from(new Set<string>(Object.keys(GitHubActionsAnnotationType)).values()).sort().join(", ")}`);
 	}
 	const {
 		column,

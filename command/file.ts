@@ -298,6 +298,6 @@ export function optimizeFileCommand(command: string, type: GitHubActionsFileComm
 			return Deno.writeTextFileSync(path, (content.size > 0) ? `${Array.from(content.values()).join(EOL)}${EOL}` : "");
 		}
 		default:
-			throw new RangeError(`\`${type}\` is not a valid GitHub Actions file command type! Only accept these values: ${Object.keys(GitHubActionsFileCommandType).join(", ")}`);
+			throw new RangeError(`\`${type}\` is not a valid GitHub Actions file command type! Only accept these values: ${Array.from(new Set<string>(Object.keys(GitHubActionsFileCommandType)).values()).sort().join(", ")}`);
 	}
 };
