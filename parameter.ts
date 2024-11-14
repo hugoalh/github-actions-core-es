@@ -396,11 +396,14 @@ export function getInputJSONArray(key: string, options: GitHubActionsGetParamete
 		fallback = true,
 		require = false
 	}: GitHubActionsGetParameterOptions = options;
-	const value: JSONValue = getInputJSON(key, {
-		//@ts-ignore All of the overloads are fulfilled.
-		require
+	const value: JSONValue | undefined = getInputJSON(key, {
+		fallback: false,
+		require: false
 	});
-	if (value === null) {
+	if (typeof value === "undefined") {
+		if (require) {
+			throw new ReferenceError(`Input \`${key}\` is not defined!`);
+		}
 		return (fallback ? [] : undefined);
 	}
 	if (!Array.isArray(value)) {
@@ -452,14 +455,17 @@ export function getInputJSONObject(key: string, options: GitHubActionsGetParamet
 		fallback = true,
 		require = false
 	}: GitHubActionsGetParameterOptions = options;
-	const value: JSONValue = getInputJSON(key, {
-		//@ts-ignore All of the overloads are fulfilled.
-		require
+	const value: JSONValue | undefined = getInputJSON(key, {
+		fallback: false,
+		require: false
 	});
-	if (value === null) {
+	if (typeof value === "undefined") {
+		if (require) {
+			throw new ReferenceError(`Input \`${key}\` is not defined!`);
+		}
 		return (fallback ? {} : undefined);
 	}
-	if (!(typeof value === "object" && !Array.isArray(value))) {
+	if (!(typeof value === "object" && !Array.isArray(value) && value !== null)) {
 		throw new SyntaxError(`Input \`${key}\` is not a valid JSON object!`);
 	}
 	return value;
@@ -508,11 +514,14 @@ export function getInputJSONPrimitive(key: string, options: GitHubActionsGetPara
 		fallback = true,
 		require = false
 	}: GitHubActionsGetParameterOptions = options;
-	const value: JSONValue = getInputJSON(key, {
-		//@ts-ignore All of the overloads are fulfilled.
-		require
+	const value: JSONValue | undefined = getInputJSON(key, {
+		fallback: false,
+		require: false
 	});
-	if (value === null) {
+	if (typeof value === "undefined") {
+		if (require) {
+			throw new ReferenceError(`Input \`${key}\` is not defined!`);
+		}
 		return (fallback ? null : undefined);
 	}
 	if (!isJSONPrimitive(value)) {
@@ -861,11 +870,14 @@ export function getStateJSONArray(key: string, options: GitHubActionsGetParamete
 		fallback = true,
 		require = false
 	}: GitHubActionsGetParameterOptions = options;
-	const value: JSONValue = getStateJSON(key, {
-		//@ts-ignore All of the overloads are fulfilled.
-		require
+	const value: JSONValue | undefined = getStateJSON(key, {
+		fallback: false,
+		require: false
 	});
-	if (value === null) {
+	if (typeof value === "undefined") {
+		if (require) {
+			throw new ReferenceError(`State \`${key}\` is not defined!`);
+		}
 		return (fallback ? [] : undefined);
 	}
 	if (!Array.isArray(value)) {
@@ -917,14 +929,17 @@ export function getStateJSONObject(key: string, options: GitHubActionsGetParamet
 		fallback = true,
 		require = false
 	}: GitHubActionsGetParameterOptions = options;
-	const value: JSONValue = getStateJSON(key, {
-		//@ts-ignore All of the overloads are fulfilled.
-		require
+	const value: JSONValue | undefined = getStateJSON(key, {
+		fallback: false,
+		require: false
 	});
-	if (value === null) {
+	if (typeof value === "undefined") {
+		if (require) {
+			throw new ReferenceError(`State \`${key}\` is not defined!`);
+		}
 		return (fallback ? {} : undefined);
 	}
-	if (!(typeof value === "object" && !Array.isArray(value))) {
+	if (!(typeof value === "object" && !Array.isArray(value) && value !== null)) {
 		throw new SyntaxError(`State \`${key}\` is not a valid JSON object!`);
 	}
 	return value;
@@ -973,11 +988,14 @@ export function getStateJSONPrimitive(key: string, options: GitHubActionsGetPara
 		fallback = true,
 		require = false
 	}: GitHubActionsGetParameterOptions = options;
-	const value: JSONValue = getStateJSON(key, {
-		//@ts-ignore All of the overloads are fulfilled.
-		require
+	const value: JSONValue | undefined = getStateJSON(key, {
+		fallback: false,
+		require: false
 	});
-	if (value === null) {
+	if (typeof value === "undefined") {
+		if (require) {
+			throw new ReferenceError(`State \`${key}\` is not defined!`);
+		}
 		return (fallback ? null : undefined);
 	}
 	if (!isJSONPrimitive(value)) {
