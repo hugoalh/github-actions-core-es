@@ -9,9 +9,12 @@ import {
 	getRunnerWorkspacePath,
 	validateInRunner
 } from "./runner.ts";
-const isInGitHubActionsRunner = Deno.env.get("GITHUB_ACTIONS") === "true";
+const ignore = !(
+	Deno.args.includes("--force") ||
+	Deno.env.get("GITHUB_ACTIONS") === "true"
+);
 Deno.test("Architecture", {
-	ignore: !isInGitHubActionsRunner,
+	ignore,
 	permissions: {
 		env: ["RUNNER_ARCH"]
 	}
@@ -19,7 +22,7 @@ Deno.test("Architecture", {
 	console.log(getRunnerArchitecture());
 });
 Deno.test("Debug Status", {
-	ignore: !isInGitHubActionsRunner,
+	ignore,
 	permissions: {
 		env: ["RUNNER_DEBUG"]
 	}
@@ -27,7 +30,7 @@ Deno.test("Debug Status", {
 	console.log(getRunnerDebugStatus());
 });
 Deno.test("Name", {
-	ignore: !isInGitHubActionsRunner,
+	ignore,
 	permissions: {
 		env: ["RUNNER_NAME"]
 	}
@@ -35,7 +38,7 @@ Deno.test("Name", {
 	console.log(getRunnerName());
 });
 Deno.test("OS", {
-	ignore: !isInGitHubActionsRunner,
+	ignore,
 	permissions: {
 		env: ["RUNNER_OS"]
 	}
@@ -49,7 +52,7 @@ Deno.test("OS", {
 	);
 });
 Deno.test("TEMP Path", {
-	ignore: !isInGitHubActionsRunner,
+	ignore,
 	permissions: {
 		env: ["RUNNER_TEMP"]
 	}
@@ -57,7 +60,7 @@ Deno.test("TEMP Path", {
 	console.log(getRunnerTempPath());
 });
 Deno.test("Tool Cache Path", {
-	ignore: !isInGitHubActionsRunner,
+	ignore,
 	permissions: {
 		env: ["RUNNER_TOOL_CACHE"]
 	}
@@ -65,7 +68,7 @@ Deno.test("Tool Cache Path", {
 	console.log(getRunnerToolCachePath());
 });
 Deno.test("Workspace Path", {
-	ignore: !isInGitHubActionsRunner,
+	ignore,
 	permissions: {
 		env: ["GITHUB_WORKSPACE"]
 	}
@@ -73,7 +76,7 @@ Deno.test("Workspace Path", {
 	console.log(getRunnerWorkspacePath());
 });
 Deno.test("Validate In Runner", {
-	ignore: !isInGitHubActionsRunner,
+	ignore,
 	permissions: {
 		env: true
 	}
