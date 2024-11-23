@@ -14,11 +14,10 @@ export type GitHubActionsRunnerArchitecture = typeof runnerArchitectures[number]
 /**
  * Get the architecture of the GitHub Actions runner.
  * 
- * > **🛡️ Require Runtime Permissions**
+ * > **🛡️ Runtime Permissions**
  * > 
- * > - Deno
- * >   - Environment Variable (`env`)
- * >     - `RUNNER_ARCH`
+ * > - Environment Variable \[Deno: `env`\]
+ * >   - `RUNNER_ARCH`
  * @returns {GitHubActionsRunnerArchitecture} Architecture of the GitHub Actions runner.
  * @example
  * ```ts
@@ -42,11 +41,10 @@ export {
 /**
  * Get the debug status of the GitHub Actions runner.
  * 
- * > **🛡️ Require Runtime Permissions**
+ * > **🛡️ Runtime Permissions**
  * > 
- * > - Deno
- * >   - Environment Variable (`env`)
- * >     - `RUNNER_DEBUG`
+ * > - Environment Variable \[Deno: `env`\]
+ * >   - `RUNNER_DEBUG`
  * @returns {boolean} Debug status of the GitHub Actions runner.
  */
 export function getRunnerDebugStatus(): boolean {
@@ -58,11 +56,10 @@ export {
 /**
  * Get the name of the GitHub Actions runner.
  * 
- * > **🛡️ Require Runtime Permissions**
+ * > **🛡️ Runtime Permissions**
  * > 
- * > - Deno
- * >   - Environment Variable (`env`)
- * >     - `RUNNER_NAME`
+ * > - Environment Variable \[Deno: `env`\]
+ * >   - `RUNNER_NAME`
  * @returns {string} Name of the GitHub Actions runner.
  * @example
  * ```ts
@@ -89,11 +86,10 @@ export type GitHubActionsRunnerOS = typeof runnerOSes[number];
 /**
  * Get the OS of the GitHub Actions runner.
  * 
- * > **🛡️ Require Runtime Permissions**
+ * > **🛡️ Runtime Permissions**
  * > 
- * > - Deno
- * >   - Environment Variable (`env`)
- * >     - `RUNNER_OS`
+ * > - Environment Variable \[Deno: `env`\]
+ * >   - `RUNNER_OS`
  * @returns {GitHubActionsRunnerOS} OS of the GitHub Actions runner.
  * @example
  * ```ts
@@ -116,11 +112,10 @@ export function getRunnerOS(): GitHubActionsRunnerOS {
  * 
  * `TEMP` directory is emptied at the beginning and end of each job, files will not be removed if the runner's user account does not have permission to delete them.
  * 
- * > **🛡️ Require Runtime Permissions**
+ * > **🛡️ Runtime Permissions**
  * > 
- * > - Deno
- * >   - Environment Variable (`env`)
- * >     - `RUNNER_TEMP`
+ * > - Environment Variable \[Deno: `env`\]
+ * >   - `RUNNER_TEMP`
  * @returns {string} Absolute path of the `TEMP` directory of the GitHub Actions runner.
  * @example
  * ```ts
@@ -143,11 +138,10 @@ export function getRunnerTempPath(): string {
  * 
  * For self hosted GitHub Actions runner, the tool cache directory may not exist and will return `undefined`.
  * 
- * > **🛡️ Require Runtime Permissions**
+ * > **🛡️ Runtime Permissions**
  * > 
- * > - Deno
- * >   - Environment Variable (`env`)
- * >     - `RUNNER_TOOL_CACHE`
+ * > - Environment Variable \[Deno: `env`\]
+ * >   - `RUNNER_TOOL_CACHE`
  * @returns {string | undefined} Absolute path of the tool cache directory of the GitHub hosted GitHub Actions runner.
  * @example
  * ```ts
@@ -165,11 +159,10 @@ export function getRunnerToolCachePath(): string | undefined {
 /**
  * Get the absolute path of the workspace of the GitHub Actions runner; The default working directory on the runner for steps.
  * 
- * > **🛡️ Require Runtime Permissions**
+ * > **🛡️ Runtime Permissions**
  * > 
- * > - Deno
- * >   - Environment Variable (`env`)
- * >     - `GITHUB_WORKSPACE`
+ * > - Environment Variable \[Deno: `env`\]
+ * >   - `GITHUB_WORKSPACE`
  * @returns {string} Absolute path of the workspace of the GitHub Actions runner.
  * @example
  * ```ts
@@ -256,52 +249,51 @@ export interface GitHubActionsRunnerTestOptions {
  * 
  * If this test is mandatory, use function {@linkcode validateInRunner} instead.
  * 
- * > **🛡️ Require Runtime Permissions**
+ * > **🛡️ Runtime Permissions**
  * > 
- * > - Deno
- * >   - Environment Variable (`env`)
- * >     - `ACTIONS_CACHE_URL`
- * >     - `ACTIONS_ID_TOKEN_REQUEST_TOKEN`
- * >     - `ACTIONS_ID_TOKEN_REQUEST_URL`
- * >     - `ACTIONS_RESULTS_URL`
- * >     - `ACTIONS_RUNTIME_TOKEN`
- * >     - `ACTIONS_RUNTIME_URL`
- * >     - `CI`
- * >     - `GITHUB_ACTION`
- * >     - `GITHUB_ACTIONS`
- * >     - `GITHUB_ACTOR`
- * >     - `GITHUB_ACTOR_ID`
- * >     - `GITHUB_API_URL`
- * >     - `GITHUB_ENV`
- * >     - `GITHUB_EVENT_NAME`
- * >     - `GITHUB_EVENT_PATH`
- * >     - `GITHUB_GRAPHQL_URL`
- * >     - `GITHUB_JOB`
- * >     - `GITHUB_OUTPUT`
- * >     - `GITHUB_PATH`
- * >     - `GITHUB_REF_NAME`
- * >     - `GITHUB_REF_TYPE`
- * >     - `GITHUB_REPOSITORY`
- * >     - `GITHUB_REPOSITORY_ID`
- * >     - `GITHUB_REPOSITORY_OWNER`
- * >     - `GITHUB_REPOSITORY_OWNER_ID`
- * >     - `GITHUB_RETENTION_DAYS`
- * >     - `GITHUB_RUN_ATTEMPT`
- * >     - `GITHUB_RUN_ID`
- * >     - `GITHUB_RUN_NUMBER`
- * >     - `GITHUB_SERVER_URL`
- * >     - `GITHUB_SHA`
- * >     - `GITHUB_STATE`
- * >     - `GITHUB_STEP_SUMMARY`
- * >     - `GITHUB_WORKFLOW`
- * >     - `GITHUB_WORKFLOW_REF`
- * >     - `GITHUB_WORKFLOW_SHA`
- * >     - `GITHUB_WORKSPACE`
- * >     - `RUNNER_ARCH`
- * >     - `RUNNER_NAME`
- * >     - `RUNNER_OS`
- * >     - `RUNNER_TEMP`
- * >     - `RUNNER_TOOL_CACHE`
+ * > - Environment Variable \[Deno: `env`\]
+ * >   - `ACTIONS_CACHE_URL` (Optional)
+ * >   - `ACTIONS_ID_TOKEN_REQUEST_TOKEN` (Optional)
+ * >   - `ACTIONS_ID_TOKEN_REQUEST_URL` (Optional)
+ * >   - `ACTIONS_RESULTS_URL` (Optional)
+ * >   - `ACTIONS_RUNTIME_TOKEN` (Optional)
+ * >   - `ACTIONS_RUNTIME_URL` (Optional)
+ * >   - `CI`
+ * >   - `GITHUB_ACTION`
+ * >   - `GITHUB_ACTIONS`
+ * >   - `GITHUB_ACTOR`
+ * >   - `GITHUB_ACTOR_ID`
+ * >   - `GITHUB_API_URL`
+ * >   - `GITHUB_ENV`
+ * >   - `GITHUB_EVENT_NAME`
+ * >   - `GITHUB_EVENT_PATH`
+ * >   - `GITHUB_GRAPHQL_URL`
+ * >   - `GITHUB_JOB`
+ * >   - `GITHUB_OUTPUT`
+ * >   - `GITHUB_PATH`
+ * >   - `GITHUB_REF_NAME`
+ * >   - `GITHUB_REF_TYPE`
+ * >   - `GITHUB_REPOSITORY`
+ * >   - `GITHUB_REPOSITORY_ID`
+ * >   - `GITHUB_REPOSITORY_OWNER`
+ * >   - `GITHUB_REPOSITORY_OWNER_ID`
+ * >   - `GITHUB_RETENTION_DAYS`
+ * >   - `GITHUB_RUN_ATTEMPT`
+ * >   - `GITHUB_RUN_ID`
+ * >   - `GITHUB_RUN_NUMBER`
+ * >   - `GITHUB_SERVER_URL`
+ * >   - `GITHUB_SHA`
+ * >   - `GITHUB_STATE`
+ * >   - `GITHUB_STEP_SUMMARY`
+ * >   - `GITHUB_WORKFLOW`
+ * >   - `GITHUB_WORKFLOW_REF`
+ * >   - `GITHUB_WORKFLOW_SHA`
+ * >   - `GITHUB_WORKSPACE`
+ * >   - `RUNNER_ARCH`
+ * >   - `RUNNER_NAME`
+ * >   - `RUNNER_OS`
+ * >   - `RUNNER_TEMP`
+ * >   - `RUNNER_TOOL_CACHE` (Optional)
  * @param {GitHubActionsRunnerTestOptions} [options={}] Options.
  * @returns {boolean} Test result.
  */
@@ -344,52 +336,51 @@ export function isInRunner(options: GitHubActionsRunnerTestOptions = {}): boolea
  * 
  * If this test is optional, use function {@linkcode isInRunner} instead.
  * 
- * > **🛡️ Require Runtime Permissions**
+ * > **🛡️ Runtime Permissions**
  * > 
- * > - Deno
- * >   - Environment Variable (`env`)
- * >     - `ACTIONS_CACHE_URL`
- * >     - `ACTIONS_ID_TOKEN_REQUEST_TOKEN`
- * >     - `ACTIONS_ID_TOKEN_REQUEST_URL`
- * >     - `ACTIONS_RESULTS_URL`
- * >     - `ACTIONS_RUNTIME_TOKEN`
- * >     - `ACTIONS_RUNTIME_URL`
- * >     - `CI`
- * >     - `GITHUB_ACTION`
- * >     - `GITHUB_ACTIONS`
- * >     - `GITHUB_ACTOR`
- * >     - `GITHUB_ACTOR_ID`
- * >     - `GITHUB_API_URL`
- * >     - `GITHUB_ENV`
- * >     - `GITHUB_EVENT_NAME`
- * >     - `GITHUB_EVENT_PATH`
- * >     - `GITHUB_GRAPHQL_URL`
- * >     - `GITHUB_JOB`
- * >     - `GITHUB_OUTPUT`
- * >     - `GITHUB_PATH`
- * >     - `GITHUB_REF_NAME`
- * >     - `GITHUB_REF_TYPE`
- * >     - `GITHUB_REPOSITORY`
- * >     - `GITHUB_REPOSITORY_ID`
- * >     - `GITHUB_REPOSITORY_OWNER`
- * >     - `GITHUB_REPOSITORY_OWNER_ID`
- * >     - `GITHUB_RETENTION_DAYS`
- * >     - `GITHUB_RUN_ATTEMPT`
- * >     - `GITHUB_RUN_ID`
- * >     - `GITHUB_RUN_NUMBER`
- * >     - `GITHUB_SERVER_URL`
- * >     - `GITHUB_SHA`
- * >     - `GITHUB_STATE`
- * >     - `GITHUB_STEP_SUMMARY`
- * >     - `GITHUB_WORKFLOW`
- * >     - `GITHUB_WORKFLOW_REF`
- * >     - `GITHUB_WORKFLOW_SHA`
- * >     - `GITHUB_WORKSPACE`
- * >     - `RUNNER_ARCH`
- * >     - `RUNNER_NAME`
- * >     - `RUNNER_OS`
- * >     - `RUNNER_TEMP`
- * >     - `RUNNER_TOOL_CACHE`
+ * > - Environment Variable \[Deno: `env`\]
+ * >   - `ACTIONS_CACHE_URL` (Optional)
+ * >   - `ACTIONS_ID_TOKEN_REQUEST_TOKEN` (Optional)
+ * >   - `ACTIONS_ID_TOKEN_REQUEST_URL` (Optional)
+ * >   - `ACTIONS_RESULTS_URL` (Optional)
+ * >   - `ACTIONS_RUNTIME_TOKEN` (Optional)
+ * >   - `ACTIONS_RUNTIME_URL` (Optional)
+ * >   - `CI`
+ * >   - `GITHUB_ACTION`
+ * >   - `GITHUB_ACTIONS`
+ * >   - `GITHUB_ACTOR`
+ * >   - `GITHUB_ACTOR_ID`
+ * >   - `GITHUB_API_URL`
+ * >   - `GITHUB_ENV`
+ * >   - `GITHUB_EVENT_NAME`
+ * >   - `GITHUB_EVENT_PATH`
+ * >   - `GITHUB_GRAPHQL_URL`
+ * >   - `GITHUB_JOB`
+ * >   - `GITHUB_OUTPUT`
+ * >   - `GITHUB_PATH`
+ * >   - `GITHUB_REF_NAME`
+ * >   - `GITHUB_REF_TYPE`
+ * >   - `GITHUB_REPOSITORY`
+ * >   - `GITHUB_REPOSITORY_ID`
+ * >   - `GITHUB_REPOSITORY_OWNER`
+ * >   - `GITHUB_REPOSITORY_OWNER_ID`
+ * >   - `GITHUB_RETENTION_DAYS`
+ * >   - `GITHUB_RUN_ATTEMPT`
+ * >   - `GITHUB_RUN_ID`
+ * >   - `GITHUB_RUN_NUMBER`
+ * >   - `GITHUB_SERVER_URL`
+ * >   - `GITHUB_SHA`
+ * >   - `GITHUB_STATE`
+ * >   - `GITHUB_STEP_SUMMARY`
+ * >   - `GITHUB_WORKFLOW`
+ * >   - `GITHUB_WORKFLOW_REF`
+ * >   - `GITHUB_WORKFLOW_SHA`
+ * >   - `GITHUB_WORKSPACE`
+ * >   - `RUNNER_ARCH`
+ * >   - `RUNNER_NAME`
+ * >   - `RUNNER_OS`
+ * >   - `RUNNER_TEMP`
+ * >   - `RUNNER_TOOL_CACHE` (Optional)
  * @param {GitHubActionsRunnerTestOptions} [options={}] Options.
  * @returns {void}
  */
@@ -401,20 +392,14 @@ export function validateInRunner(options: GitHubActionsRunnerTestOptions = {}): 
 /**
  * Clear the `TEMP` directory of the GitHub Actions runner.
  * 
- * > **🛡️ Require Runtime Permissions**
+ * > **🛡️ Runtime Permissions**
  * > 
- * > - Deno
- * >   - Environment Variable (`env`)
- * >     - `RUNNER_TEMP`
- * >   - File System - Read (`read`)
- * >     - *Resources*
- * >   - File System - Write (`write`)
- * >     - *Resources*
- * > - NodeJS (>= v20.9.0) 🧪
- * >   - File System - Read (`fs-read`)
- * >     - *Resources*
- * >   - File System - Write (`fs-write`)
- * >     - *Resources*
+ * > - Environment Variable \[Deno: `env`\]
+ * >   - `RUNNER_TEMP`
+ * > - File System - Read \[Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`\]
+ * >   - *Resources*
+ * > - File System - Write \[Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`\]
+ * >   - *Resources*
  * @returns {void}
  */
 export function clearRunnerTemp(): void {
@@ -438,20 +423,14 @@ export function clearRunnerTemp(): void {
  * 
  * `TEMP` directory is emptied at the beginning and end of each job, files will not be removed if the runner's user account does not have permission to delete them.
  * 
- * > **🛡️ Require Runtime Permissions**
+ * > **🛡️ Runtime Permissions**
  * > 
- * > - Deno
- * >   - Environment Variable (`env`)
- * >     - `RUNNER_TEMP`
- * >   - File System - Read (`read`)
- * >     - *Resources*
- * >   - File System - Write (`write`)
- * >     - *Resources*
- * > - NodeJS (>= v20.9.0) 🧪
- * >   - File System - Read (`fs-read`)
- * >     - *Resources*
- * >   - File System - Write (`fs-write`)
- * >     - *Resources*
+ * > - Environment Variable \[Deno: `env`\]
+ * >   - `RUNNER_TEMP`
+ * > - File System - Read \[Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`\]
+ * >   - *Resources*
+ * > - File System - Write \[Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`\]
+ * >   - *Resources*
  * @returns {string} Absolute path of the new temporary directory in the `TEMP` directory.
  */
 export function makeRunnerTempDir(options: Omit<Deno.MakeTempOptions, "dir"> = {}): string {
@@ -472,20 +451,14 @@ export {
  * 
  * `TEMP` directory is emptied at the beginning and end of each job, files will not be removed if the runner's user account does not have permission to delete them.
  * 
- * > **🛡️ Require Runtime Permissions**
+ * > **🛡️ Runtime Permissions**
  * > 
- * > - Deno
- * >   - Environment Variable (`env`)
- * >     - `RUNNER_TEMP`
- * >   - File System - Read (`read`)
- * >     - *Resources*
- * >   - File System - Write (`write`)
- * >     - *Resources*
- * > - NodeJS (>= v20.9.0) 🧪
- * >   - File System - Read (`fs-read`)
- * >     - *Resources*
- * >   - File System - Write (`fs-write`)
- * >     - *Resources*
+ * > - Environment Variable \[Deno: `env`\]
+ * >   - `RUNNER_TEMP`
+ * > - File System - Read \[Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`\]
+ * >   - *Resources*
+ * > - File System - Write \[Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`\]
+ * >   - *Resources*
  * @returns {string} Absolute path of the new temporary file in the `TEMP` directory.
  */
 export function makeRunnerTempFile(options: Omit<Deno.MakeTempOptions, "dir"> = {}): string {

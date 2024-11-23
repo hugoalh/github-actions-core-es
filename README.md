@@ -59,11 +59,58 @@ This is a partial refactor of [the official toolkit][official-toolkit], not all 
 > - For usage of JSR or NPM resources, it is recommended to import the entire module with the main entrypoint, however it is also able to import part of the module with sub entrypoint if available, please visit the [file `jsr.jsonc`](./jsr.jsonc) property `exports` for available sub entrypoints.
 > - It is recommended to use this module with tag for immutability.
 
-### 🛡️ Require Runtime Permissions
+### 🛡️ Runtime Permissions
 
-*This module does not require any runtime permission.*
+- Environment Variable \[Deno: `env`\]
+  - `ACTIONS_CACHE_URL` (Optional)
+  - `ACTIONS_ID_TOKEN_REQUEST_TOKEN` (Optional)
+  - `ACTIONS_ID_TOKEN_REQUEST_URL` (Optional)
+  - `ACTIONS_RESULTS_URL` (Optional)
+  - `ACTIONS_RUNTIME_TOKEN` (Optional)
+  - `ACTIONS_RUNTIME_URL` (Optional)
+  - `CI` (Optional)
+  - `GITHUB_ACTION` (Optional)
+  - `GITHUB_ACTIONS` (Optional)
+  - `GITHUB_ACTOR` (Optional)
+  - `GITHUB_ACTOR_ID` (Optional)
+  - `GITHUB_API_URL` (Optional)
+  - `GITHUB_ENV` (Optional)
+  - `GITHUB_EVENT_NAME` (Optional)
+  - `GITHUB_EVENT_PATH` (Optional)
+  - `GITHUB_GRAPHQL_URL` (Optional)
+  - `GITHUB_JOB` (Optional)
+  - `GITHUB_OUTPUT` (Optional)
+  - `GITHUB_PATH` (Optional)
+  - `GITHUB_REF_NAME` (Optional)
+  - `GITHUB_REF_TYPE` (Optional)
+  - `GITHUB_REPOSITORY` (Optional)
+  - `GITHUB_REPOSITORY_ID` (Optional)
+  - `GITHUB_REPOSITORY_OWNER` (Optional)
+  - `GITHUB_REPOSITORY_OWNER_ID` (Optional)
+  - `GITHUB_RETENTION_DAYS` (Optional)
+  - `GITHUB_RUN_ATTEMPT` (Optional)
+  - `GITHUB_RUN_ID` (Optional)
+  - `GITHUB_RUN_NUMBER` (Optional)
+  - `GITHUB_SERVER_URL` (Optional)
+  - `GITHUB_SHA` (Optional)
+  - `GITHUB_STATE` (Optional)
+  - `GITHUB_STEP_SUMMARY` (Optional)
+  - `GITHUB_WORKFLOW` (Optional)
+  - `GITHUB_WORKFLOW_REF` (Optional)
+  - `GITHUB_WORKFLOW_SHA` (Optional)
+  - `GITHUB_WORKSPACE` (Optional)
+  - `RUNNER_ARCH` (Optional)
+  - `RUNNER_NAME` (Optional)
+  - `RUNNER_OS` (Optional)
+  - `RUNNER_TEMP` (Optional)
+  - `RUNNER_TOOL_CACHE` (Optional)
+  - *Resources* (Optional)
+- File System - Read \[Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`\]
+  - *Resources* (Optional)
+- File System - Write \[Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`\]
+  - *Resources* (Optional)
 
-## 🧩 APIs (Excerpt)
+## 🧩 APIs
 
 - ```ts
   function addPATH(path: string, options?: GitHubActionsSetEnvironmentVariableOptions): void;

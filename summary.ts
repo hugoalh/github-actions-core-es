@@ -5,20 +5,14 @@ import {
 /**
  * Append data to the summary.
  * 
- * > **🛡️ Require Runtime Permissions**
+ * > **🛡️ Runtime Permissions**
  * > 
- * > - Deno
- * >   - Environment Variable (`env`)
- * >     - `GITHUB_STEP_SUMMARY`
- * >   - File System - Read (`read`)
- * >     - *Resources*
- * >   - File System - Write (`write`)
- * >     - *Resources*
- * > - NodeJS (>= v20.9.0) 🧪
- * >   - File System - Read (`fs-read`)
- * >     - *Resources*
- * >   - File System - Write (`fs-write`)
- * >     - *Resources*
+ * > - Environment Variable \[Deno: `env`\]
+ * >   - `GITHUB_STEP_SUMMARY`
+ * > - File System - Read \[Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`\]
+ * >   - *Resources*
+ * > - File System - Write \[Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`\]
+ * >   - *Resources*
  * @param {string | Uint8Array} data Data.
  * @returns {void}
  */
@@ -33,20 +27,14 @@ export function appendSummary(data: string | Uint8Array): void {
 /**
  * Clear the summary which set in the current step.
  * 
- * > **🛡️ Require Runtime Permissions**
+ * > **🛡️ Runtime Permissions**
  * > 
- * > - Deno
- * >   - Environment Variable (`env`)
- * >     - `GITHUB_STEP_SUMMARY`
- * >   - File System - Read (`read`)
- * >     - *Resources*
- * >   - File System - Write (`write`)
- * >     - *Resources*
- * > - NodeJS (>= v20.9.0) 🧪
- * >   - File System - Read (`fs-read`)
- * >     - *Resources*
- * >   - File System - Write (`fs-write`)
- * >     - *Resources*
+ * > - Environment Variable \[Deno: `env`\]
+ * >   - `GITHUB_STEP_SUMMARY`
+ * > - File System - Read \[Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`\]
+ * >   - *Resources*
+ * > - File System - Write \[Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`\]
+ * >   - *Resources*
  * @returns {void}
  */
 export function clearSummary(): void {
@@ -55,16 +43,14 @@ export function clearSummary(): void {
 /**
  * Get the size of the summary which set in the current step.
  * 
- * > **🛡️ Require Runtime Permissions**
+ * > **🛡️ Runtime Permissions**
  * > 
- * > - Deno
- * >   - Environment Variable (`env`)
- * >     - `GITHUB_STEP_SUMMARY`
- * >   - File System - Read (`read`)
- * >     - *Resources*
- * > - NodeJS (>= v20.9.0) 🧪
- * >   - File System - Read (`fs-read`)
- * >     - *Resources*
+ * > - Environment Variable \[Deno: `env`\]
+ * >   - `GITHUB_STEP_SUMMARY`
+ * > - File System - Read \[Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`\]
+ * >   - *Resources*
+ * > - File System - Write \[Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`\]
+ * >   - *Resources*
  * @returns {number} Size of the summary, in bytes.
  */
 export function getSummarySize(): number {

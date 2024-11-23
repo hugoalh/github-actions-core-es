@@ -44,16 +44,12 @@ const regexpCommandFile = /^(?:[\dA-Z][\dA-Z_-]*)?[\dA-Z]$/;
 /**
  * **\[🅰️ Advanced\]** Get the file command path in order to communicate with the GitHub Actions runner via the file command.
  * 
- * > **🛡️ Require Runtime Permissions**
+ * > **🛡️ Runtime Permissions**
  * > 
- * > - Deno
- * >   - Environment Variable (`env`)
- * >     - *Resources*
- * >   - File System - Read (`read`)
- * >     - *Resources*
- * > - NodeJS (>= v20.9.0) 🧪
- * >   - File System - Read (`fs-read`)
- * >     - *Resources*
+ * > - Environment Variable \[Deno: `env`\]
+ * >   - *Resources*
+ * > - File System - Read \[Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`\]
+ * >   - *Resources*
  * @param {string} command File command.
  * @returns {string} Path of the file command.
  */
@@ -109,20 +105,14 @@ function formatFilePairsCommand(inputs: Map<string, string>): string {
 /**
  * **\[🅰️ Advanced\]** Append value to the file line command.
  * 
- * > **🛡️ Require Runtime Permissions**
+ * > **🛡️ Runtime Permissions**
  * > 
- * > - Deno
- * >   - Environment Variable (`env`)
- * >     - *Resources*
- * >   - File System - Read (`read`)
- * >     - *Resources*
- * >   - File System - Write (`write`)
- * >     - *Resources*
- * > - NodeJS (>= v20.9.0) 🧪
- * >   - File System - Read (`fs-read`)
- * >     - *Resources*
- * >   - File System - Write (`fs-write`)
- * >     - *Resources*
+ * > - Environment Variable \[Deno: `env`\]
+ * >   - *Resources*
+ * > - File System - Read \[Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`\]
+ * >   - *Resources*
+ * > - File System - Write \[Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`\]
+ * >   - *Resources*
  * @param {string} command File command.
  * @param {...string} values Value of the file line command.
  * @returns {void}
@@ -141,20 +131,14 @@ export function appendFileLineCommand(command: string, ...values: string[]): voi
 /**
  * **\[🅰️ Advanced\]** Append pair to the file map command.
  * 
- * > **🛡️ Require Runtime Permissions**
+ * > **🛡️ Runtime Permissions**
  * > 
- * > - Deno
- * >   - Environment Variable (`env`)
- * >     - *Resources*
- * >   - File System - Read (`read`)
- * >     - *Resources*
- * >   - File System - Write (`write`)
- * >     - *Resources*
- * > - NodeJS (>= v20.9.0) 🧪
- * >   - File System - Read (`fs-read`)
- * >     - *Resources*
- * >   - File System - Write (`fs-write`)
- * >     - *Resources*
+ * > - Environment Variable \[Deno: `env`\]
+ * >   - *Resources*
+ * > - File System - Read \[Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`\]
+ * >   - *Resources*
+ * > - File System - Write \[Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`\]
+ * >   - *Resources*
  * @param {string} command File command.
  * @param {string} key Key of the pair of the file map command.
  * @param {string} value Value of the pair of the file map command.
@@ -164,20 +148,14 @@ export function appendFileMapCommand(command: string, key: string, value: string
 /**
  * **\[🅰️ Advanced\]** Append pairs to the file map command.
  * 
- * > **🛡️ Require Runtime Permissions**
+ * > **🛡️ Runtime Permissions**
  * > 
- * > - Deno
- * >   - Environment Variable (`env`)
- * >     - *Resources*
- * >   - File System - Read (`read`)
- * >     - *Resources*
- * >   - File System - Write (`write`)
- * >     - *Resources*
- * > - NodeJS (>= v20.9.0) 🧪
- * >   - File System - Read (`fs-read`)
- * >     - *Resources*
- * >   - File System - Write (`fs-write`)
- * >     - *Resources*
+ * > - Environment Variable \[Deno: `env`\]
+ * >   - *Resources*
+ * > - File System - Read \[Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`\]
+ * >   - *Resources*
+ * > - File System - Write \[Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`\]
+ * >   - *Resources*
  * @param {string} command File command.
  * @param {KeyValueLike} pairs Pairs of the file map command.
  * @returns {void}
@@ -201,20 +179,14 @@ export function appendFileMapCommand(command: string, param1: string | KeyValueL
 /**
  * **\[🅰️ Advanced\]** Clear the file command which set in the current step.
  * 
- * > **🛡️ Require Runtime Permissions**
+ * > **🛡️ Runtime Permissions**
  * > 
- * > - Deno
- * >   - Environment Variable (`env`)
- * >     - *Resources*
- * >   - File System - Read (`read`)
- * >     - *Resources*
- * >   - File System - Write (`write`)
- * >     - *Resources*
- * > - NodeJS (>= v20.9.0) 🧪
- * >   - File System - Read (`fs-read`)
- * >     - *Resources*
- * >   - File System - Write (`fs-write`)
- * >     - *Resources*
+ * > - Environment Variable \[Deno: `env`\]
+ * >   - *Resources*
+ * > - File System - Read \[Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`\]
+ * >   - *Resources*
+ * > - File System - Write \[Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`\]
+ * >   - *Resources*
  * @param {string} command File command.
  * @returns {void}
  */
@@ -224,20 +196,14 @@ export function clearFileCommand(command: string): void {
 /**
  * **\[🅰️ Advanced\]** Optimize the file command to reduce size whenever possible.
  * 
- * > **🛡️ Require Runtime Permissions**
+ * > **🛡️ Runtime Permissions**
  * > 
- * > - Deno
- * >   - Environment Variable (`env`)
- * >     - *Resources*
- * >   - File System - Read (`read`)
- * >     - *Resources*
- * >   - File System - Write (`write`)
- * >     - *Resources*
- * > - NodeJS (>= v20.9.0) 🧪
- * >   - File System - Read (`fs-read`)
- * >     - *Resources*
- * >   - File System - Write (`fs-write`)
- * >     - *Resources*
+ * > - Environment Variable \[Deno: `env`\]
+ * >   - *Resources*
+ * > - File System - Read \[Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`\]
+ * >   - *Resources*
+ * > - File System - Write \[Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`\]
+ * >   - *Resources*
  * @param {string} command File command.
  * @param {GitHubActionsFileCommandType | keyof typeof GitHubActionsFileCommandType} [type="raw"] Type of the file command; Only used when the {@linkcode command} is not known.
  * @returns {void}

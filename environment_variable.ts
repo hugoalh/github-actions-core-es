@@ -16,21 +16,15 @@ import {
 /**
  * Add value to the `PATH`.
  * 
- * > **🛡️ Require Runtime Permissions**
+ * > **🛡️ Runtime Permissions**
  * > 
- * > - Deno
- * >   - Environment Variable (`env`)
- * >     - `GITHUB_PATH`
- * >     - `PATH`
- * >   - File System - Read (`read`)
- * >     - *Resources*
- * >   - File System - Write (`write`)
- * >     - *Resources*
- * > - NodeJS (>= v20.9.0) 🧪
- * >   - File System - Read (`fs-read`)
- * >     - *Resources*
- * >   - File System - Write (`fs-write`)
- * >     - *Resources*
+ * > - Environment Variable \[Deno: `env`\]
+ * >   - `GITHUB_PATH` (Optional)
+ * >   - `PATH` (Optional)
+ * > - File System - Read \[Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`\]
+ * >   - *Resources* (Optional)
+ * > - File System - Write \[Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`\]
+ * >   - *Resources* (Optional)
  * @param {string} path Value that need to add to the `PATH`.
  * @param {GitHubActionsSetEnvironmentVariableOptions} [options={}] Options.
  * @returns {void}
@@ -39,21 +33,15 @@ export function addPATH(path: string, options?: GitHubActionsSetEnvironmentVaria
 /**
  * Add value to the `PATH`.
  * 
- * > **🛡️ Require Runtime Permissions**
+ * > **🛡️ Runtime Permissions**
  * > 
- * > - Deno
- * >   - Environment Variable (`env`)
- * >     - `GITHUB_PATH`
- * >     - `PATH`
- * >   - File System - Read (`read`)
- * >     - *Resources*
- * >   - File System - Write (`write`)
- * >     - *Resources*
- * > - NodeJS (>= v20.9.0) 🧪
- * >   - File System - Read (`fs-read`)
- * >     - *Resources*
- * >   - File System - Write (`fs-write`)
- * >     - *Resources*
+ * > - Environment Variable \[Deno: `env`\]
+ * >   - `GITHUB_PATH` (Optional)
+ * >   - `PATH` (Optional)
+ * > - File System - Read \[Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`\]
+ * >   - *Resources* (Optional)
+ * > - File System - Write \[Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`\]
+ * >   - *Resources* (Optional)
  * @param {string[]} paths Value that need to add to the `PATH`.
  * @param {GitHubActionsSetEnvironmentVariableOptions} [options={}] Options.
  * @returns {void}
@@ -82,20 +70,14 @@ export function addPATH(param0: string | string[], options: GitHubActionsSetEnvi
 /**
  * **\[🅰️ Advanced\]** Clear the environment variables for all of the subsequent steps which set in the current step.
  * 
- * > **🛡️ Require Runtime Permissions**
+ * > **🛡️ Runtime Permissions**
  * > 
- * > - Deno
- * >   - Environment Variable (`env`)
- * >     - `GITHUB_ENV`
- * >   - File System - Read (`read`)
- * >     - *Resources*
- * >   - File System - Write (`write`)
- * >     - *Resources*
- * > - NodeJS (>= v20.9.0) 🧪
- * >   - File System - Read (`fs-read`)
- * >     - *Resources*
- * >   - File System - Write (`fs-write`)
- * >     - *Resources*
+ * > - Environment Variable \[Deno: `env`\]
+ * >   - `GITHUB_ENV`
+ * > - File System - Read \[Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`\]
+ * >   - *Resources*
+ * > - File System - Write \[Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`\]
+ * >   - *Resources*
  * @returns {void}
  */
 export function clearEnvironmentVariableSubsequent(): void {
@@ -107,20 +89,14 @@ export {
 /**
  * **\[🅰️ Advanced\]** Clear the `PATH` for all of the subsequent steps which set in the current step.
  * 
- * > **🛡️ Require Runtime Permissions**
+ * > **🛡️ Runtime Permissions**
  * > 
- * > - Deno
- * >   - Environment Variable (`env`)
- * >     - `GITHUB_PATH`
- * >   - File System - Read (`read`)
- * >     - *Resources*
- * >   - File System - Write (`write`)
- * >     - *Resources*
- * > - NodeJS (>= v20.9.0) 🧪
- * >   - File System - Read (`fs-read`)
- * >     - *Resources*
- * >   - File System - Write (`fs-write`)
- * >     - *Resources*
+ * > - Environment Variable \[Deno: `env`\]
+ * >   - `GITHUB_PATH`
+ * > - File System - Read \[Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`\]
+ * >   - *Resources* (Optional)
+ * > - File System - Write \[Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`\]
+ * >   - *Resources* (Optional)
  * @returns {void}
  */
 export function clearPATHSubsequent(): void {
@@ -129,20 +105,14 @@ export function clearPATHSubsequent(): void {
 /**
  * **\[🅰️ Advanced\]** Optimize the environment variables for all of the subsequent steps which set in the current step to reduce size whenever possible.
  * 
- * > **🛡️ Require Runtime Permissions**
+ * > **🛡️ Runtime Permissions**
  * > 
- * > - Deno
- * >   - Environment Variable (`env`)
- * >     - `GITHUB_ENV`
- * >   - File System - Read (`read`)
- * >     - *Resources*
- * >   - File System - Write (`write`)
- * >     - *Resources*
- * > - NodeJS (>= v20.9.0) 🧪
- * >   - File System - Read (`fs-read`)
- * >     - *Resources*
- * >   - File System - Write (`fs-write`)
- * >     - *Resources*
+ * > - Environment Variable \[Deno: `env`\]
+ * >   - `GITHUB_ENV`
+ * > - File System - Read \[Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`\]
+ * >   - *Resources*
+ * > - File System - Write \[Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`\]
+ * >   - *Resources*
  * @returns {void}
  */
 export function optimizeEnvironmentVariableSubsequent(): void {
@@ -154,20 +124,14 @@ export {
 /**
  * **\[🅰️ Advanced\]** Optimize the `PATH` for all of the subsequent steps which set in the current step to reduce size whenever possible.
  * 
- * > **🛡️ Require Runtime Permissions**
+ * > **🛡️ Runtime Permissions**
  * > 
- * > - Deno
- * >   - Environment Variable (`env`)
- * >     - `GITHUB_PATH`
- * >   - File System - Read (`read`)
- * >     - *Resources*
- * >   - File System - Write (`write`)
- * >     - *Resources*
- * > - NodeJS (>= v20.9.0) 🧪
- * >   - File System - Read (`fs-read`)
- * >     - *Resources*
- * >   - File System - Write (`fs-write`)
- * >     - *Resources*
+ * > - Environment Variable \[Deno: `env`\]
+ * >   - `GITHUB_PATH`
+ * > - File System - Read \[Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`\]
+ * >   - *Resources* (Optional)
+ * > - File System - Write \[Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`\]
+ * >   - *Resources* (Optional)
  * @returns {void}
  */
 export function optimizePATHSubsequent(): void {
@@ -202,20 +166,15 @@ export interface GitHubActionsSetEnvironmentVariableOptions {
 /**
  * Set an environment variable.
  * 
- * > **🛡️ Require Runtime Permissions**
+ * > **🛡️ Runtime Permissions**
  * > 
- * > - Deno
- * >   - Environment Variable (`env`)
- * >     - *Resources*
- * >   - File System - Read (`read`)
- * >     - *Resources*
- * >   - File System - Write (`write`)
- * >     - *Resources*
- * > - NodeJS (>= v20.9.0) 🧪
- * >   - File System - Read (`fs-read`)
- * >     - *Resources*
- * >   - File System - Write (`fs-write`)
- * >     - *Resources*
+ * > - Environment Variable \[Deno: `env`\]
+ * >   - `GITHUB_ENV` (Optional)
+ * >   - *Resources* (Optional)
+ * > - File System - Read \[Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`\]
+ * >   - *Resources* (Optional)
+ * > - File System - Write \[Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`\]
+ * >   - *Resources* (Optional)
  * @param {string} key Key of the environment variable.
  * @param {StringizableType} value Value of the environment variable.
  * @param {GitHubActionsSetEnvironmentVariableOptions} [options={}] Options.
@@ -225,21 +184,15 @@ export function setEnvironmentVariable(key: string, value: StringizableType, opt
 /**
  * Set the environment variables.
  * 
- * > **🛡️ Require Runtime Permissions**
+ * > **🛡️ Runtime Permissions**
  * > 
- * > - Deno
- * >   - Environment Variable (`env`)
- * >     - `GITHUB_ENV`
- * >     - *Resources*
- * >   - File System - Read (`read`)
- * >     - *Resources*
- * >   - File System - Write (`write`)
- * >     - *Resources*
- * > - NodeJS (>= v20.9.0) 🧪
- * >   - File System - Read (`fs-read`)
- * >     - *Resources*
- * >   - File System - Write (`fs-write`)
- * >     - *Resources*
+ * > - Environment Variable \[Deno: `env`\]
+ * >   - `GITHUB_ENV` (Optional)
+ * >   - *Resources* (Optional)
+ * > - File System - Read \[Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`\]
+ * >   - *Resources* (Optional)
+ * > - File System - Write \[Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`\]
+ * >   - *Resources* (Optional)
  * @param {KeyValueLike<StringizableType>} pairs Pairs of the environment variable.
  * @param {GitHubActionsSetEnvironmentVariableOptions} [options={}] Options.
  * @returns {void}
