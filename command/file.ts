@@ -1,6 +1,6 @@
-import { EOL } from "jsr:@std/fs@^1.0.5/eol";
 import { isAbsolute as isPathAbsolute } from "jsr:@std/path@^1.0.8/is-absolute";
 import { getEnv } from "https://raw.githubusercontent.com/hugoalh/env-es/v0.2.0/env.ts";
+import { eol } from "https://raw.githubusercontent.com/hugoalh/eol-es/v0.2.0/eol.ts";
 import { isStringSingleLine } from "https://raw.githubusercontent.com/hugoalh/is-string-singleline-es/v1.0.4/mod.ts";
 import type { KeyValueLike } from "../_share.ts";
 /**
@@ -99,8 +99,8 @@ function formatFilePairsCommand(inputs: Map<string, string>): string {
 			key.search(delimiter) !== -1 ||
 			value.search(delimiter) !== -1
 		);
-		return `${key}<<${delimiter}${EOL}${value.replace(/\r?\n/g, EOL)}\n${delimiter}`;
-	}).join(EOL);
+		return `${key}<<${delimiter}${eol}${value.replace(/\r?\n/g, eol)}\n${delimiter}`;
+	}).join(eol);
 }
 /**
  * **\[🅰️ Advanced\]** Append value to the file line command.
@@ -125,7 +125,7 @@ export function appendFileLineCommand(command: string, ...values: string[]): voi
 		}
 	});
 	if (values.length > 0) {
-		Deno.writeTextFileSync(path, `${Array.from(new Set<string>(values).values()).join(EOL)}${EOL}`, { append: true });
+		Deno.writeTextFileSync(path, `${Array.from(new Set<string>(values).values()).join(eol)}${eol}`, { append: true });
 	}
 }
 /**
@@ -173,7 +173,7 @@ export function appendFileMapCommand(command: string, param1: string | KeyValueL
 		}
 	});
 	if (pairs.size > 0) {
-		Deno.writeTextFileSync(path, `${formatFilePairsCommand(pairs)}${EOL}`, { append: true });
+		Deno.writeTextFileSync(path, `${formatFilePairsCommand(pairs)}${eol}`, { append: true });
 	}
 }
 /**
@@ -251,7 +251,7 @@ export function optimizeFileCommand(command: string, type: GitHubActionsFileComm
 				// NOTE: File may contain issues, abort optimization.
 				return;
 			}
-			return Deno.writeTextFileSync(path, (pairs.size > 0) ? `${formatFilePairsCommand(pairs)}${EOL}` : "");
+			return Deno.writeTextFileSync(path, (pairs.size > 0) ? `${formatFilePairsCommand(pairs)}${eol}` : "");
 		}
 		case "raw":
 			return;
@@ -261,7 +261,7 @@ export function optimizeFileCommand(command: string, type: GitHubActionsFileComm
 			}).filter((value: string): boolean => {
 				return (value.length > 0);
 			}));
-			return Deno.writeTextFileSync(path, (content.size > 0) ? `${Array.from(content.values()).join(EOL)}${EOL}` : "");
+			return Deno.writeTextFileSync(path, (content.size > 0) ? `${Array.from(content.values()).join(eol)}${eol}` : "");
 		}
 		default:
 			throw new RangeError(`\`${type}\` is not a valid GitHub Actions file command type! Only accept these values: ${Array.from(new Set<string>(Object.keys(GitHubActionsFileCommandType)).values()).sort().join(", ")}`);

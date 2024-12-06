@@ -18,6 +18,7 @@
 	"imports": {
 		"https://raw.githubusercontent.com/hugoalh/env-es/v0.2.0/env.ts": "jsr:@hugoalh/env@^0.2.0/env",
 		"https://raw.githubusercontent.com/hugoalh/env-es/v0.2.0/path.ts": "jsr:@hugoalh/env@^0.2.0/path",
+		"https://raw.githubusercontent.com/hugoalh/eol-es/v0.2.0/eol.ts": "jsr:@hugoalh/eol@^0.2.0/eol",
 		"https://raw.githubusercontent.com/hugoalh/is-json-es/v1.0.4/mod.ts": "jsr:@hugoalh/is-json@^1.0.4",
 		"https://raw.githubusercontent.com/hugoalh/is-string-singleline-es/v1.0.4/mod.ts": "jsr:@hugoalh/is-string-singleline@^1.0.4"
 	},

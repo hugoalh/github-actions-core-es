@@ -21,6 +21,11 @@ await invokeDenoNodeJSTransformer({
 			version: "^0.2.0",
 			subPath: "path"
 		},
+		"https://raw.githubusercontent.com/hugoalh/eol-es/v0.2.0/eol.ts": {
+			name: "@hugoalh/eol",
+			version: "^0.2.0",
+			subPath: "eol"
+		},
 		"https://raw.githubusercontent.com/hugoalh/is-json-es/v1.0.4/mod.ts": {
 			name: "@hugoalh/is-json",
 			version: "^1.0.4"
