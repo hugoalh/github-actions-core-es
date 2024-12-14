@@ -1,6 +1,9 @@
 import { isAbsolute as isPathAbsolute } from "jsr:@std/path@^1.0.8/is-absolute";
 import { getEnv } from "https://raw.githubusercontent.com/hugoalh/env-es/v0.2.0/env.ts";
-import { eol } from "https://raw.githubusercontent.com/hugoalh/eol-es/v0.2.0/eol.ts";
+import {
+	_regexpEOL,
+	eol
+} from "https://raw.githubusercontent.com/hugoalh/eol-es/v0.2.0/eol.ts";
 import { isStringSingleLine } from "https://raw.githubusercontent.com/hugoalh/is-string-singleline-es/v1.0.4/mod.ts";
 import type { KeyValueLike } from "../_share.ts";
 /**
@@ -99,7 +102,7 @@ function formatFilePairsCommand(inputs: Map<string, string>): string {
 			key.search(delimiter) !== -1 ||
 			value.search(delimiter) !== -1
 		);
-		return `${key}<<${delimiter}${eol}${value.replace(/\r?\n/g, eol)}\n${delimiter}`;
+		return `${key}<<${delimiter}${eol}${value.replace(_regexpEOL, eol)}\n${delimiter}`;
 	}).join(eol);
 }
 /**
@@ -215,8 +218,8 @@ export function optimizeFileCommand(command: string, type: GitHubActionsFileComm
 	})?.type ?? GitHubActionsFileCommandType[type]) {
 		case "pairs": {
 			const pairs: Map<string, string> = new Map<string, string>();
-			const content: string[] = Deno.readTextFileSync(path).split(/\r?\n/g);
-			for (let index = 0; index < content.length; index += 1) {
+			const content: string[] = Deno.readTextFileSync(path).split(_regexpEOL);
+			for (let index: number = 0; index < content.length; index += 1) {
 				const line: string = content[index];
 				if (/^[\s\t]*$/.test(line)) {
 					continue;
@@ -256,7 +259,7 @@ export function optimizeFileCommand(command: string, type: GitHubActionsFileComm
 		case "raw":
 			return;
 		case "values": {
-			const content: Set<string> = new Set<string>(Deno.readTextFileSync(path).split(/\r?\n/g).map((value: string): string => {
+			const content: Set<string> = new Set<string>(Deno.readTextFileSync(path).split(_regexpEOL).map((value: string): string => {
 				return value.trim();
 			}).filter((value: string): boolean => {
 				return (value.length > 0);
