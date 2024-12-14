@@ -37,7 +37,7 @@ export type {
  * @returns {void}
  */
 export function clearOutput(): void {
-	clearFileCommand("GITHUB_OUTPUT");
+	return clearFileCommand("GITHUB_OUTPUT");
 }
 /**
  * **\[🅰️ Advanced\]** Clear the states which set in the current step.
@@ -53,7 +53,7 @@ export function clearOutput(): void {
  * @returns {void}
  */
 export function clearState(): void {
-	clearFileCommand("GITHUB_STATE");
+	return clearFileCommand("GITHUB_STATE");
 }
 export interface GitHubActionsGetParameterOptions {
 	/**
@@ -140,7 +140,7 @@ export function getInput(key: string, options: GitHubActionsGetParameterOptions 
 		fallback = true,
 		require = false
 	}: GitHubActionsGetParameterOptions = options;
-	const value: string = getParameter("input", key);
+	const value: string = getParameter("Input", key);
 	if (value.length === 0) {
 		if (require) {
 			throw new ReferenceError(`Input \`${key}\` is not defined!`);
@@ -193,7 +193,7 @@ export function getInputBigInt(key: string, options: GitHubActionsGetParameterOp
 		fallback = true,
 		require = false
 	}: GitHubActionsGetParameterOptions = options;
-	const value: string = getParameter("input", key);
+	const value: string = getParameter("Input", key);
 	if (value.length === 0) {
 		if (require) {
 			throw new ReferenceError(`Input \`${key}\` is not defined!`);
@@ -250,7 +250,7 @@ export function getInputBoolean(key: string, options: GitHubActionsGetParameterO
 		fallback = true,
 		require = false
 	}: GitHubActionsGetParameterOptions = options;
-	const value: string = getParameter("input", key);
+	const value: string = getParameter("Input", key);
 	if (value.length === 0) {
 		if (require) {
 			throw new ReferenceError(`Input \`${key}\` is not defined!`);
@@ -311,7 +311,7 @@ export function getInputJSON(key: string, options: GitHubActionsGetParameterOpti
 		fallback = true,
 		require = false
 	}: GitHubActionsGetParameterOptions = options;
-	const value: string = getParameter("input", key);
+	const value: string = getParameter("Input", key);
 	if (value.length === 0) {
 		if (require) {
 			throw new ReferenceError(`Input \`${key}\` is not defined!`);
@@ -536,7 +536,7 @@ export function getInputNumber(key: string, options: GitHubActionsGetParameterOp
 		fallback = true,
 		require = false
 	}: GitHubActionsGetParameterOptions = options;
-	const value: string = getParameter("input", key);
+	const value: string = getParameter("Input", key);
 	if (value.length === 0) {
 		if (require) {
 			throw new ReferenceError(`Input \`${key}\` is not defined!`);
@@ -590,7 +590,7 @@ export function getState(key: string, options: GitHubActionsGetParameterOptions 
 		fallback = true,
 		require = false
 	}: GitHubActionsGetParameterOptions = options;
-	const value: string = getParameter("state", key);
+	const value: string = getParameter("State", key);
 	if (value.length === 0) {
 		if (require) {
 			throw new ReferenceError(`State \`${key}\` is not defined!`);
@@ -643,7 +643,7 @@ export function getStateBigInt(key: string, options: GitHubActionsGetParameterOp
 		fallback = true,
 		require = false
 	}: GitHubActionsGetParameterOptions = options;
-	const value: string = getParameter("state", key);
+	const value: string = getParameter("State", key);
 	if (value.length === 0) {
 		if (require) {
 			throw new ReferenceError(`State \`${key}\` is not defined!`);
@@ -700,7 +700,7 @@ export function getStateBoolean(key: string, options: GitHubActionsGetParameterO
 		fallback = true,
 		require = false
 	}: GitHubActionsGetParameterOptions = options;
-	const value: string = getParameter("state", key);
+	const value: string = getParameter("State", key);
 	if (value.length === 0) {
 		if (require) {
 			throw new ReferenceError(`State \`${key}\` is not defined!`);
@@ -761,7 +761,7 @@ export function getStateJSON(key: string, options: GitHubActionsGetParameterOpti
 		fallback = true,
 		require = false
 	}: GitHubActionsGetParameterOptions = options;
-	const value: string = getParameter("state", key);
+	const value: string = getParameter("State", key);
 	if (value.length === 0) {
 		if (require) {
 			throw new ReferenceError(`State \`${key}\` is not defined!`);
@@ -986,7 +986,7 @@ export function getStateNumber(key: string, options: GitHubActionsGetParameterOp
 		fallback = true,
 		require = false
 	}: GitHubActionsGetParameterOptions = options;
-	const value: string = getParameter("state", key);
+	const value: string = getParameter("State", key);
 	if (value.length === 0) {
 		if (require) {
 			throw new ReferenceError(`State \`${key}\` is not defined!`);
@@ -1013,7 +1013,7 @@ export function getStateNumber(key: string, options: GitHubActionsGetParameterOp
  * @returns {void}
  */
 export function optimizeOutput(): void {
-	optimizeFileCommand("GITHUB_OUTPUT");
+	return optimizeFileCommand("GITHUB_OUTPUT");
 }
 /**
  * **\[🅰️ Advanced\]** Optimize the states which set in the current step to reduce size whenever possible.
@@ -1029,7 +1029,7 @@ export function optimizeOutput(): void {
  * @returns {void}
  */
 export function optimizeState(): void {
-	optimizeFileCommand("GITHUB_STATE");
+	return optimizeFileCommand("GITHUB_STATE");
 }
 /**
  * Set an output.

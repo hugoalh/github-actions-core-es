@@ -81,7 +81,7 @@ export function addPATH(param0: string | string[], options: GitHubActionsSetEnvi
  * @returns {void}
  */
 export function clearEnvironmentVariableSubsequent(): void {
-	clearFileCommand("GITHUB_ENV");
+	return clearFileCommand("GITHUB_ENV");
 }
 export {
 	clearEnvironmentVariableSubsequent as clearEnvSubsequent
@@ -100,7 +100,7 @@ export {
  * @returns {void}
  */
 export function clearPATHSubsequent(): void {
-	clearFileCommand("GITHUB_PATH");
+	return clearFileCommand("GITHUB_PATH");
 }
 /**
  * **\[🅰️ Advanced\]** Optimize the environment variables for all of the subsequent steps which set in the current step to reduce size whenever possible.
@@ -116,7 +116,7 @@ export function clearPATHSubsequent(): void {
  * @returns {void}
  */
 export function optimizeEnvironmentVariableSubsequent(): void {
-	optimizeFileCommand("GITHUB_ENV");
+	return optimizeFileCommand("GITHUB_ENV");
 }
 export {
 	optimizeEnvironmentVariableSubsequent as optimizeEnvSubsequent
@@ -135,7 +135,7 @@ export {
  * @returns {void}
  */
 export function optimizePATHSubsequent(): void {
-	optimizeFileCommand("GITHUB_PATH");
+	return optimizeFileCommand("GITHUB_PATH");
 }
 const regexpEnvironmentVariableKeyForbidden = /^(?:CI|PATH)$|^(?:ACTIONS|GITHUB|RUNNER)_/i;
 /**
