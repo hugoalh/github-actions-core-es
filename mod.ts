@@ -104,8 +104,6 @@ export {
 	makeRunnerTempDir,
 	makeRunnerTempDirectory,
 	makeRunnerTempFile,
-	runnerArchitectures,
-	runnerOSes,
 	validateInRunner,
 	type GitHubActionsRunnerArchitecture,
 	type GitHubActionsRunnerOS,
@@ -117,7 +115,6 @@ export {
 	getSummarySize
 } from "./summary.ts";
 export {
-	eventsName,
 	getGitHubAPIURL,
 	getGitHubGraphQLAPIURL,
 	getGitHubServerURL,
@@ -142,7 +139,6 @@ export {
 	getWorkflowRunWebhookEventPayload,
 	getWorkflowSHA,
 	isGitHubEnterpriseServer,
-	referenceTypes,
 	type GitHubActionsEventName,
 	type GitHubActionsWebhookEventPayload,
 	type GitHubActionsWebhookEventPayloadRepository,
