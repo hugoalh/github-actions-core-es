@@ -1,16 +1,20 @@
 import { isAbsolute as isPathAbsolute } from "jsr:@std/path@^1.0.8/is-absolute";
 import { join as joinPath } from "jsr:@std/path@^1.0.8/join";
 import { getEnv } from "https://raw.githubusercontent.com/hugoalh/env-es/v0.2.0/env.ts";
-export const runnerArchitectures: readonly ["ARM", "ARM64", "X64", "X86"] = Object.freeze([
+/**
+ * GitHub Actions runner architecture.
+ */
+export type GitHubActionsRunnerArchitecture =
+	| "ARM"
+	| "ARM64"
+	| "X64"
+	| "X86";
+const runnerArchitectures: readonly GitHubActionsRunnerArchitecture[] = [
 	"ARM",
 	"ARM64",
 	"X64",
 	"X86"
-] as const);
-/**
- * GitHub Actions runner architecture.
- */
-export type GitHubActionsRunnerArchitecture = typeof runnerArchitectures[number];
+];
 /**
  * Get the architecture of the GitHub Actions runner.
  * 
@@ -74,15 +78,18 @@ export function getRunnerName(): string {
 	}
 	return value;
 }
-export const runnerOSes: readonly ["Linux", "macOS", "Windows"] = Object.freeze([
-	"Linux",
-	"macOS",
-	"Windows"
-] as const);
 /**
  * GitHub Actions runner OS.
  */
-export type GitHubActionsRunnerOS = typeof runnerOSes[number];
+export type GitHubActionsRunnerOS =
+	| "Linux"
+	| "macOS"
+	| "Windows";
+const runnerOSes: readonly GitHubActionsRunnerOS[] = [
+	"Linux",
+	"macOS",
+	"Windows",
+];
 /**
  * Get the OS of the GitHub Actions runner.
  * 

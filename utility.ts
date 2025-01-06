@@ -267,7 +267,47 @@ export function getWorkflowRunCommitSHA(): string {
 	}
 	return value;
 }
-export const eventsName: readonly ["branch_protection_rule", "check_run", "check_suite", "create", "delete", "deployment", "deployment_status", "discussion", "discussion_comment", "fork", "gollum", "issue_comment", "issues", "label", "merge_group", "milestone", "page_build", "project", "project_card", "project_column", "public", "pull_request", "pull_request_comment", "pull_request_review", "pull_request_review_comment", "pull_request_target", "push", "registry_package", "release", "repository_dispatch", "schedule", "status", "watch", "workflow_call", "workflow_dispatch", "workflow_run"] = Object.freeze([
+/**
+ * GitHub Actions event name.
+ */
+export type GitHubActionsEventName =
+	| "branch_protection_rule"
+	| "check_run"
+	| "check_suite"
+	| "create"
+	| "delete"
+	| "deployment"
+	| "deployment_status"
+	| "discussion"
+	| "discussion_comment"
+	| "fork"
+	| "gollum"
+	| "issue_comment"
+	| "issues"
+	| "label"
+	| "merge_group"
+	| "milestone"
+	| "page_build"
+	| "project"// Legacy.
+	| "project_card"// Legacy.
+	| "project_column"// Legacy.
+	| "public"
+	| "pull_request"
+	| "pull_request_comment"
+	| "pull_request_review"
+	| "pull_request_review_comment"
+	| "pull_request_target"
+	| "push"
+	| "registry_package"
+	| "release"
+	| "repository_dispatch"
+	| "schedule"
+	| "status"
+	| "watch"
+	| "workflow_call"
+	| "workflow_dispatch"
+	| "workflow_run";
+const eventsName: readonly GitHubActionsEventName[] = [
 	"branch_protection_rule",
 	"check_run",
 	"check_suite",
@@ -304,11 +344,7 @@ export const eventsName: readonly ["branch_protection_rule", "check_run", "check
 	"workflow_call",
 	"workflow_dispatch",
 	"workflow_run"
-] as const);
-/**
- * GitHub Actions event name.
- */
-export type GitHubActionsEventName = typeof eventsName[number];
+];
 /**
  * Get the event name of the workflow run.
  * 
@@ -400,14 +436,16 @@ export function getWorkflowRunNumber(): number {
 	}
 	return Number.parseInt(value, 10);
 }
-export const referenceTypes: readonly ["branch", "tag"] = Object.freeze([
-	"branch",
-	"tag"
-] as const);
 /**
  * GitHub reference type.
  */
-export type GitHubReferenceType = typeof referenceTypes[number];
+export type GitHubReferenceType =
+	| "branch"
+	| "tag";
+const referenceTypes: readonly GitHubReferenceType[] = [
+	"branch",
+	"tag"
+];
 export interface GitHubReferenceMeta {
 	/**
 	 * The name of the base reference or target branch of the pull request of the workflow run, only available when the event that trigger the workflow run is either `pull_request` or `pull_request_target`.
