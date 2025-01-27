@@ -9,14 +9,18 @@ import type { KeyValueLike } from "../_share.ts";
 /**
  * GitHub Actions file command type.
  */
-export enum GitHubActionsFileCommandType {
-	pairs = "pairs",
-	Pairs = "pairs",
-	raw = "raw",
-	Raw = "raw",
-	values = "values",
-	Values = "values"
-}
+export type GitHubActionsFileCommandType =
+	| "pairs"
+	| "raw"
+	| "values";
+const fileCommandTypes: Readonly<Record<string, GitHubActionsFileCommandType>> = {
+	pairs: "pairs",
+	Pairs: "pairs",
+	raw: "raw",
+	Raw: "raw",
+	values: "values",
+	Values: "values"
+};
 interface GitHubActionsFileCommandEntry {
 	name: string;
 	type: `${GitHubActionsFileCommandType}`;
@@ -208,14 +212,14 @@ export function clearFileCommand(command: string): void {
  * > - File System - Write \[Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`\]
  * >   - *Resources*
  * @param {string} command File command.
- * @param {GitHubActionsFileCommandType | keyof typeof GitHubActionsFileCommandType} [type="raw"] Type of the file command; Only used when the {@linkcode command} is not known.
+ * @param {GitHubActionsFileCommandType} [type="raw"] Type of the file command; Only used when the {@linkcode command} is not known.
  * @returns {void}
  */
-export function optimizeFileCommand(command: string, type: GitHubActionsFileCommandType | keyof typeof GitHubActionsFileCommandType = "raw"): void {
+export function optimizeFileCommand(command: string, type: GitHubActionsFileCommandType = "raw"): void {
 	const path: string = getFileCommandPath(command);
 	switch (commandsFile.find(({ name }: GitHubActionsFileCommandEntry): boolean => {
 		return (name === command);
-	})?.type ?? GitHubActionsFileCommandType[type]) {
+	})?.type ?? fileCommandTypes[type]) {
 		case "pairs": {
 			const pairs: Map<string, string> = new Map<string, string>();
 			const content: string[] = Deno.readTextFileSync(path).split(_regexpEOL);
@@ -267,6 +271,6 @@ export function optimizeFileCommand(command: string, type: GitHubActionsFileComm
 			return Deno.writeTextFileSync(path, (content.size > 0) ? `${Array.from(content.values()).join(eol)}${eol}` : "");
 		}
 		default:
-			throw new RangeError(`\`${type}\` is not a valid GitHub Actions file command type! Only accept these values: ${Array.from(new Set<string>(Object.keys(GitHubActionsFileCommandType)).values()).sort().join(", ")}`);
+			throw new RangeError(`\`${type}\` is not a valid GitHub Actions file command type! Only accept these values: ${Object.keys(fileCommandTypes).sort().join(", ")}`);
 	}
 };

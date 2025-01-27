@@ -48,18 +48,22 @@ export {
 /**
  * GitHub Actions annotation type.
  */
-export enum GitHubActionsAnnotationType {
-	error = "error",
-	Error = "error",
-	note = "notice",
-	Note = "notice",
-	notice = "notice",
-	Notice = "notice",
-	warn = "warning",
-	Warn = "warning",
-	warning = "warning",
-	Warning = "warning"
-}
+export type GitHubActionsAnnotationType =
+	| "error"
+	| "notice"
+	| "warning";
+const annotationTypes: Readonly<Record<string, GitHubActionsAnnotationType>> = {
+	error: "error",
+	Error: "error",
+	note: "notice",
+	Note: "notice",
+	notice: "notice",
+	Notice: "notice",
+	warn: "warning",
+	Warn: "warning",
+	warning: "warning",
+	Warning: "warning"
+};
 /**
  * GitHub Actions annotation properties.
  */
@@ -95,15 +99,15 @@ export interface GitHubActionsAnnotationProperties {
 }
 /**
  * Print an annotation to the log.
- * @param {GitHubActionsAnnotationType | keyof typeof GitHubActionsAnnotationType} type Type of the annotation.
+ * @param {GitHubActionsAnnotationType} type Type of the annotation.
  * @param {string} data Data of the annotation.
  * @param {GitHubActionsAnnotationProperties} [properties={}] Properties of the annotation.
  * @returns {void}
  */
-export function writeAnnotation(type: GitHubActionsAnnotationType | keyof typeof GitHubActionsAnnotationType, data: string, properties: GitHubActionsAnnotationProperties = {}): void {
-	const typeFmt: GitHubActionsAnnotationType | undefined = GitHubActionsAnnotationType[type];
+export function writeAnnotation(type: GitHubActionsAnnotationType, data: string, properties: GitHubActionsAnnotationProperties = {}): void {
+	const typeFmt: GitHubActionsAnnotationType | undefined = annotationTypes[type];
 	if (typeof typeFmt === "undefined") {
-		throw new RangeError(`\`${type}\` is not a valid GitHub Actions annotation type! Only accept these values: ${Array.from(new Set<string>(Object.keys(GitHubActionsAnnotationType)).values()).sort().join(", ")}`);
+		throw new RangeError(`\`${type}\` is not a valid GitHub Actions annotation type! Only accept these values: ${Object.keys(annotationTypes).sort().join(", ")}`);
 	}
 	const {
 		column,

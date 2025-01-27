@@ -3,8 +3,8 @@ export {
 	appendFileMapCommand,
 	clearFileCommand,
 	getFileCommandPath,
-	GitHubActionsFileCommandType,
-	optimizeFileCommand
+	optimizeFileCommand,
+	type GitHubActionsFileCommandType
 } from "./command/file.ts";
 export {
 	disableEchoStdOutCommand,
@@ -36,7 +36,6 @@ export {
 	endLogGroup,
 	enterLogGroup,
 	exitLogGroup,
-	GitHubActionsAnnotationType,
 	startLogGroup,
 	writeAnnotation,
 	writeDebug,
@@ -45,7 +44,8 @@ export {
 	writeNotice,
 	writeWarn,
 	writeWarning,
-	type GitHubActionsAnnotationProperties
+	type GitHubActionsAnnotationProperties,
+	type GitHubActionsAnnotationType
 } from "./log.ts";
 export {
 	clearOutput,
