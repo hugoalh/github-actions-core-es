@@ -23,7 +23,7 @@ const fileCommandTypes: Readonly<Record<string, GitHubActionsFileCommandType>> =
 };
 interface GitHubActionsFileCommandEntry {
 	name: string;
-	type: `${GitHubActionsFileCommandType}`;
+	type: GitHubActionsFileCommandType;
 }
 const commandsFile: GitHubActionsFileCommandEntry[] = [
 	{
