@@ -9,21 +9,22 @@ await invokeDenoNodeJSTransformer({
 		"README.md"
 	],
 	entrypoints: configJSR.getExports(),
+	fixInjectedImports: true,
 	generateDeclarationMap: true,
 	mappings: {
-		"https://raw.githubusercontent.com/hugoalh/env-es/v0.2.0/env.ts": {
+		"https://raw.githubusercontent.com/hugoalh/env-es/v0.2.1/env.ts": {
 			name: "@hugoalh/env",
-			version: "^0.2.0",
+			version: "^0.2.1",
 			subPath: "env"
 		},
-		"https://raw.githubusercontent.com/hugoalh/env-es/v0.2.0/path.ts": {
+		"https://raw.githubusercontent.com/hugoalh/env-es/v0.2.1/path.ts": {
 			name: "@hugoalh/env",
-			version: "^0.2.0",
+			version: "^0.2.1",
 			subPath: "path"
 		},
-		"https://raw.githubusercontent.com/hugoalh/eol-es/v0.2.0/eol.ts": {
+		"https://raw.githubusercontent.com/hugoalh/eol-es/v0.3.1/eol.ts": {
 			name: "@hugoalh/eol",
-			version: "^0.2.0",
+			version: "^0.3.1",
 			subPath: "eol"
 		},
 		"https://raw.githubusercontent.com/hugoalh/is-json-es/v1.0.4/mod.ts": {

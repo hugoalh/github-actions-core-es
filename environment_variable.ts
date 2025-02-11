@@ -1,6 +1,6 @@
 import { isAbsolute as isPathAbsolute } from "jsr:@std/path@^1.0.8/is-absolute";
-import { setEnv } from "https://raw.githubusercontent.com/hugoalh/env-es/v0.2.0/env.ts";
-import { addEnvPath } from "https://raw.githubusercontent.com/hugoalh/env-es/v0.2.0/path.ts";
+import { setEnv } from "https://raw.githubusercontent.com/hugoalh/env-es/v0.2.1/env.ts";
+import { addEnvPath } from "https://raw.githubusercontent.com/hugoalh/env-es/v0.2.1/path.ts";
 import { isStringSingleLine } from "https://raw.githubusercontent.com/hugoalh/is-string-singleline-es/v1.0.4/mod.ts";
 import {
 	stringifyInput,

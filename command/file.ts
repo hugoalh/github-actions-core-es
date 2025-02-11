@@ -1,9 +1,9 @@
 import { isAbsolute as isPathAbsolute } from "jsr:@std/path@^1.0.8/is-absolute";
-import { getEnv } from "https://raw.githubusercontent.com/hugoalh/env-es/v0.2.0/env.ts";
+import { getEnv } from "https://raw.githubusercontent.com/hugoalh/env-es/v0.2.1/env.ts";
 import {
 	_regexpEOL,
 	eol
-} from "https://raw.githubusercontent.com/hugoalh/eol-es/v0.2.0/eol.ts";
+} from "https://raw.githubusercontent.com/hugoalh/eol-es/v0.3.1/eol.ts";
 import { isStringSingleLine } from "https://raw.githubusercontent.com/hugoalh/is-string-singleline-es/v1.0.4/mod.ts";
 import type { KeyValueLike } from "../_share.ts";
 /**
@@ -21,32 +21,13 @@ const fileCommandTypes: Readonly<Record<string, GitHubActionsFileCommandType>> =
 	values: "values",
 	Values: "values"
 };
-interface GitHubActionsFileCommandEntry {
-	name: string;
-	type: GitHubActionsFileCommandType;
-}
-const commandsFile: GitHubActionsFileCommandEntry[] = [
-	{
-		name: "GITHUB_ENV",
-		type: "pairs"
-	},
-	{
-		name: "GITHUB_OUTPUT",
-		type: "pairs"
-	},
-	{
-		name: "GITHUB_PATH",
-		type: "values"
-	},
-	{
-		name: "GITHUB_STATE",
-		type: "pairs"
-	},
-	{
-		name: "GITHUB_STEP_SUMMARY",
-		type: "raw"
-	}
-];
+const commandsFileMeta: Readonly<Record<string, GitHubActionsFileCommandType>> = {
+	GITHUB_ENV: "pairs",
+	GITHUB_OUTPUT: "pairs",
+	GITHUB_PATH: "values",
+	GITHUB_STATE: "pairs",
+	GITHUB_STEP_SUMMARY: "raw"
+};
 const regexpCommandFile = /^(?:[\dA-Z][\dA-Z_-]*)?[\dA-Z]$/;
 /**
  * **\[🅰️ Advanced\]** Get the file command path in order to communicate with the GitHub Actions runner via the file command.
@@ -62,9 +43,7 @@ const regexpCommandFile = /^(?:[\dA-Z][\dA-Z_-]*)?[\dA-Z]$/;
  */
 export function getFileCommandPath(command: string): string {
 	if (!(
-		commandsFile.map(({ name }: GitHubActionsFileCommandEntry): string => {
-			return name;
-		}).includes(command) ||
+		Object.keys(commandsFileMeta).includes(command) ||
 		regexpCommandFile.test(command)
 	)) {
 		throw new SyntaxError(`\`${command}\` is not a valid GitHub Actions file command!`);
@@ -89,11 +68,6 @@ export function getFileCommandPath(command: string): string {
 	}
 	return path;
 }
-/**
- * Format GitHub Actions file pairs command.
- * @param {Map<string, string>} inputs Inputs.
- * @returns {string}
- */
 function formatFilePairsCommand(inputs: Map<string, string>): string {
 	return Array.from(inputs.entries(), ([key, value]: [string, string]): string => {
 		if (isStringSingleLine(value)) {
@@ -217,9 +191,7 @@ export function clearFileCommand(command: string): void {
  */
 export function optimizeFileCommand(command: string, type: GitHubActionsFileCommandType = "raw"): void {
 	const path: string = getFileCommandPath(command);
-	switch (commandsFile.find(({ name }: GitHubActionsFileCommandEntry): boolean => {
-		return (name === command);
-	})?.type ?? fileCommandTypes[type]) {
+	switch (commandsFileMeta[command] ?? fileCommandTypes[type]) {
 		case "pairs": {
 			const pairs: Map<string, string> = new Map<string, string>();
 			const content: string[] = Deno.readTextFileSync(path).split(_regexpEOL);
@@ -273,4 +245,4 @@ export function optimizeFileCommand(command: string, type: GitHubActionsFileComm
 		default:
 			throw new RangeError(`\`${type}\` is not a valid GitHub Actions file command type! Only accept these values: ${Object.keys(fileCommandTypes).sort().join(", ")}`);
 	}
-};
+}

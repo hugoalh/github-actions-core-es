@@ -1,4 +1,4 @@
-import { getEnv } from "https://raw.githubusercontent.com/hugoalh/env-es/v0.2.0/env.ts";
+import { getEnv } from "https://raw.githubusercontent.com/hugoalh/env-es/v0.2.1/env.ts";
 import {
 	isJSONPrimitive,
 	type JSONArray,
@@ -82,17 +82,6 @@ export interface GitHubActionsGetParameterOptions {
 	 */
 	require?: boolean;
 }
-/**
- * Get the raw value of a parameter.
- * 
- * > **🛡️ Runtime Permissions**
- * > 
- * > - Environment Variable \[Deno: `env`\]
- * >   - *Resources*
- * @param {string} source Source of the parameter.
- * @param {string} key Key of the parameter.
- * @returns {string} Raw value of the parameter.
- */
 function getParameter(source: string, key: string): string {
 	if (!isStringSingleLine(key)) {
 		throw new SyntaxError(`\`${key}\` is not a valid GitHub Actions ${source.toLowerCase()} key!`);

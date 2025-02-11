@@ -20,19 +20,9 @@ const commandsStdOutForbid: string[] = [
 	"set-output"
 ];
 const regexpCommandStdout = /^(?:[\da-z][\da-z._-]*)?[\da-z]$/;
-/**
- * Escape GitHub Actions runner stdout command value.
- * @param {string} item
- * @returns {string}
- */
 function escapeStdOutCommandValue(item: string): string {
 	return item.replaceAll("%", "%25").replaceAll("\n", "%0A").replaceAll("\r", "%0D");
 }
-/**
- * Escape GitHub Actions runner stdout command property value.
- * @param {string} item
- * @returns {string}
- */
 function escapeStdOutCommandPropertyValue(item: string): string {
 	return escapeStdOutCommandValue(item).replaceAll(",", "%2C").replaceAll(":", "%3A");
 }
