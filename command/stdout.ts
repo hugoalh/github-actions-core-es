@@ -1,6 +1,6 @@
 import { isStringSingleLine } from "https://raw.githubusercontent.com/hugoalh/is-string-singleline-es/v1.0.4/mod.ts";
 import type { KeyValueLike } from "../_share.ts";
-const commandsStdOutCurrent: string[] = [
+const commandsStdOutCurrent: readonly string[] = [
 	"add-mask",
 	"add-matcher",
 	"debug",
@@ -13,7 +13,7 @@ const commandsStdOutCurrent: string[] = [
 	"stop-commands",
 	"warning"
 ];
-const commandsStdOutForbid: string[] = [
+const commandsStdOutForbid: readonly string[] = [
 	"add-path",
 	"save-state",
 	"set-env",

@@ -95,10 +95,10 @@ function formatFilePairsCommand(inputs: Map<string, string>): string {
  * > - File System - Write \[Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`\]
  * >   - *Resources*
  * @param {string} command File command.
- * @param {...string} values Value of the file line command.
+ * @param {...readonly string} values Value of the file line command.
  * @returns {void}
  */
-export function appendFileLineCommand(command: string, ...values: string[]): void {
+export function appendFileLineCommand(command: string, ...values: readonly string[]): void {
 	const path: string = getFileCommandPath(command);
 	values.forEach((value: string): void => {
 		if (!(isStringSingleLine(value) && value.length > 0)) {

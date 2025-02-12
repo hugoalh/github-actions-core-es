@@ -192,7 +192,7 @@ interface GitHubActionsRunnerDefaultEnvironmentVariableMeta {
 	need?: boolean;
 	value?: string;
 }
-const runnerEnvsDefault: GitHubActionsRunnerDefaultEnvironmentVariableMeta[] = [
+const runnerEnvsDefault: readonly GitHubActionsRunnerDefaultEnvironmentVariableMeta[] = [
 	{ key: "CI", value: "true" },
 	{ key: "GITHUB_ACTION" },
 	{ key: "GITHUB_ACTIONS", value: "true" },
@@ -311,7 +311,7 @@ export function isInRunner(options: GitHubActionsRunnerTestOptions = {}): boolea
 		oidc = false,
 		toolCache = false
 	}: GitHubActionsRunnerTestOptions = options;
-	const envs: GitHubActionsRunnerDefaultEnvironmentVariableMeta[] = [
+	const envs: readonly GitHubActionsRunnerDefaultEnvironmentVariableMeta[] = [
 		...runnerEnvsDefault,
 		{ key: "ACTIONS_RESULTS_URL", need: artifact },
 		{ key: "ACTIONS_RUNTIME_TOKEN", need: artifact || cache },

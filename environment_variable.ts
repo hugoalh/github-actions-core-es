@@ -42,17 +42,17 @@ export function addPATH(path: string, options?: GitHubActionsSetEnvironmentVaria
  * >   - *Resources* (Optional)
  * > - File System - Write \[Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`\]
  * >   - *Resources* (Optional)
- * @param {string[]} paths Value that need to add to the `PATH`.
+ * @param {readonly string[]} paths Value that need to add to the `PATH`.
  * @param {GitHubActionsSetEnvironmentVariableOptions} [options={}] Options.
  * @returns {void}
  */
-export function addPATH(paths: string[], options?: GitHubActionsSetEnvironmentVariableOptions): void;
-export function addPATH(param0: string | string[], options: GitHubActionsSetEnvironmentVariableOptions = {}): void {
+export function addPATH(paths: readonly string[], options?: GitHubActionsSetEnvironmentVariableOptions): void;
+export function addPATH(param0: string | readonly string[], options: GitHubActionsSetEnvironmentVariableOptions = {}): void {
 	const {
 		scopeCurrent = true,
 		scopeSubsequent = true
 	}: GitHubActionsSetEnvironmentVariableOptions = options;
-	const paths: string[] = (typeof param0 === "string") ? [param0] : param0;
+	const paths: readonly string[] = (typeof param0 === "string") ? [param0] : param0;
 	paths.forEach((path: string): void => {
 		if (!isPathAbsolute(path)) {
 			throw new SyntaxError(`\`${path}\` is not a valid absolute path!`);

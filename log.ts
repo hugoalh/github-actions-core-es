@@ -6,10 +6,10 @@ import {
 } from "./command/stdout.ts";
 /**
  * Make secret get masked from the log.
- * @param {...string} values Secret that need to get masked from the log.
+ * @param {...readonly string} values Secret that need to get masked from the log.
  * @returns {void}
  */
-export function addSecretMask(...values: string[]): void {
+export function addSecretMask(...values: readonly string[]): void {
 	values.forEach((value: string): void => {
 		if (value.length > 0) {
 			new GitHubActionsStdOutCommand("add-mask", value).dispatch();
@@ -172,10 +172,10 @@ export function writeAnnotation(type: GitHubActionsAnnotationType, data: string,
 }
 /**
  * Print a debug message to the log.
- * @param {...string} data Data that need to log at debug level.
+ * @param {...readonly string} data Data that need to log at debug level.
  * @returns {void}
  */
-export function writeDebug(...data: string[]): void {
+export function writeDebug(...data: readonly string[]): void {
 	for (const item of data) {
 		new GitHubActionsStdOutCommand("debug", item).dispatch();
 	}

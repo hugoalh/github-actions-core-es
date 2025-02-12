@@ -114,13 +114,13 @@ This is a partial refactor of [the official toolkit][official-toolkit], not all 
 
 - ```ts
   function addPATH(path: string, options?: GitHubActionsSetEnvironmentVariableOptions): void;
-  function addPATH(paths: string[], options?: GitHubActionsSetEnvironmentVariableOptions): void;
+  function addPATH(paths: readonly string[], options?: GitHubActionsSetEnvironmentVariableOptions): void;
   ```
 - ```ts
-  function addSecretMask(...values: string[]): void;
+  function addSecretMask(...values: readonly string[]): void;
   ```
 - ```ts
-  function enterLogGroup(title: string = ""): void;
+  function enterLogGroup(title?: string): void;
   ```
 - ```ts
   function exitLogGroup(): void;
@@ -148,16 +148,16 @@ This is a partial refactor of [the official toolkit][official-toolkit], not all 
   function setState(pairs: KeyValueLike<StringizableType>): void;
   ```
 - ```ts
-  function writeDebug(...data: string[]): void;
+  function writeDebug(...data: readonly string[]): void;
   ```
 - ```ts
-  function writeError(data: string, properties: GitHubActionsAnnotationProperties = {}): void;
+  function writeError(data: string, properties?: GitHubActionsAnnotationProperties): void;
   ```
 - ```ts
-  function writeNotice(data: string, properties: GitHubActionsAnnotationProperties = {}): void;
+  function writeNotice(data: string, properties?: GitHubActionsAnnotationProperties): void;
   ```
 - ```ts
-  function writeWarning(data: string, properties: GitHubActionsAnnotationProperties = {}): void;
+  function writeWarning(data: string, properties?: GitHubActionsAnnotationProperties): void;
   ```
 
 > [!NOTE]
