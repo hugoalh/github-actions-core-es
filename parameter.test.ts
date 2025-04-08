@@ -1,4 +1,4 @@
-import { deepStrictEqual } from "node:assert/strict";
+import { deepStrictEqual } from "node:assert";
 import {
 	getInput,
 	getInputBigInt,
