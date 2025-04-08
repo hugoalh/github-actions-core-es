@@ -1,4 +1,4 @@
-import { isAbsolute as isPathAbsolute } from "jsr:@std/path@^1.0.8/is-absolute";
+import { isAbsolute as isPathAbsolute } from "node:path"
 import { getEnv } from "https://raw.githubusercontent.com/hugoalh/env-es/v0.2.1/env.ts";
 import type {
 	JSONObjectExtend,

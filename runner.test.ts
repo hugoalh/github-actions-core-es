@@ -1,4 +1,4 @@
-import { assert } from "STD/assert/assert";
+import { ok } from "node:assert";
 import {
 	getRunnerArchitecture,
 	getRunnerDebugStatus,
@@ -54,7 +54,7 @@ Deno.test("OS", {
 }, () => {
 	const current = Deno.build.os;
 	const result = getRunnerOS();
-	assert(
+	ok(
 		(current === "darwin" && result === "macOS") ||
 		(current === "linux" && result === "Linux") ||
 		(current === "windows" && result === "Windows")

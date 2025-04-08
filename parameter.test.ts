@@ -1,4 +1,4 @@
-import { assertEquals } from "STD/assert/equals";
+import { deepStrictEqual } from "node:assert/strict";
 import {
 	getInput,
 	getInputBigInt,
@@ -20,7 +20,7 @@ Deno.test("Input BigInt", {
 	}
 }, () => {
 	Deno.env.set("INPUT_TEST", "9876543210123456789");
-	assertEquals(getInputBigInt("test"), 9876543210123456789n);
+	deepStrictEqual(getInputBigInt("test"), 9876543210123456789n);
 });
 Deno.test("Input Boolean", {
 	ignore,
@@ -29,7 +29,7 @@ Deno.test("Input Boolean", {
 	}
 }, () => {
 	Deno.env.set("INPUT_TEST", "false");
-	assertEquals(getInputBoolean("test"), false);
+	deepStrictEqual(getInputBoolean("test"), false);
 });
 Deno.test("Input Number", {
 	ignore,
@@ -38,7 +38,7 @@ Deno.test("Input Number", {
 	}
 }, () => {
 	Deno.env.set("INPUT_TEST", "9876543210.9");
-	assertEquals(getInputNumber("test"), 9876543210.9);
+	deepStrictEqual(getInputNumber("test"), 9876543210.9);
 });
 Deno.test("Input String", {
 	ignore,
@@ -47,7 +47,7 @@ Deno.test("Input String", {
 	}
 }, () => {
 	Deno.env.set("INPUT_TEST", "qwerty");
-	assertEquals(getInput("test"), "qwerty");
+	deepStrictEqual(getInput("test"), "qwerty");
 });
 Deno.test("State BigInt", {
 	ignore,
@@ -56,7 +56,7 @@ Deno.test("State BigInt", {
 	}
 }, () => {
 	Deno.env.set("STATE_TEST", "9876543210123456789");
-	assertEquals(getStateBigInt("test"), 9876543210123456789n);
+	deepStrictEqual(getStateBigInt("test"), 9876543210123456789n);
 });
 Deno.test("State Boolean", {
 	ignore,
@@ -65,7 +65,7 @@ Deno.test("State Boolean", {
 	}
 }, () => {
 	Deno.env.set("STATE_TEST", "false");
-	assertEquals(getStateBoolean("test"), false);
+	deepStrictEqual(getStateBoolean("test"), false);
 });
 Deno.test("State Number", {
 	ignore,
@@ -74,7 +74,7 @@ Deno.test("State Number", {
 	}
 }, () => {
 	Deno.env.set("STATE_TEST", "9876543210.9");
-	assertEquals(getStateNumber("test"), 9876543210.9);
+	deepStrictEqual(getStateNumber("test"), 9876543210.9);
 });
 Deno.test("State String", {
 	ignore,
@@ -83,5 +83,5 @@ Deno.test("State String", {
 	}
 }, () => {
 	Deno.env.set("STATE_TEST", "qwerty");
-	assertEquals(getState("test"), "qwerty");
+	deepStrictEqual(getState("test"), "qwerty");
 });

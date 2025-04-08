@@ -1,5 +1,7 @@
-import { isAbsolute as isPathAbsolute } from "jsr:@std/path@^1.0.8/is-absolute";
-import { join as joinPath } from "jsr:@std/path@^1.0.8/join";
+import {
+	isAbsolute as isPathAbsolute,
+	join as joinPath
+} from "node:path";
 import { getEnv } from "https://raw.githubusercontent.com/hugoalh/env-es/v0.2.1/env.ts";
 /**
  * GitHub Actions runner architecture.
