@@ -94,6 +94,7 @@ export {
 	getRunnerArch,
 	getRunnerArchitecture,
 	getRunnerDebugStatus,
+	getRunnerEnvironment,
 	getRunnerName,
 	getRunnerOS,
 	getRunnerTempPath,
@@ -106,6 +107,7 @@ export {
 	makeRunnerTempFile,
 	validateInRunner,
 	type GitHubActionsRunnerArchitecture,
+	type GitHubActionsRunnerEnvironment,
 	type GitHubActionsRunnerOS,
 	type GitHubActionsRunnerTestOptions
 } from "./runner.ts";

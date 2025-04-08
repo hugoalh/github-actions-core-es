@@ -100,6 +100,7 @@ This is a partial refactor of [the official toolkit][official-toolkit], not all 
   - `GITHUB_WORKFLOW_SHA` (Optional)
   - `GITHUB_WORKSPACE` (Optional)
   - `RUNNER_ARCH` (Optional)
+  - `RUNNER_ENVIRONMENT` (Optional)
   - `RUNNER_NAME` (Optional)
   - `RUNNER_OS` (Optional)
   - `RUNNER_TEMP` (Optional)

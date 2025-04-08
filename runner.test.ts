@@ -2,6 +2,7 @@ import { assert } from "STD/assert/assert";
 import {
 	getRunnerArchitecture,
 	getRunnerDebugStatus,
+	getRunnerEnvironment,
 	getRunnerName,
 	getRunnerOS,
 	getRunnerTempPath,
@@ -28,6 +29,14 @@ Deno.test("Debug Status", {
 	}
 }, () => {
 	console.log(getRunnerDebugStatus());
+});
+Deno.test("Environment", {
+	ignore,
+	permissions: {
+		env: ["RUNNER_ENVIRONMENT"]
+	}
+}, () => {
+	console.log(getRunnerEnvironment());
 });
 Deno.test("Name", {
 	ignore,

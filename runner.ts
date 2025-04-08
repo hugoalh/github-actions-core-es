@@ -58,6 +58,35 @@ export {
 	getRunnerDebugStatus as isRunnerDebug
 };
 /**
+ * GitHub Actions runner environment.
+ */
+export type GitHubActionsRunnerEnvironment =
+	| "github-hosted"
+	| "self-hosted";
+const runnerEnvironments: readonly GitHubActionsRunnerEnvironment[] = [
+	"github-hosted",
+	"self-hosted"
+];
+/**
+ * Get the environment of the GitHub Actions runner.
+ * 
+ * > **🛡️ Runtime Permissions**
+ * > 
+ * > - Environment Variable \[Deno: `env`\]
+ * >   - `RUNNER_ENVIRONMENT`
+ * @returns {GitHubActionsRunnerEnvironment} Environment of the GitHub Actions runner.
+ */
+export function getRunnerEnvironment(): GitHubActionsRunnerEnvironment {
+	const value: string | undefined = getEnv("RUNNER_ENVIRONMENT");
+	if (typeof value === "undefined") {
+		throw new ReferenceError(`Unable to get the GitHub Actions runner environment, environment variable \`RUNNER_ENVIRONMENT\` is not defined!`);
+	}
+	if (!runnerEnvironments.includes(value as GitHubActionsRunnerEnvironment)) {
+		throw new Error(`\`${value}\` (environment variable \`RUNNER_ENVIRONMENT\`) is not a known GitHub Actions runner environment!`);
+	}
+	return value as GitHubActionsRunnerEnvironment;
+}
+/**
  * Get the name of the GitHub Actions runner.
  * 
  * > **🛡️ Runtime Permissions**
@@ -225,6 +254,7 @@ const runnerEnvsDefault: readonly GitHubActionsRunnerDefaultEnvironmentVariableM
 	{ key: "GITHUB_WORKFLOW_SHA" },
 	{ key: "GITHUB_WORKSPACE" },
 	{ key: "RUNNER_ARCH" },
+	{ key: "RUNNER_ENVIRONMENT" },
 	{ key: "RUNNER_NAME" },
 	{ key: "RUNNER_OS" },
 	{ key: "RUNNER_TEMP" }
@@ -297,6 +327,7 @@ export interface GitHubActionsRunnerTestOptions {
  * >   - `GITHUB_WORKFLOW_SHA`
  * >   - `GITHUB_WORKSPACE`
  * >   - `RUNNER_ARCH`
+ * >   - `RUNNER_ENVIRONMENT`
  * >   - `RUNNER_NAME`
  * >   - `RUNNER_OS`
  * >   - `RUNNER_TEMP`
@@ -384,6 +415,7 @@ export function isInRunner(options: GitHubActionsRunnerTestOptions = {}): boolea
  * >   - `GITHUB_WORKFLOW_SHA`
  * >   - `GITHUB_WORKSPACE`
  * >   - `RUNNER_ARCH`
+ * >   - `RUNNER_ENVIRONMENT`
  * >   - `RUNNER_NAME`
  * >   - `RUNNER_OS`
  * >   - `RUNNER_TEMP`
