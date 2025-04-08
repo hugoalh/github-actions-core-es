@@ -95,7 +95,7 @@ function formatFilePairsCommand(inputs: Map<string, string>): string {
  * > - File System - Write \[Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`\]
  * >   - *Resources*
  * @param {string} command File command.
- * @param {...readonly string} values Value of the file line command.
+ * @param {...string} values Value of the file line command.
  * @returns {void}
  */
 export function appendFileLineCommand(command: string, ...values: readonly string[]): void {

@@ -4,7 +4,7 @@ import { GitHubActionsStdOutCommand } from "./command/stdout.ts";
  * Add problem matcher to scan the logs by specified regular expression patterns and automatically surface that information prominently in the user interface, both annotation and log decoration will create when a match is detected.
  * 
  * For more information, please visit https://github.com/actions/toolkit/blob/main/docs/problem-matchers.md.
- * @param {...readonly string} paths Path of the JSON problem matcher file.
+ * @param {...string} paths Path of the JSON problem matcher file.
  * @returns {void}
  */
 export function addProblemMatcher(...paths: readonly string[]): void {
@@ -21,7 +21,7 @@ export function addProblemMatcher(...paths: readonly string[]): void {
  * Remove problem matcher.
  * 
  * For more information, please visit https://github.com/actions/toolkit/blob/main/docs/problem-matchers.md.
- * @param {...readonly string} names Name of the problem matcher.
+ * @param {...string} names Name of the problem matcher.
  * @returns {void}
  */
 export function removeProblemMatcher(...names: readonly string[]): void {
