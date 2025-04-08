@@ -289,6 +289,7 @@ export interface GitHubActionsRunnerTestOptions {
  * > **🛡️ Runtime Permissions**
  * > 
  * > - Environment Variable \[Deno: `env`\]
+ * >   - `ACTIONS_CACHE_SERVICE_V2` (Optional)
  * >   - `ACTIONS_CACHE_URL` (Optional)
  * >   - `ACTIONS_ID_TOKEN_REQUEST_TOKEN` (Optional)
  * >   - `ACTIONS_ID_TOKEN_REQUEST_URL` (Optional)
@@ -344,12 +345,13 @@ export function isInRunner(options: GitHubActionsRunnerTestOptions = {}): boolea
 	}: GitHubActionsRunnerTestOptions = options;
 	const envs: readonly GitHubActionsRunnerDefaultEnvironmentVariableMeta[] = [
 		...runnerEnvsDefault,
-		{ key: "ACTIONS_RESULTS_URL", need: artifact },
-		{ key: "ACTIONS_RUNTIME_TOKEN", need: artifact || cache },
-		{ key: "ACTIONS_RUNTIME_URL", need: artifact },
+		{ key: "ACTIONS_CACHE_SERVICE_V2", need: cache },
 		{ key: "ACTIONS_CACHE_URL", need: cache },
 		{ key: "ACTIONS_ID_TOKEN_REQUEST_TOKEN", need: oidc },
 		{ key: "ACTIONS_ID_TOKEN_REQUEST_URL", need: oidc },
+		{ key: "ACTIONS_RESULTS_URL", need: artifact },
+		{ key: "ACTIONS_RUNTIME_TOKEN", need: artifact || cache },
+		{ key: "ACTIONS_RUNTIME_URL", need: artifact },
 		{ key: "RUNNER_TOOL_CACHE", need: toolCache }
 	];
 	return !(envs.filter(({ need }: GitHubActionsRunnerDefaultEnvironmentVariableMeta): boolean => {
@@ -377,6 +379,7 @@ export function isInRunner(options: GitHubActionsRunnerTestOptions = {}): boolea
  * > **🛡️ Runtime Permissions**
  * > 
  * > - Environment Variable \[Deno: `env`\]
+ * >   - `ACTIONS_CACHE_SERVICE_V2` (Optional)
  * >   - `ACTIONS_CACHE_URL` (Optional)
  * >   - `ACTIONS_ID_TOKEN_REQUEST_TOKEN` (Optional)
  * >   - `ACTIONS_ID_TOKEN_REQUEST_URL` (Optional)

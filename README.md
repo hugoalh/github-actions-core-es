@@ -62,6 +62,7 @@ This is a partial refactor of [the official toolkit][official-toolkit], not all 
 ### 🛡️ Runtime Permissions
 
 - Environment Variable \[Deno: `env`\]
+  - `ACTIONS_CACHE_SERVICE_V2` (Optional)
   - `ACTIONS_CACHE_URL` (Optional)
   - `ACTIONS_ID_TOKEN_REQUEST_TOKEN` (Optional)
   - `ACTIONS_ID_TOKEN_REQUEST_URL` (Optional)
