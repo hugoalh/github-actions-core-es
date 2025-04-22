@@ -9,7 +9,7 @@ import type {
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_API_URL`
  * @returns {URL} URL of the GitHub API.
  * @example
@@ -26,7 +26,7 @@ export function getGitHubAPIURL(): URL {
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_GRAPHQL_URL`
  * @returns {URL} URL of the GitHub GraphQL API.
  * @example
@@ -43,7 +43,7 @@ export function getGitHubGraphQLAPIURL(): URL {
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_SERVER_URL`
  * @returns {URL} URL of the GitHub server.
  * @example
@@ -62,7 +62,7 @@ export function getGitHubServerURL(): URL {
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_WORKFLOW`
  * @returns {string} Name of the workflow.
  * @example
@@ -83,7 +83,7 @@ export function getWorkflowName(): string {
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_WORKFLOW_REF`
  * @returns {string} Reference path of the workflow.
  * @example
@@ -104,7 +104,7 @@ export function getWorkflowReferencePath(): string {
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_REPOSITORY`
  * @returns {string} Repository of the workflow.
  * @example
@@ -125,7 +125,7 @@ export function getWorkflowRepository(): string {
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_REPOSITORY_ID`
  * @returns {string} Repository ID of the workflow.
  * @example
@@ -146,7 +146,7 @@ export function getWorkflowRepositoryID(): string {
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_REPOSITORY_OWNER`
  * @returns {string} Repository owner of the workflow.
  * @example
@@ -167,7 +167,7 @@ export function getWorkflowRepositoryOwner(): string {
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_REPOSITORY_OWNER_ID`
  * @returns {string} Repository owner ID of the workflow.
  * @example
@@ -188,7 +188,7 @@ export function getWorkflowRepositoryOwnerID(): string {
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_ACTION`
  * @returns {string} Action ID of the workflow run.
  * @example
@@ -209,7 +209,7 @@ export function getWorkflowRunActionID(): string {
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_ACTOR_ID`
  * @returns {string} Actor ID of the workflow run.
  * @example
@@ -230,7 +230,7 @@ export function getWorkflowRunActorID(): string {
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_ACTOR`
  * @returns {string} Actor name that initiate the workflow run.
  * @example
@@ -251,7 +251,7 @@ export function getWorkflowRunActorName(): string {
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_SHA`
  * @returns {string} Commit SHA that trigger the workflow run.
  * @example
@@ -350,7 +350,7 @@ const eventsName: readonly GitHubActionsEventName[] = [
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_EVENT_NAME`
  * @returns {GitHubActionsEventName} Event name of the workflow run.
  * @example
@@ -376,7 +376,7 @@ export function getWorkflowRunEventName(): GitHubActionsEventName {
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_RUN_ID`
  * @returns {string} ID of the workflow run.
  * @example
@@ -397,7 +397,7 @@ export function getWorkflowRunID(): string {
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_JOB`
  * @returns {string} Job ID of the workflow run.
  * @example
@@ -420,7 +420,7 @@ export function getWorkflowRunJobID(): string {
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_RUN_NUMBER`
  * @returns {number} Run number of the workflow.
  * @example
@@ -491,7 +491,7 @@ export interface GitHubReferenceMeta {
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_BASE_REF`
  * >   - `GITHUB_HEAD_REF`
  * >   - `GITHUB_REF`
@@ -532,7 +532,7 @@ export function getWorkflowRunReference(): GitHubReferenceMeta {
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_RETENTION_DAYS`
  * @returns {number} Retention days of the workflow run.
  * @example
@@ -555,7 +555,7 @@ export function getWorkflowRunRetentionDays(): number {
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_RUN_ATTEMPT`
  * @returns {number} Run attempt of the workflow run.
  * @example
@@ -576,7 +576,7 @@ export function getWorkflowRunRunAttempt(): number {
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_REPOSITORY`
  * @returns {URL} URL of the workflow run.
  * @example
@@ -641,9 +641,9 @@ export interface GitHubActionsWebhookEventPayload extends JSONObjectExtend {
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_EVENT_PATH`
- * > - File System - Read \[Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`\]
+ * > - **File System - Read (Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`):**
  * >   - *Resources*
  * @returns {GitHubActionsWebhookEventPayload} Webhook event payload of the workflow run.
  */
@@ -662,7 +662,7 @@ export function getWorkflowRunWebhookEventPayload(): GitHubActionsWebhookEventPa
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_WORKFLOW_SHA`
  * @returns {string} SHA of the workflow.
  */
@@ -678,7 +678,7 @@ export function getWorkflowSHA(): string {
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_SERVER_URL`
  * @returns {boolean} Determine result.
  */

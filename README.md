@@ -6,7 +6,7 @@
 [![JSR: @hugoalh/github-actions-core](https://img.shields.io/jsr/v/@hugoalh/github-actions-core?label=@hugoalh/github-actions-core&labelColor=F7DF1E&logo=jsr&logoColor=000000&style=flat "JSR: @hugoalh/github-actions-core")](https://jsr.io/@hugoalh/github-actions-core)
 [![NPM: @hugoalh/github-actions-core](https://img.shields.io/npm/v/@hugoalh/github-actions-core?label=@hugoalh/github-actions-core&labelColor=CB3837&logo=npm&logoColor=ffffff&style=flat "NPM: @hugoalh/github-actions-core")](https://www.npmjs.com/package/@hugoalh/github-actions-core)
 
-An ES (JavaScript & TypeScript) module to provide a better and easier way for GitHub Actions to communicate with the runner, and the toolkit for developing GitHub Actions.
+An ECMAScript (JavaScript & TypeScript) module to provide a better and easier way for GitHub Actions to communicate with the runner, and the toolkit for developing GitHub Actions.
 
 ## ⚠️ Important
 
@@ -18,7 +18,7 @@ This is a partial refactor of [the official toolkit][official-toolkit], not all 
 
 - Ability to use directly on GitHub Actions with Deno runtime without complex setup.
 - Compatible with bundler.
-- Full ModuleJS.
+- Full ECMAScript module.
 
 ## 🔰 Begin
 
@@ -61,7 +61,7 @@ This is a partial refactor of [the official toolkit][official-toolkit], not all 
 
 ### 🛡️ Runtime Permissions
 
-- Environment Variable \[Deno: `env`\]
+- **Environment Variable (Deno: `env`):**
   - `ACTIONS_CACHE_SERVICE_V2` (Optional)
   - `ACTIONS_CACHE_URL` (Optional)
   - `ACTIONS_ID_TOKEN_REQUEST_TOKEN` (Optional)
@@ -107,9 +107,9 @@ This is a partial refactor of [the official toolkit][official-toolkit], not all 
   - `RUNNER_TEMP` (Optional)
   - `RUNNER_TOOL_CACHE` (Optional)
   - *Resources* (Optional)
-- File System - Read \[Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`\]
+- **File System - Read (Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`):**
   - *Resources* (Optional)
-- File System - Write \[Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`\]
+- **File System - Write (Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`):**
   - *Resources* (Optional)
 
 ## 🧩 APIs

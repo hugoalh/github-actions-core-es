@@ -34,9 +34,9 @@ const regexpCommandFile = /^(?:[\dA-Z][\dA-Z_-]*)?[\dA-Z]$/;
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
- * > - File System - Read \[Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`\]
+ * > - **File System - Read (Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`):**
  * >   - *Resources*
  * @param {string} command File command.
  * @returns {string} Path of the file command.
@@ -88,11 +88,11 @@ function formatFilePairsCommand(inputs: Map<string, string>): string {
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
- * > - File System - Read \[Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`\]
+ * > - **File System - Read (Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`):**
  * >   - *Resources*
- * > - File System - Write \[Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`\]
+ * > - **File System - Write (Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`):**
  * >   - *Resources*
  * @param {string} command File command.
  * @param {...string} values Value of the file line command.
@@ -114,11 +114,11 @@ export function appendFileLineCommand(command: string, ...values: readonly strin
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
- * > - File System - Read \[Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`\]
+ * > - **File System - Read (Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`):**
  * >   - *Resources*
- * > - File System - Write \[Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`\]
+ * > - **File System - Write (Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`):**
  * >   - *Resources*
  * @param {string} command File command.
  * @param {string} key Key of the pair of the file map command.
@@ -131,11 +131,11 @@ export function appendFileMapCommand(command: string, key: string, value: string
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
- * > - File System - Read \[Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`\]
+ * > - **File System - Read (Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`):**
  * >   - *Resources*
- * > - File System - Write \[Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`\]
+ * > - **File System - Write (Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`):**
  * >   - *Resources*
  * @param {string} command File command.
  * @param {KeyValueLike} pairs Pairs of the file map command.
@@ -162,11 +162,11 @@ export function appendFileMapCommand(command: string, param1: string | KeyValueL
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
- * > - File System - Read \[Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`\]
+ * > - **File System - Read (Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`):**
  * >   - *Resources*
- * > - File System - Write \[Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`\]
+ * > - **File System - Write (Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`):**
  * >   - *Resources*
  * @param {string} command File command.
  * @returns {void}
@@ -179,11 +179,11 @@ export function clearFileCommand(command: string): void {
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
- * > - File System - Read \[Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`\]
+ * > - **File System - Read (Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`):**
  * >   - *Resources*
- * > - File System - Write \[Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`\]
+ * > - **File System - Write (Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`):**
  * >   - *Resources*
  * @param {string} command File command.
  * @param {GitHubActionsFileCommandType} [type="raw"] Type of the file command; Only used when the {@linkcode command} is not known.

@@ -28,11 +28,11 @@ export type {
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_OUTPUT`
- * > - File System - Read \[Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`\]
+ * > - **File System - Read (Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`):**
  * >   - *Resources*
- * > - File System - Write \[Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`\]
+ * > - **File System - Write (Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`):**
  * >   - *Resources*
  * @returns {void}
  */
@@ -44,11 +44,11 @@ export function clearOutput(): void {
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_STATE`
- * > - File System - Read \[Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`\]
+ * > - **File System - Read (Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`):**
  * >   - *Resources*
- * > - File System - Write \[Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`\]
+ * > - **File System - Write (Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`):**
  * >   - *Resources*
  * @returns {void}
  */
@@ -93,7 +93,7 @@ function getParameter(source: string, key: string): string {
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
  * @param {string} key Key of the input.
  * @param {GitHubActionsGetParameterOptions & { fallback?: true; require?: false; }} [options={}] Options.
@@ -105,7 +105,7 @@ export function getInput(key: string, options?: GitHubActionsGetParameterOptions
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
  * @param {string} key Key of the input.
  * @param {GitHubActionsGetParameterOptions & { require: true; }} options Options.
@@ -117,7 +117,7 @@ export function getInput(key: string, options: GitHubActionsGetParameterOptions 
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
  * @param {string} key Key of the input.
  * @param {GitHubActionsGetParameterOptions & { fallback: false; require?: false; }} options Options.
@@ -146,7 +146,7 @@ export {
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
  * @param {string} key Key of the input.
  * @param {GitHubActionsGetParameterOptions & { fallback?: true; require?: false; }} [options={}] Options.
@@ -158,7 +158,7 @@ export function getInputBigInt(key: string, options?: GitHubActionsGetParameterO
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
  * @param {string} key Key of the input.
  * @param {GitHubActionsGetParameterOptions & { require: true; }} options Options.
@@ -170,7 +170,7 @@ export function getInputBigInt(key: string, options: GitHubActionsGetParameterOp
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
  * @param {string} key Key of the input.
  * @param {GitHubActionsGetParameterOptions & { fallback: false; require?: false; }} options Options.
@@ -203,7 +203,7 @@ export {
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
  * @param {string} key Key of the input.
  * @param {GitHubActionsGetParameterOptions & { fallback?: true; require?: false; }} [options={}] Options.
@@ -215,7 +215,7 @@ export function getInputBoolean(key: string, options?: GitHubActionsGetParameter
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
  * @param {string} key Key of the input.
  * @param {GitHubActionsGetParameterOptions & { require: true; }} options Options.
@@ -227,7 +227,7 @@ export function getInputBoolean(key: string, options: GitHubActionsGetParameterO
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
  * @param {string} key Key of the input.
  * @param {GitHubActionsGetParameterOptions & { fallback: false; require?: false; }} options Options.
@@ -264,7 +264,7 @@ export function getInputBoolean(key: string, options: GitHubActionsGetParameterO
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
  * @param {string} key Key of the input.
  * @param {GitHubActionsGetParameterOptions & { fallback?: true; require?: false; }} [options={}] Options.
@@ -276,7 +276,7 @@ export function getInputJSON(key: string, options?: GitHubActionsGetParameterOpt
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
  * @param {string} key Key of the input.
  * @param {GitHubActionsGetParameterOptions & { require: true; }} options Options.
@@ -288,7 +288,7 @@ export function getInputJSON(key: string, options: GitHubActionsGetParameterOpti
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
  * @param {string} key Key of the input.
  * @param {GitHubActionsGetParameterOptions & { fallback: false; require?: false; }} options Options.
@@ -321,7 +321,7 @@ export {
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
  * @param {string} key Key of the input.
  * @param {GitHubActionsGetParameterOptions & { fallback?: true; require?: false; }} [options={}] Options.
@@ -333,7 +333,7 @@ export function getInputJSONArray(key: string, options?: GitHubActionsGetParamet
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
  * @param {string} key Key of the input.
  * @param {GitHubActionsGetParameterOptions & { require: true; }} options Options.
@@ -345,7 +345,7 @@ export function getInputJSONArray(key: string, options: GitHubActionsGetParamete
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
  * @param {string} key Key of the input.
  * @param {GitHubActionsGetParameterOptions & { fallback: false; require?: false; }} options Options.
@@ -377,7 +377,7 @@ export function getInputJSONArray(key: string, options: GitHubActionsGetParamete
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
  * @param {string} key Key of the input.
  * @param {GitHubActionsGetParameterOptions & { fallback?: true; require?: false; }} [options={}] Options.
@@ -389,7 +389,7 @@ export function getInputJSONObject(key: string, options?: GitHubActionsGetParame
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
  * @param {string} key Key of the input.
  * @param {GitHubActionsGetParameterOptions & { require: true; }} options Options.
@@ -401,7 +401,7 @@ export function getInputJSONObject(key: string, options: GitHubActionsGetParamet
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
  * @param {string} key Key of the input.
  * @param {GitHubActionsGetParameterOptions & { fallback: false; require?: false; }} options Options.
@@ -433,7 +433,7 @@ export function getInputJSONObject(key: string, options: GitHubActionsGetParamet
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
  * @param {string} key Key of the input.
  * @param {GitHubActionsGetParameterOptions & { fallback?: true; require?: false; }} [options={}] Options.
@@ -445,7 +445,7 @@ export function getInputJSONPrimitive(key: string, options?: GitHubActionsGetPar
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
  * @param {string} key Key of the input.
  * @param {GitHubActionsGetParameterOptions & { require: true; }} options Options.
@@ -457,7 +457,7 @@ export function getInputJSONPrimitive(key: string, options: GitHubActionsGetPara
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
  * @param {string} key Key of the input.
  * @param {GitHubActionsGetParameterOptions & { fallback: false; require?: false; }} options Options.
@@ -489,7 +489,7 @@ export function getInputJSONPrimitive(key: string, options: GitHubActionsGetPara
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
  * @param {string} key Key of the input.
  * @param {GitHubActionsGetParameterOptions & { fallback?: true; require?: false; }} [options={}] Options.
@@ -501,7 +501,7 @@ export function getInputNumber(key: string, options?: GitHubActionsGetParameterO
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
  * @param {string} key Key of the input.
  * @param {GitHubActionsGetParameterOptions & { require: true; }} options Options.
@@ -513,7 +513,7 @@ export function getInputNumber(key: string, options: GitHubActionsGetParameterOp
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
  * @param {string} key Key of the input.
  * @param {GitHubActionsGetParameterOptions & { fallback: false; require?: false; }} options Options.
@@ -543,7 +543,7 @@ export function getInputNumber(key: string, options: GitHubActionsGetParameterOp
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
  * @param {string} key Key of the state.
  * @param {GitHubActionsGetParameterOptions & { fallback?: true; require?: false; }} [options={}] Options.
@@ -555,7 +555,7 @@ export function getState(key: string, options?: GitHubActionsGetParameterOptions
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
  * @param {string} key Key of the state.
  * @param {GitHubActionsGetParameterOptions & { require: true; }} options Options.
@@ -567,7 +567,7 @@ export function getState(key: string, options: GitHubActionsGetParameterOptions 
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
  * @param {string} key Key of the state.
  * @param {GitHubActionsGetParameterOptions & { fallback: false; require?: false; }} options Options.
@@ -596,7 +596,7 @@ export {
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
  * @param {string} key Key of the state.
  * @param {GitHubActionsGetParameterOptions & { fallback?: true; require?: false; }} [options={}] Options.
@@ -608,7 +608,7 @@ export function getStateBigInt(key: string, options?: GitHubActionsGetParameterO
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
  * @param {string} key Key of the state.
  * @param {GitHubActionsGetParameterOptions & { require: true; }} options Options.
@@ -620,7 +620,7 @@ export function getStateBigInt(key: string, options: GitHubActionsGetParameterOp
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
  * @param {string} key Key of the state.
  * @param {GitHubActionsGetParameterOptions & { fallback: false; require?: false; }} options Options.
@@ -653,7 +653,7 @@ export {
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
  * @param {string} key Key of the state.
  * @param {GitHubActionsGetParameterOptions & { fallback?: true; require?: false; }} [options={}] Options.
@@ -665,7 +665,7 @@ export function getStateBoolean(key: string, options?: GitHubActionsGetParameter
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
  * @param {string} key Key of the state.
  * @param {GitHubActionsGetParameterOptions & { require: true; }} options Options.
@@ -677,7 +677,7 @@ export function getStateBoolean(key: string, options: GitHubActionsGetParameterO
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
  * @param {string} key Key of the state.
  * @param {GitHubActionsGetParameterOptions & { fallback: false; require?: false; }} options Options.
@@ -714,7 +714,7 @@ export function getStateBoolean(key: string, options: GitHubActionsGetParameterO
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
  * @param {string} key Key of the state.
  * @param {GitHubActionsGetParameterOptions & { fallback?: true; require?: false; }} [options={}] Options.
@@ -726,7 +726,7 @@ export function getStateJSON(key: string, options?: GitHubActionsGetParameterOpt
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
  * @param {string} key Key of the state.
  * @param {GitHubActionsGetParameterOptions & { require: true; }} options Options.
@@ -738,7 +738,7 @@ export function getStateJSON(key: string, options: GitHubActionsGetParameterOpti
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
  * @param {string} key Key of the state.
  * @param {GitHubActionsGetParameterOptions & { fallback: false; require?: false; }} options Options.
@@ -771,7 +771,7 @@ export {
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
  * @param {string} key Key of the state.
  * @param {GitHubActionsGetParameterOptions & { fallback?: true; require?: false; }} [options={}] Options.
@@ -783,7 +783,7 @@ export function getStateJSONArray(key: string, options?: GitHubActionsGetParamet
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
  * @param {string} key Key of the state.
  * @param {GitHubActionsGetParameterOptions & { require: true; }} options Options.
@@ -795,7 +795,7 @@ export function getStateJSONArray(key: string, options: GitHubActionsGetParamete
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
  * @param {string} key Key of the state.
  * @param {GitHubActionsGetParameterOptions & { fallback: false; require?: false; }} options Options.
@@ -827,7 +827,7 @@ export function getStateJSONArray(key: string, options: GitHubActionsGetParamete
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
  * @param {string} key Key of the state.
  * @param {GitHubActionsGetParameterOptions & { fallback?: true; require?: false; }} [options={}] Options.
@@ -839,7 +839,7 @@ export function getStateJSONObject(key: string, options?: GitHubActionsGetParame
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
  * @param {string} key Key of the state.
  * @param {GitHubActionsGetParameterOptions & { require: true; }} options Options.
@@ -851,7 +851,7 @@ export function getStateJSONObject(key: string, options: GitHubActionsGetParamet
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
  * @param {string} key Key of the state.
  * @param {GitHubActionsGetParameterOptions & { fallback: false; require?: false; }} options Options.
@@ -883,7 +883,7 @@ export function getStateJSONObject(key: string, options: GitHubActionsGetParamet
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
  * @param {string} key Key of the state.
  * @param {GitHubActionsGetParameterOptions & { fallback?: true; require?: false; }} [options={}] Options.
@@ -895,7 +895,7 @@ export function getStateJSONPrimitive(key: string, options?: GitHubActionsGetPar
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
  * @param {string} key Key of the state.
  * @param {GitHubActionsGetParameterOptions & { require: true; }} options Options.
@@ -907,7 +907,7 @@ export function getStateJSONPrimitive(key: string, options: GitHubActionsGetPara
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
  * @param {string} key Key of the state.
  * @param {GitHubActionsGetParameterOptions & { fallback: false; require?: false; }} options Options.
@@ -939,7 +939,7 @@ export function getStateJSONPrimitive(key: string, options: GitHubActionsGetPara
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
  * @param {string} key Key of the state.
  * @param {GitHubActionsGetParameterOptions & { fallback?: true; require?: false; }} [options={}] Options.
@@ -951,7 +951,7 @@ export function getStateNumber(key: string, options?: GitHubActionsGetParameterO
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
  * @param {string} key Key of the state.
  * @param {GitHubActionsGetParameterOptions & { require: true; }} options Options.
@@ -963,7 +963,7 @@ export function getStateNumber(key: string, options: GitHubActionsGetParameterOp
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - *Resources*
  * @param {string} key Key of the state.
  * @param {GitHubActionsGetParameterOptions & { fallback: false; require?: false; }} options Options.
@@ -993,11 +993,11 @@ export function getStateNumber(key: string, options: GitHubActionsGetParameterOp
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_OUTPUT`
- * > - File System - Read \[Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`\]
+ * > - **File System - Read (Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`):**
  * >   - *Resources*
- * > - File System - Write \[Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`\]
+ * > - **File System - Write (Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`):**
  * >   - *Resources*
  * @returns {void}
  */
@@ -1009,11 +1009,11 @@ export function optimizeOutput(): void {
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_STATE`
- * > - File System - Read \[Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`\]
+ * > - **File System - Read (Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`):**
  * >   - *Resources*
- * > - File System - Write \[Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`\]
+ * > - **File System - Write (Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`):**
  * >   - *Resources*
  * @returns {void}
  */
@@ -1025,11 +1025,11 @@ export function optimizeState(): void {
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_OUTPUT`
- * > - File System - Read \[Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`\]
+ * > - **File System - Read (Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`):**
  * >   - *Resources*
- * > - File System - Write \[Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`\]
+ * > - **File System - Write (Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`):**
  * >   - *Resources*
  * @param {string} key Key of the output.
  * @param {StringizableType} value Value of the output.
@@ -1041,11 +1041,11 @@ export function setOutput(key: string, value: StringizableType): void;
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_OUTPUT`
- * > - File System - Read \[Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`\]
+ * > - **File System - Read (Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`):**
  * >   - *Resources*
- * > - File System - Write \[Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`\]
+ * > - **File System - Write (Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`):**
  * >   - *Resources*
  * @param {KeyValueLike<StringizableType>} pairs Pairs of the output.
  * @returns {void}
@@ -1075,11 +1075,11 @@ export function setOutput(param0: string | KeyValueLike<StringizableType>, param
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_STATE`
- * > - File System - Read \[Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`\]
+ * > - **File System - Read (Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`):**
  * >   - *Resources*
- * > - File System - Write \[Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`\]
+ * > - **File System - Write (Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`):**
  * >   - *Resources*
  * @param {string} key Key of the state.
  * @param {StringizableType} value Value of the state.
@@ -1091,11 +1091,11 @@ export function setState(key: string, value: StringizableType): void;
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_STATE`
- * > - File System - Read \[Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`\]
+ * > - **File System - Read (Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`):**
  * >   - *Resources*
- * > - File System - Write \[Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`\]
+ * > - **File System - Write (Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`):**
  * >   - *Resources*
  * @param {KeyValueLike<StringizableType>} pairs Pairs of the state.
  * @returns {void}

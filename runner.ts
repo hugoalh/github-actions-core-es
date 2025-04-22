@@ -22,7 +22,7 @@ const runnerArchitectures: readonly GitHubActionsRunnerArchitecture[] = [
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - `RUNNER_ARCH`
  * @returns {GitHubActionsRunnerArchitecture} Architecture of the GitHub Actions runner.
  * @example
@@ -49,7 +49,7 @@ export {
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - `RUNNER_DEBUG`
  * @returns {boolean} Debug status of the GitHub Actions runner.
  */
@@ -74,7 +74,7 @@ const runnerEnvironments: readonly GitHubActionsRunnerEnvironment[] = [
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - `RUNNER_ENVIRONMENT`
  * @returns {GitHubActionsRunnerEnvironment} Environment of the GitHub Actions runner.
  */
@@ -93,7 +93,7 @@ export function getRunnerEnvironment(): GitHubActionsRunnerEnvironment {
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - `RUNNER_NAME`
  * @returns {string} Name of the GitHub Actions runner.
  * @example
@@ -126,7 +126,7 @@ const runnerOSes: readonly GitHubActionsRunnerOS[] = [
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - `RUNNER_OS`
  * @returns {GitHubActionsRunnerOS} OS of the GitHub Actions runner.
  * @example
@@ -152,7 +152,7 @@ export function getRunnerOS(): GitHubActionsRunnerOS {
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - `RUNNER_TEMP`
  * @returns {string} Absolute path of the `TEMP` directory of the GitHub Actions runner.
  * @example
@@ -178,7 +178,7 @@ export function getRunnerTempPath(): string {
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - `RUNNER_TOOL_CACHE`
  * @returns {string | undefined} Absolute path of the tool cache directory of the GitHub hosted GitHub Actions runner.
  * @example
@@ -199,7 +199,7 @@ export function getRunnerToolCachePath(): string | undefined {
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_WORKSPACE`
  * @returns {string} Absolute path of the workspace of the GitHub Actions runner.
  * @example
@@ -290,7 +290,7 @@ export interface GitHubActionsRunnerTestOptions {
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - `ACTIONS_CACHE_SERVICE_V2` (Optional)
  * >   - `ACTIONS_CACHE_URL` (Optional)
  * >   - `ACTIONS_ID_TOKEN_REQUEST_TOKEN` (Optional)
@@ -380,7 +380,7 @@ export function isInRunner(options: GitHubActionsRunnerTestOptions = {}): boolea
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - `ACTIONS_CACHE_SERVICE_V2` (Optional)
  * >   - `ACTIONS_CACHE_URL` (Optional)
  * >   - `ACTIONS_ID_TOKEN_REQUEST_TOKEN` (Optional)
@@ -438,11 +438,11 @@ export function validateInRunner(options: GitHubActionsRunnerTestOptions = {}): 
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - `RUNNER_TEMP`
- * > - File System - Read \[Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`\]
+ * > - **File System - Read (Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`):**
  * >   - *Resources*
- * > - File System - Write \[Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`\]
+ * > - **File System - Write (Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`):**
  * >   - *Resources*
  * @returns {void}
  */
@@ -469,11 +469,11 @@ export function clearRunnerTemp(): void {
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - `RUNNER_TEMP`
- * > - File System - Read \[Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`\]
+ * > - **File System - Read (Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`):**
  * >   - *Resources*
- * > - File System - Write \[Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`\]
+ * > - **File System - Write (Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`):**
  * >   - *Resources*
  * @returns {string} Absolute path of the new temporary directory in the `TEMP` directory.
  */
@@ -497,11 +497,11 @@ export {
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - Environment Variable \[Deno: `env`\]
+ * > - **Environment Variable (Deno: `env`):**
  * >   - `RUNNER_TEMP`
- * > - File System - Read \[Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`\]
+ * > - **File System - Read (Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`):**
  * >   - *Resources*
- * > - File System - Write \[Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`\]
+ * > - **File System - Write (Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`):**
  * >   - *Resources*
  * @returns {string} Absolute path of the new temporary file in the `TEMP` directory.
  */
