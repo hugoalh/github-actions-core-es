@@ -42,7 +42,7 @@ export function addPATH(path: string, options?: GitHubActionsSetEnvironmentVaria
  * >   - *Resources* (Optional)
  * > - File System - Write \[Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`\]
  * >   - *Resources* (Optional)
- * @param {readonly string[]} paths Value that need to add to the `PATH`.
+ * @param {string[]} paths Value that need to add to the `PATH`.
  * @param {GitHubActionsSetEnvironmentVariableOptions} [options={}] Options.
  * @returns {void}
  */
