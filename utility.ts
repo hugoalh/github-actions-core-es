@@ -643,7 +643,7 @@ export interface GitHubActionsWebhookEventPayload extends JSONObjectExtend {
  * > 
  * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_EVENT_PATH`
- * > - **File System - Read (Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`):**
+ * > - **File System - Read (Deno: `read`; NodeJS: `fs-read`):**
  * >   - *Resources*
  * @returns {GitHubActionsWebhookEventPayload} Webhook event payload of the workflow run.
  */

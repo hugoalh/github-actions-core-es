@@ -21,9 +21,9 @@ import {
  * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_PATH` (Optional)
  * >   - `PATH` (Optional)
- * > - **File System - Read (Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`):**
+ * > - **File System - Read (Deno: `read`; NodeJS: `fs-read`):**
  * >   - *Resources* (Optional)
- * > - **File System - Write (Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`):**
+ * > - **File System - Write (Deno: `write`; NodeJS: `fs-write`):**
  * >   - *Resources* (Optional)
  * @param {string} path Value that need to add to the `PATH`.
  * @param {GitHubActionsSetEnvironmentVariableOptions} [options={}] Options.
@@ -38,9 +38,9 @@ export function addPATH(path: string, options?: GitHubActionsSetEnvironmentVaria
  * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_PATH` (Optional)
  * >   - `PATH` (Optional)
- * > - **File System - Read (Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`):**
+ * > - **File System - Read (Deno: `read`; NodeJS: `fs-read`):**
  * >   - *Resources* (Optional)
- * > - **File System - Write (Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`):**
+ * > - **File System - Write (Deno: `write`; NodeJS: `fs-write`):**
  * >   - *Resources* (Optional)
  * @param {string[]} paths Value that need to add to the `PATH`.
  * @param {GitHubActionsSetEnvironmentVariableOptions} [options={}] Options.
@@ -74,9 +74,9 @@ export function addPATH(param0: string | readonly string[], options: GitHubActio
  * > 
  * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_ENV`
- * > - **File System - Read (Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`):**
+ * > - **File System - Read (Deno: `read`; NodeJS: `fs-read`):**
  * >   - *Resources*
- * > - **File System - Write (Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`):**
+ * > - **File System - Write (Deno: `write`; NodeJS: `fs-write`):**
  * >   - *Resources*
  * @returns {void}
  */
@@ -93,9 +93,9 @@ export {
  * > 
  * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_PATH`
- * > - **File System - Read (Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`):**
+ * > - **File System - Read (Deno: `read`; NodeJS: `fs-read`):**
  * >   - *Resources* (Optional)
- * > - **File System - Write (Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`):**
+ * > - **File System - Write (Deno: `write`; NodeJS: `fs-write`):**
  * >   - *Resources* (Optional)
  * @returns {void}
  */
@@ -109,9 +109,9 @@ export function clearPATHSubsequent(): void {
  * > 
  * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_ENV`
- * > - **File System - Read (Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`):**
+ * > - **File System - Read (Deno: `read`; NodeJS: `fs-read`):**
  * >   - *Resources*
- * > - **File System - Write (Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`):**
+ * > - **File System - Write (Deno: `write`; NodeJS: `fs-write`):**
  * >   - *Resources*
  * @returns {void}
  */
@@ -128,9 +128,9 @@ export {
  * > 
  * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_PATH`
- * > - **File System - Read (Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`):**
+ * > - **File System - Read (Deno: `read`; NodeJS: `fs-read`):**
  * >   - *Resources* (Optional)
- * > - **File System - Write (Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`):**
+ * > - **File System - Write (Deno: `write`; NodeJS: `fs-write`):**
  * >   - *Resources* (Optional)
  * @returns {void}
  */
@@ -171,9 +171,9 @@ export interface GitHubActionsSetEnvironmentVariableOptions {
  * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_ENV` (Optional)
  * >   - *Resources* (Optional)
- * > - **File System - Read (Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`):**
+ * > - **File System - Read (Deno: `read`; NodeJS: `fs-read`):**
  * >   - *Resources* (Optional)
- * > - **File System - Write (Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`):**
+ * > - **File System - Write (Deno: `write`; NodeJS: `fs-write`):**
  * >   - *Resources* (Optional)
  * @param {string} key Key of the environment variable.
  * @param {StringizableType} value Value of the environment variable.
@@ -189,9 +189,9 @@ export function setEnvironmentVariable(key: string, value: StringizableType, opt
  * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_ENV` (Optional)
  * >   - *Resources* (Optional)
- * > - **File System - Read (Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`):**
+ * > - **File System - Read (Deno: `read`; NodeJS: `fs-read`):**
  * >   - *Resources* (Optional)
- * > - **File System - Write (Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`):**
+ * > - **File System - Write (Deno: `write`; NodeJS: `fs-write`):**
  * >   - *Resources* (Optional)
  * @param {KeyValueLike<StringizableType>} pairs Pairs of the environment variable.
  * @param {GitHubActionsSetEnvironmentVariableOptions} [options={}] Options.

@@ -9,9 +9,9 @@ import {
  * > 
  * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_STEP_SUMMARY`
- * > - **File System - Read (Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`):**
+ * > - **File System - Read (Deno: `read`; NodeJS: `fs-read`):**
  * >   - *Resources*
- * > - **File System - Write (Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`):**
+ * > - **File System - Write (Deno: `write`; NodeJS: `fs-write`):**
  * >   - *Resources*
  * @param {string | Uint8Array} data Data.
  * @returns {void}
@@ -31,9 +31,9 @@ export function appendSummary(data: string | Uint8Array): void {
  * > 
  * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_STEP_SUMMARY`
- * > - **File System - Read (Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`):**
+ * > - **File System - Read (Deno: `read`; NodeJS: `fs-read`):**
  * >   - *Resources*
- * > - **File System - Write (Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`):**
+ * > - **File System - Write (Deno: `write`; NodeJS: `fs-write`):**
  * >   - *Resources*
  * @returns {void}
  */
@@ -47,9 +47,9 @@ export function clearSummary(): void {
  * > 
  * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_STEP_SUMMARY`
- * > - **File System - Read (Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`):**
+ * > - **File System - Read (Deno: `read`; NodeJS: `fs-read`):**
  * >   - *Resources*
- * > - **File System - Write (Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`):**
+ * > - **File System - Write (Deno: `write`; NodeJS: `fs-write`):**
  * >   - *Resources*
  * @returns {number} Size of the summary, in bytes.
  */

@@ -107,9 +107,9 @@ This is a partial refactor of [the official toolkit][official-toolkit], not all 
   - `RUNNER_TEMP` (Optional)
   - `RUNNER_TOOL_CACHE` (Optional)
   - *Resources* (Optional)
-- **File System - Read (Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`):**
+- **File System - Read (Deno: `read`; NodeJS: `fs-read`):**
   - *Resources* (Optional)
-- **File System - Write (Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`):**
+- **File System - Write (Deno: `write`; NodeJS: `fs-write`):**
   - *Resources* (Optional)
 
 ## 🧩 APIs

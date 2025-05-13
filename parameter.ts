@@ -30,9 +30,9 @@ export type {
  * > 
  * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_OUTPUT`
- * > - **File System - Read (Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`):**
+ * > - **File System - Read (Deno: `read`; NodeJS: `fs-read`):**
  * >   - *Resources*
- * > - **File System - Write (Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`):**
+ * > - **File System - Write (Deno: `write`; NodeJS: `fs-write`):**
  * >   - *Resources*
  * @returns {void}
  */
@@ -46,9 +46,9 @@ export function clearOutput(): void {
  * > 
  * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_STATE`
- * > - **File System - Read (Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`):**
+ * > - **File System - Read (Deno: `read`; NodeJS: `fs-read`):**
  * >   - *Resources*
- * > - **File System - Write (Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`):**
+ * > - **File System - Write (Deno: `write`; NodeJS: `fs-write`):**
  * >   - *Resources*
  * @returns {void}
  */
@@ -995,9 +995,9 @@ export function getStateNumber(key: string, options: GitHubActionsGetParameterOp
  * > 
  * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_OUTPUT`
- * > - **File System - Read (Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`):**
+ * > - **File System - Read (Deno: `read`; NodeJS: `fs-read`):**
  * >   - *Resources*
- * > - **File System - Write (Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`):**
+ * > - **File System - Write (Deno: `write`; NodeJS: `fs-write`):**
  * >   - *Resources*
  * @returns {void}
  */
@@ -1011,9 +1011,9 @@ export function optimizeOutput(): void {
  * > 
  * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_STATE`
- * > - **File System - Read (Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`):**
+ * > - **File System - Read (Deno: `read`; NodeJS: `fs-read`):**
  * >   - *Resources*
- * > - **File System - Write (Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`):**
+ * > - **File System - Write (Deno: `write`; NodeJS: `fs-write`):**
  * >   - *Resources*
  * @returns {void}
  */
@@ -1027,9 +1027,9 @@ export function optimizeState(): void {
  * > 
  * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_OUTPUT`
- * > - **File System - Read (Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`):**
+ * > - **File System - Read (Deno: `read`; NodeJS: `fs-read`):**
  * >   - *Resources*
- * > - **File System - Write (Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`):**
+ * > - **File System - Write (Deno: `write`; NodeJS: `fs-write`):**
  * >   - *Resources*
  * @param {string} key Key of the output.
  * @param {StringizableType} value Value of the output.
@@ -1043,9 +1043,9 @@ export function setOutput(key: string, value: StringizableType): void;
  * > 
  * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_OUTPUT`
- * > - **File System - Read (Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`):**
+ * > - **File System - Read (Deno: `read`; NodeJS: `fs-read`):**
  * >   - *Resources*
- * > - **File System - Write (Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`):**
+ * > - **File System - Write (Deno: `write`; NodeJS: `fs-write`):**
  * >   - *Resources*
  * @param {KeyValueLike<StringizableType>} pairs Pairs of the output.
  * @returns {void}
@@ -1077,9 +1077,9 @@ export function setOutput(param0: string | KeyValueLike<StringizableType>, param
  * > 
  * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_STATE`
- * > - **File System - Read (Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`):**
+ * > - **File System - Read (Deno: `read`; NodeJS: `fs-read`):**
  * >   - *Resources*
- * > - **File System - Write (Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`):**
+ * > - **File System - Write (Deno: `write`; NodeJS: `fs-write`):**
  * >   - *Resources*
  * @param {string} key Key of the state.
  * @param {StringizableType} value Value of the state.
@@ -1093,9 +1093,9 @@ export function setState(key: string, value: StringizableType): void;
  * > 
  * > - **Environment Variable (Deno: `env`):**
  * >   - `GITHUB_STATE`
- * > - **File System - Read (Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`):**
+ * > - **File System - Read (Deno: `read`; NodeJS: `fs-read`):**
  * >   - *Resources*
- * > - **File System - Write (Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`):**
+ * > - **File System - Write (Deno: `write`; NodeJS: `fs-write`):**
  * >   - *Resources*
  * @param {KeyValueLike<StringizableType>} pairs Pairs of the state.
  * @returns {void}

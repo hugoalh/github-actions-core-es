@@ -440,9 +440,9 @@ export function validateInRunner(options: GitHubActionsRunnerTestOptions = {}): 
  * > 
  * > - **Environment Variable (Deno: `env`):**
  * >   - `RUNNER_TEMP`
- * > - **File System - Read (Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`):**
+ * > - **File System - Read (Deno: `read`; NodeJS: `fs-read`):**
  * >   - *Resources*
- * > - **File System - Write (Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`):**
+ * > - **File System - Write (Deno: `write`; NodeJS: `fs-write`):**
  * >   - *Resources*
  * @returns {void}
  */
@@ -471,9 +471,9 @@ export function clearRunnerTemp(): void {
  * > 
  * > - **Environment Variable (Deno: `env`):**
  * >   - `RUNNER_TEMP`
- * > - **File System - Read (Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`):**
+ * > - **File System - Read (Deno: `read`; NodeJS: `fs-read`):**
  * >   - *Resources*
- * > - **File System - Write (Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`):**
+ * > - **File System - Write (Deno: `write`; NodeJS: `fs-write`):**
  * >   - *Resources*
  * @returns {string} Absolute path of the new temporary directory in the `TEMP` directory.
  */
@@ -499,9 +499,9 @@ export {
  * > 
  * > - **Environment Variable (Deno: `env`):**
  * >   - `RUNNER_TEMP`
- * > - **File System - Read (Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`):**
+ * > - **File System - Read (Deno: `read`; NodeJS: `fs-read`):**
  * >   - *Resources*
- * > - **File System - Write (Deno: `write`; NodeJS (>= v20.9.0) 🧪: `fs-write`):**
+ * > - **File System - Write (Deno: `write`; NodeJS: `fs-write`):**
  * >   - *Resources*
  * @returns {string} Absolute path of the new temporary file in the `TEMP` directory.
  */
