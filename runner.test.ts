@@ -1,4 +1,7 @@
-import { ok } from "node:assert";
+import {
+	deepStrictEqual,
+	ok
+} from "node:assert";
 import {
 	getRunnerArchitecture,
 	getRunnerDebugStatus,
@@ -8,7 +11,7 @@ import {
 	getRunnerTempPath,
 	getRunnerToolCachePath,
 	getRunnerWorkspacePath,
-	validateInRunner
+	isInRunner
 } from "./runner.ts";
 const ignore = !(
 	Deno.args.includes("--force") ||
@@ -84,11 +87,11 @@ Deno.test("Workspace Path", {
 }, () => {
 	console.log(getRunnerWorkspacePath());
 });
-Deno.test("Validate In Runner", {
+Deno.test("Is In Runner", {
 	ignore,
 	permissions: {
 		env: true
 	}
 }, () => {
-	void validateInRunner();
+	deepStrictEqual(isInRunner(), true);
 });
