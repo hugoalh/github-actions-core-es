@@ -1,11 +1,10 @@
 import { isAbsolute as isPathAbsolute } from "node:path"
-import { setEnv } from "https://raw.githubusercontent.com/hugoalh/env-es/v0.2.1/env.ts";
-import { addEnvPath } from "https://raw.githubusercontent.com/hugoalh/env-es/v0.2.1/path.ts";
-import { isStringSingleLine } from "https://raw.githubusercontent.com/hugoalh/is-string-singleline-es/v1.0.4/mod.ts";
+import { env } from "https://raw.githubusercontent.com/hugoalh/env-es/v0.3.0/env.ts";
+import { isStringSingleLine } from "https://raw.githubusercontent.com/hugoalh/is-string-singleline-es/v1.0.5/mod.ts";
 import {
 	stringifyInput,
 	type KeyValueLike,
-	type StringizableType
+	type StringifiableType
 } from "./_share.ts";
 import {
 	appendFileLineCommand,
@@ -13,6 +12,18 @@ import {
 	clearFileCommand,
 	optimizeFileCommand
 } from "./command/file.ts";
+export interface GitHubActionsSetEnvironmentVariableOptions {
+	/**
+	 * Whether to set for the current step.
+	 * @default {true}
+	 */
+	scopeCurrent?: boolean;
+	/**
+	 * Whether to set for all of the subsequent steps.
+	 * @default {true}
+	 */
+	scopeSubsequent?: boolean;
+}
 /**
  * Add value to the `PATH`.
  * 
@@ -60,7 +71,7 @@ export function addPATH(param0: string | readonly string[], options: GitHubActio
 	});
 	if (paths.length > 0) {
 		if (scopeCurrent) {
-			addEnvPath(...paths);
+			env.path.add(...paths);
 		}
 		if (scopeSubsequent) {
 			appendFileLineCommand("GITHUB_PATH", ...paths);
@@ -151,18 +162,6 @@ function validateEnvironmentVariableKey(item: string): void {
 		throw new Error(`Modify environment variable \`${item}\` is forbidden!`);
 	}
 }
-export interface GitHubActionsSetEnvironmentVariableOptions {
-	/**
-	 * Whether to set for the current step.
-	 * @default {true}
-	 */
-	scopeCurrent?: boolean;
-	/**
-	 * Whether to set for all of the subsequent steps.
-	 * @default {true}
-	 */
-	scopeSubsequent?: boolean;
-}
 /**
  * Set an environment variable.
  * 
@@ -176,11 +175,11 @@ export interface GitHubActionsSetEnvironmentVariableOptions {
  * > - **File System - Write (Deno: `write`; NodeJS: `fs-write`):**
  * >   - *Resources* (Optional)
  * @param {string} key Key of the environment variable.
- * @param {StringizableType} value Value of the environment variable.
+ * @param {StringifiableType} value Value of the environment variable.
  * @param {GitHubActionsSetEnvironmentVariableOptions} [options={}] Options.
  * @returns {void}
  */
-export function setEnvironmentVariable(key: string, value: StringizableType, options?: GitHubActionsSetEnvironmentVariableOptions): void;
+export function setEnvironmentVariable(key: string, value: StringifiableType, options?: GitHubActionsSetEnvironmentVariableOptions): void;
 /**
  * Set the environment variables.
  * 
@@ -193,12 +192,12 @@ export function setEnvironmentVariable(key: string, value: StringizableType, opt
  * >   - *Resources* (Optional)
  * > - **File System - Write (Deno: `write`; NodeJS: `fs-write`):**
  * >   - *Resources* (Optional)
- * @param {KeyValueLike<StringizableType>} pairs Pairs of the environment variable.
+ * @param {KeyValueLike<StringifiableType>} pairs Pairs of the environment variable.
  * @param {GitHubActionsSetEnvironmentVariableOptions} [options={}] Options.
  * @returns {void}
  */
-export function setEnvironmentVariable(pairs: KeyValueLike<StringizableType>, options?: GitHubActionsSetEnvironmentVariableOptions): void;
-export function setEnvironmentVariable(param0: string | KeyValueLike<StringizableType>, param1?: StringizableType | GitHubActionsSetEnvironmentVariableOptions, param2?: GitHubActionsSetEnvironmentVariableOptions): void {
+export function setEnvironmentVariable(pairs: KeyValueLike<StringifiableType>, options?: GitHubActionsSetEnvironmentVariableOptions): void;
+export function setEnvironmentVariable(param0: string | KeyValueLike<StringifiableType>, param1?: StringifiableType | GitHubActionsSetEnvironmentVariableOptions, param2?: GitHubActionsSetEnvironmentVariableOptions): void {
 	const {
 		scopeCurrent = true,
 		scopeSubsequent = true
@@ -206,7 +205,7 @@ export function setEnvironmentVariable(param0: string | KeyValueLike<Stringizabl
 	const pairs: Map<string, string> = new Map<string, string>();
 	if (typeof param0 === "string") {
 		validateEnvironmentVariableKey(param0);
-		pairs.set(param0, stringifyInput(param1 as StringizableType));
+		pairs.set(param0, stringifyInput(param1 as StringifiableType));
 	} else {
 		for (const [key, value] of ((param0 instanceof Map) ? param0.entries() : Object.entries(param0))) {
 			validateEnvironmentVariableKey(key);
@@ -216,7 +215,7 @@ export function setEnvironmentVariable(param0: string | KeyValueLike<Stringizabl
 	if (pairs.size > 0) {
 		if (scopeCurrent) {
 			for (const [key, value] of pairs.values()) {
-				setEnv(key, value);
+				env.set(key, value);
 			}
 		}
 		if (scopeSubsequent) {

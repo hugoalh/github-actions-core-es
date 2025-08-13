@@ -2,7 +2,7 @@ import {
 	isAbsolute as isPathAbsolute,
 	join as joinPath
 } from "node:path";
-import { getEnv } from "https://raw.githubusercontent.com/hugoalh/env-es/v0.2.1/env.ts";
+import { env } from "https://raw.githubusercontent.com/hugoalh/env-es/v0.3.0/env.ts";
 /**
  * GitHub Actions runner architecture.
  */
@@ -32,7 +32,7 @@ const runnerArchitectures: readonly GitHubActionsRunnerArchitecture[] = [
  * ```
  */
 export function getRunnerArchitecture(): GitHubActionsRunnerArchitecture {
-	const value: string | undefined = getEnv("RUNNER_ARCH");
+	const value: string | undefined = env.get("RUNNER_ARCH");
 	if (typeof value === "undefined") {
 		throw new ReferenceError(`Unable to get the GitHub Actions runner architecture, environment variable \`RUNNER_ARCH\` is not defined!`);
 	}
@@ -54,7 +54,7 @@ export {
  * @returns {boolean} Debug status of the GitHub Actions runner.
  */
 export function getRunnerDebugStatus(): boolean {
-	return (getEnv("RUNNER_DEBUG") === "1");
+	return (env.get("RUNNER_DEBUG") === "1");
 }
 export {
 	getRunnerDebugStatus as isRunnerDebug
@@ -79,7 +79,7 @@ const runnerEnvironments: readonly GitHubActionsRunnerEnvironment[] = [
  * @returns {GitHubActionsRunnerEnvironment} Environment of the GitHub Actions runner.
  */
 export function getRunnerEnvironment(): GitHubActionsRunnerEnvironment {
-	const value: string | undefined = getEnv("RUNNER_ENVIRONMENT");
+	const value: string | undefined = env.get("RUNNER_ENVIRONMENT");
 	if (typeof value === "undefined") {
 		throw new ReferenceError(`Unable to get the GitHub Actions runner environment, environment variable \`RUNNER_ENVIRONMENT\` is not defined!`);
 	}
@@ -103,7 +103,7 @@ export function getRunnerEnvironment(): GitHubActionsRunnerEnvironment {
  * ```
  */
 export function getRunnerName(): string {
-	const value: string | undefined = getEnv("RUNNER_NAME");
+	const value: string | undefined = env.get("RUNNER_NAME");
 	if (typeof value === "undefined") {
 		throw new ReferenceError(`Unable to get the GitHub Actions runner name, environment variable \`RUNNER_NAME\` is not defined!`);
 	}
@@ -136,7 +136,7 @@ const runnerOSes: readonly GitHubActionsRunnerOS[] = [
  * ```
  */
 export function getRunnerOS(): GitHubActionsRunnerOS {
-	const value: string | undefined = getEnv("RUNNER_OS");
+	const value: string | undefined = env.get("RUNNER_OS");
 	if (typeof value === "undefined") {
 		throw new ReferenceError(`Unable to get the GitHub Actions runner OS, environment variable \`RUNNER_OS\` is not defined!`);
 	}
@@ -162,7 +162,7 @@ export function getRunnerOS(): GitHubActionsRunnerOS {
  * ```
  */
 export function getRunnerTempPath(): string {
-	const value: string | undefined = getEnv("RUNNER_TEMP");
+	const value: string | undefined = env.get("RUNNER_TEMP");
 	if (typeof value === "undefined") {
 		throw new ReferenceError(`Unable to get the GitHub Actions runner TEMP path, environment variable \`RUNNER_TEMP\` is not defined!`);
 	}
@@ -188,7 +188,7 @@ export function getRunnerTempPath(): string {
  * ```
  */
 export function getRunnerToolCachePath(): string | undefined {
-	const value: string | undefined = getEnv("RUNNER_TOOL_CACHE");
+	const value: string | undefined = env.get("RUNNER_TOOL_CACHE");
 	if (typeof value !== "undefined" && !isPathAbsolute(value)) {
 		throw new Error(`\`${value}\` (environment variable \`RUNNER_TOOL_CACHE\`) is not a valid absolute path!`);
 	}
@@ -209,7 +209,7 @@ export function getRunnerToolCachePath(): string | undefined {
  * ```
  */
 export function getRunnerWorkspacePath(): string {
-	const value: string | undefined = getEnv("GITHUB_WORKSPACE");
+	const value: string | undefined = env.get("GITHUB_WORKSPACE");
 	if (typeof value === "undefined") {
 		throw new ReferenceError(`Unable to get the GitHub Actions runner workspace path, environment variable \`GITHUB_WORKSPACE\` is not defined!`);
 	}
@@ -286,8 +286,6 @@ export interface GitHubActionsRunnerTestOptions {
 /**
  * Test the current process whether is executing inside the GitHub Actions runner.
  * 
- * If this test is mandatory, use function {@linkcode validateInRunner} instead.
- * 
  * > **🛡️ Runtime Permissions**
  * > 
  * > - **Environment Variable (Deno: `env`):**
@@ -362,7 +360,7 @@ export function isInRunner(options: GitHubActionsRunnerTestOptions = {}): boolea
 		key,
 		value: valueExpected
 	}: GitHubActionsRunnerDefaultEnvironmentVariableMeta): boolean => {
-		const valueCurrent: string | undefined = getEnv(key);
+		const valueCurrent: string | undefined = env.get(key);
 		if (
 			typeof valueCurrent === "undefined" ||
 			(typeof valueExpected !== "undefined" && valueCurrent !== valueExpected)
@@ -372,66 +370,6 @@ export function isInRunner(options: GitHubActionsRunnerTestOptions = {}): boolea
 		}
 		return true;
 	}).includes(false));
-}
-/**
- * Validate the current process whether is executing inside the GitHub Actions runner.
- * 
- * If this test is optional, use function {@linkcode isInRunner} instead.
- * 
- * > **🛡️ Runtime Permissions**
- * > 
- * > - **Environment Variable (Deno: `env`):**
- * >   - `ACTIONS_CACHE_SERVICE_V2` (Optional)
- * >   - `ACTIONS_CACHE_URL` (Optional)
- * >   - `ACTIONS_ID_TOKEN_REQUEST_TOKEN` (Optional)
- * >   - `ACTIONS_ID_TOKEN_REQUEST_URL` (Optional)
- * >   - `ACTIONS_RESULTS_URL` (Optional)
- * >   - `ACTIONS_RUNTIME_TOKEN` (Optional)
- * >   - `ACTIONS_RUNTIME_URL` (Optional)
- * >   - `CI`
- * >   - `GITHUB_ACTION`
- * >   - `GITHUB_ACTIONS`
- * >   - `GITHUB_ACTOR`
- * >   - `GITHUB_ACTOR_ID`
- * >   - `GITHUB_API_URL`
- * >   - `GITHUB_ENV`
- * >   - `GITHUB_EVENT_NAME`
- * >   - `GITHUB_EVENT_PATH`
- * >   - `GITHUB_GRAPHQL_URL`
- * >   - `GITHUB_JOB`
- * >   - `GITHUB_OUTPUT`
- * >   - `GITHUB_PATH`
- * >   - `GITHUB_REF_NAME`
- * >   - `GITHUB_REF_TYPE`
- * >   - `GITHUB_REPOSITORY`
- * >   - `GITHUB_REPOSITORY_ID`
- * >   - `GITHUB_REPOSITORY_OWNER`
- * >   - `GITHUB_REPOSITORY_OWNER_ID`
- * >   - `GITHUB_RETENTION_DAYS`
- * >   - `GITHUB_RUN_ATTEMPT`
- * >   - `GITHUB_RUN_ID`
- * >   - `GITHUB_RUN_NUMBER`
- * >   - `GITHUB_SERVER_URL`
- * >   - `GITHUB_SHA`
- * >   - `GITHUB_STATE`
- * >   - `GITHUB_STEP_SUMMARY`
- * >   - `GITHUB_WORKFLOW`
- * >   - `GITHUB_WORKFLOW_REF`
- * >   - `GITHUB_WORKFLOW_SHA`
- * >   - `GITHUB_WORKSPACE`
- * >   - `RUNNER_ARCH`
- * >   - `RUNNER_ENVIRONMENT`
- * >   - `RUNNER_NAME`
- * >   - `RUNNER_OS`
- * >   - `RUNNER_TEMP`
- * >   - `RUNNER_TOOL_CACHE` (Optional)
- * @param {GitHubActionsRunnerTestOptions} [options={}] Options.
- * @returns {void}
- */
-export function validateInRunner(options: GitHubActionsRunnerTestOptions = {}): void {
-	if (!isInRunner(options)) {
-		throw new Error("This process requires to invoke inside the GitHub Actions environment!");
-	}
 }
 /**
  * Clear the `TEMP` directory of the GitHub Actions runner.

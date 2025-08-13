@@ -1,7 +1,7 @@
 {
 	"$schema": "https://deno.land/x/deno/cli/schemas/config-file.v1.json",
 	"name": "@hugoalh/github-actions-core",
-	"version": "0.6.0",
+	"version": "0.7.0",
 	"exports": {
 		"./command/file": "./command/file.ts",
 		"./command/stdout": "./command/stdout.ts",
@@ -16,11 +16,11 @@
 		".": "./mod.ts"
 	},
 	"imports": {
-		"https://raw.githubusercontent.com/hugoalh/env-es/v0.2.1/env.ts": "jsr:@hugoalh/env@^0.2.1/env",
-		"https://raw.githubusercontent.com/hugoalh/env-es/v0.2.1/path.ts": "jsr:@hugoalh/env@^0.2.1/path",
-		"https://raw.githubusercontent.com/hugoalh/eol-es/v0.3.1/eol.ts": "jsr:@hugoalh/eol@^0.3.1/eol",
-		"https://raw.githubusercontent.com/hugoalh/is-json-es/v1.0.4/mod.ts": "jsr:@hugoalh/is-json@^1.0.4",
-		"https://raw.githubusercontent.com/hugoalh/is-string-singleline-es/v1.0.4/mod.ts": "jsr:@hugoalh/is-string-singleline@^1.0.4"
+		"https://raw.githubusercontent.com/hugoalh/env-es/v0.3.0/env.ts": "jsr:@hugoalh/env@^0.3.0/env",
+		"https://raw.githubusercontent.com/hugoalh/eol-es/v0.4.1/eol.ts": "jsr:@hugoalh/eol@^0.4.1/eol",
+		"https://raw.githubusercontent.com/hugoalh/eol-es/v0.4.1/normalize.ts": "jsr:@hugoalh/eol@^0.4.1/normalize",
+		"https://raw.githubusercontent.com/hugoalh/is-json-es/v1.0.5/mod.ts": "jsr:@hugoalh/is-json@^1.0.5",
+		"https://raw.githubusercontent.com/hugoalh/is-string-singleline-es/v1.0.5/mod.ts": "jsr:@hugoalh/is-string-singleline@^1.0.5"
 	},
 	"publish": {
 		"exclude": [

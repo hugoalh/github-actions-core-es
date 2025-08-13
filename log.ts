@@ -1,4 +1,4 @@
-import { isStringSingleLine } from "https://raw.githubusercontent.com/hugoalh/is-string-singleline-es/v1.0.4/mod.ts";
+import { isStringSingleLine } from "https://raw.githubusercontent.com/hugoalh/is-string-singleline-es/v1.0.5/mod.ts";
 import {
 	disableProcessStdOutCommand,
 	enableProcessStdOutCommand,
@@ -48,22 +48,10 @@ export {
 /**
  * GitHub Actions annotation type.
  */
-export type GitHubActionsAnnotationType =
+type GitHubActionsAnnotationType =
 	| "error"
 	| "notice"
 	| "warning";
-const annotationTypes: Readonly<Record<string, GitHubActionsAnnotationType>> = {
-	error: "error",
-	Error: "error",
-	note: "notice",
-	Note: "notice",
-	notice: "notice",
-	Notice: "notice",
-	warn: "warning",
-	Warn: "warning",
-	warning: "warning",
-	Warning: "warning"
-};
 /**
  * GitHub Actions annotation properties.
  */
@@ -104,11 +92,7 @@ export interface GitHubActionsAnnotationProperties {
  * @param {GitHubActionsAnnotationProperties} [properties={}] Properties of the annotation.
  * @returns {void}
  */
-export function writeAnnotation(type: GitHubActionsAnnotationType, data: string, properties: GitHubActionsAnnotationProperties = {}): void {
-	const typeFmt: GitHubActionsAnnotationType | undefined = annotationTypes[type];
-	if (typeof typeFmt === "undefined") {
-		throw new RangeError(`\`${type}\` is not a valid GitHub Actions annotation type! Only accept these values: ${Object.keys(annotationTypes).sort().join(", ")}`);
-	}
+function writeAnnotation(type: GitHubActionsAnnotationType, data: string, properties: GitHubActionsAnnotationProperties = {}): void {
 	const {
 		column,
 		columnEnd,
@@ -165,9 +149,9 @@ export function writeAnnotation(type: GitHubActionsAnnotationType, data: string,
 		} else {
 			console.log(data);
 		}
-		new GitHubActionsStdOutCommand(typeFmt, propertiesFmt, summary).dispatch();
+		new GitHubActionsStdOutCommand(type, propertiesFmt, summary).dispatch();
 	} else {
-		new GitHubActionsStdOutCommand(typeFmt, propertiesFmt, data).dispatch();
+		new GitHubActionsStdOutCommand(type, propertiesFmt, data).dispatch();
 	}
 }
 /**

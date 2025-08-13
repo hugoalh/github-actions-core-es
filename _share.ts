@@ -3,16 +3,16 @@ import type {
 	JSONObject,
 	JSONPrimitive,
 	JSONValue,
-} from "https://raw.githubusercontent.com/hugoalh/is-json-es/v1.0.4/mod.ts";
+} from "https://raw.githubusercontent.com/hugoalh/is-json-es/v1.0.5/mod.ts";
 /**
  * Type of key-value like.
  */
-export type KeyValueLike<V = string> = { [key: string]: V; } | Map<string, V> | Record<string, V>;
+export type KeyValueLike<V = string> = Map<string, V> | Record<string, V>;
 /**
- * Type of stringizable.
+ * Type which stringifiable.
  */
-export type StringizableType = bigint | boolean | number | string | JSONArray | JSONObject | JSONPrimitive | JSONValue | null;
-export function stringifyInput(input: StringizableType): string {
+export type StringifiableType = bigint | boolean | number | string | JSONArray | JSONObject | JSONPrimitive | JSONValue | null;
+export function stringifyInput(input: StringifiableType): string {
 	switch (typeof input) {
 		case "bigint":
 		case "boolean":

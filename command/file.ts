@@ -1,10 +1,11 @@
-import { isAbsolute as isPathAbsolute } from "node:path"
-import { getEnv } from "https://raw.githubusercontent.com/hugoalh/env-es/v0.2.1/env.ts";
+import { isAbsolute as isPathAbsolute } from "node:path";
+import { env } from "https://raw.githubusercontent.com/hugoalh/env-es/v0.3.0/env.ts";
 import {
-	_regexpEOL,
-	eol
-} from "https://raw.githubusercontent.com/hugoalh/eol-es/v0.3.1/eol.ts";
-import { isStringSingleLine } from "https://raw.githubusercontent.com/hugoalh/is-string-singleline-es/v1.0.4/mod.ts";
+	eolCurrent,
+	regexpEOL
+} from "https://raw.githubusercontent.com/hugoalh/eol-es/v0.4.1/eol.ts";
+import { normalizeEOL } from "https://raw.githubusercontent.com/hugoalh/eol-es/v0.4.1/normalize.ts";
+import { isStringSingleLine } from "https://raw.githubusercontent.com/hugoalh/is-string-singleline-es/v1.0.5/mod.ts";
 import type { KeyValueLike } from "../_share.ts";
 /**
  * GitHub Actions file command type.
@@ -13,14 +14,11 @@ export type GitHubActionsFileCommandType =
 	| "pairs"
 	| "raw"
 	| "values";
-const fileCommandTypes: Readonly<Record<string, GitHubActionsFileCommandType>> = {
-	pairs: "pairs",
-	Pairs: "pairs",
-	raw: "raw",
-	Raw: "raw",
-	values: "values",
-	Values: "values"
-};
+const fileCommandTypes: readonly GitHubActionsFileCommandType[] = [
+	"pairs",
+	"raw",
+	"values"
+];
 const commandsFileMeta: Readonly<Record<string, GitHubActionsFileCommandType>> = {
 	GITHUB_ENV: "pairs",
 	GITHUB_OUTPUT: "pairs",
@@ -48,7 +46,7 @@ export function getFileCommandPath(command: string): string {
 	)) {
 		throw new SyntaxError(`\`${command}\` is not a valid GitHub Actions file command!`);
 	}
-	const path: string = getEnv(command) ?? "";
+	const path: string = env.get(command) ?? "";
 	if (path.length === 0) {
 		throw new Error(`File command \`${command}\` path is not defined!`);
 	}
@@ -80,8 +78,8 @@ function formatFilePairsCommand(inputs: Map<string, string>): string {
 			key.search(delimiter) !== -1 ||
 			value.search(delimiter) !== -1
 		);
-		return `${key}<<${delimiter}${eol}${value.replace(_regexpEOL, eol)}\n${delimiter}`;
-	}).join(eol);
+		return `${key}<<${delimiter}${eolCurrent}${normalizeEOL(eolCurrent, value)}${eolCurrent}${delimiter}`;
+	}).join(eolCurrent);
 }
 /**
  * **\[🅰️ Advanced\]** Append value to the file line command.
@@ -106,7 +104,7 @@ export function appendFileLineCommand(command: string, ...values: readonly strin
 		}
 	});
 	if (values.length > 0) {
-		Deno.writeTextFileSync(path, `${Array.from(new Set<string>(values).values()).join(eol)}${eol}`, { append: true });
+		Deno.writeTextFileSync(path, `${Array.from(new Set<string>(values).values()).join(eolCurrent)}${eolCurrent}`, { append: true });
 	}
 }
 /**
@@ -154,7 +152,7 @@ export function appendFileMapCommand(command: string, param1: string | KeyValueL
 		}
 	});
 	if (pairs.size > 0) {
-		Deno.writeTextFileSync(path, `${formatFilePairsCommand(pairs)}${eol}`, { append: true });
+		Deno.writeTextFileSync(path, `${formatFilePairsCommand(pairs)}${eolCurrent}`, { append: true });
 	}
 }
 /**
@@ -191,10 +189,10 @@ export function clearFileCommand(command: string): void {
  */
 export function optimizeFileCommand(command: string, type: GitHubActionsFileCommandType = "raw"): void {
 	const path: string = getFileCommandPath(command);
-	switch (commandsFileMeta[command] ?? fileCommandTypes[type]) {
+	switch (commandsFileMeta[command] ?? type) {
 		case "pairs": {
 			const pairs: Map<string, string> = new Map<string, string>();
-			const content: string[] = Deno.readTextFileSync(path).split(_regexpEOL);
+			const content: string[] = Deno.readTextFileSync(path).split(regexpEOL());
 			for (let index: number = 0; index < content.length; index += 1) {
 				const line: string = content[index];
 				if (/^[\s\t]*$/.test(line)) {
@@ -230,17 +228,17 @@ export function optimizeFileCommand(command: string, type: GitHubActionsFileComm
 				// NOTE: File may contain issues, abort optimization.
 				return;
 			}
-			return Deno.writeTextFileSync(path, (pairs.size > 0) ? `${formatFilePairsCommand(pairs)}${eol}` : "");
+			return Deno.writeTextFileSync(path, (pairs.size > 0) ? `${formatFilePairsCommand(pairs)}${eolCurrent}` : "");
 		}
 		case "raw":
 			return;
 		case "values": {
-			const content: Set<string> = new Set<string>(Deno.readTextFileSync(path).split(_regexpEOL).map((value: string): string => {
+			const content: Set<string> = new Set<string>(Deno.readTextFileSync(path).split(regexpEOL()).map((value: string): string => {
 				return value.trim();
 			}).filter((value: string): boolean => {
 				return (value.length > 0);
 			}));
-			return Deno.writeTextFileSync(path, (content.size > 0) ? `${Array.from(content.values()).join(eol)}${eol}` : "");
+			return Deno.writeTextFileSync(path, (content.size > 0) ? `${Array.from(content.values()).join(eolCurrent)}${eolCurrent}` : "");
 		}
 		default:
 			throw new RangeError(`\`${type}\` is not a valid GitHub Actions file command type! Only accept these values: ${Object.keys(fileCommandTypes).sort().join(", ")}`);

@@ -15,7 +15,7 @@ export {
 } from "./command/stdout.ts";
 export type {
 	KeyValueLike,
-	StringizableType
+	StringifiableType
 } from "./_share.ts";
 export {
 	addPATH,
@@ -37,22 +37,19 @@ export {
 	enterLogGroup,
 	exitLogGroup,
 	startLogGroup,
-	writeAnnotation,
 	writeDebug,
 	writeError,
 	writeNote,
 	writeNotice,
 	writeWarn,
 	writeWarning,
-	type GitHubActionsAnnotationProperties,
-	type GitHubActionsAnnotationType
+	type GitHubActionsAnnotationProperties
 } from "./log.ts";
 export {
 	clearOutput,
 	clearState,
 	getInput,
 	getInputBigInt,
-	getInputBigInteger,
 	getInputBoolean,
 	getInputJSON,
 	getInputJSONArray,
@@ -63,7 +60,6 @@ export {
 	getInputString,
 	getState,
 	getStateBigInt,
-	getStateBigInteger,
 	getStateBoolean,
 	getStateJSON,
 	getStateJSONArray,
@@ -105,7 +101,6 @@ export {
 	makeRunnerTempDir,
 	makeRunnerTempDirectory,
 	makeRunnerTempFile,
-	validateInRunner,
 	type GitHubActionsRunnerArchitecture,
 	type GitHubActionsRunnerEnvironment,
 	type GitHubActionsRunnerOS,
@@ -142,8 +137,6 @@ export {
 	getWorkflowSHA,
 	isGitHubEnterpriseServer,
 	type GitHubActionsEventName,
-	type GitHubActionsWebhookEventPayload,
-	type GitHubActionsWebhookEventPayloadRepository,
 	type GitHubReferenceMeta,
 	type GitHubReferenceType
 } from "./utility.ts";

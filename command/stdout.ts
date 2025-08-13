@@ -1,4 +1,4 @@
-import { isStringSingleLine } from "https://raw.githubusercontent.com/hugoalh/is-string-singleline-es/v1.0.4/mod.ts";
+import { isStringSingleLine } from "https://raw.githubusercontent.com/hugoalh/is-string-singleline-es/v1.0.5/mod.ts";
 import type { KeyValueLike } from "../_share.ts";
 const commandsStdOutCurrent: readonly string[] = [
 	"add-mask",

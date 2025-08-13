@@ -12,28 +12,28 @@ await invokeDenoNodeJSTransformer({
 	fixInjectedImports: true,
 	generateDeclarationMap: true,
 	mappings: {
-		"https://raw.githubusercontent.com/hugoalh/env-es/v0.2.1/env.ts": {
+		"https://raw.githubusercontent.com/hugoalh/env-es/v0.3.0/env.ts": {
 			name: "@hugoalh/env",
-			version: "^0.2.1",
+			version: "^0.3.0",
 			subPath: "env"
 		},
-		"https://raw.githubusercontent.com/hugoalh/env-es/v0.2.1/path.ts": {
-			name: "@hugoalh/env",
-			version: "^0.2.1",
-			subPath: "path"
-		},
-		"https://raw.githubusercontent.com/hugoalh/eol-es/v0.3.1/eol.ts": {
+		"https://raw.githubusercontent.com/hugoalh/eol-es/v0.4.1/eol.ts": {
 			name: "@hugoalh/eol",
-			version: "^0.3.1",
+			version: "^0.4.1",
 			subPath: "eol"
 		},
-		"https://raw.githubusercontent.com/hugoalh/is-json-es/v1.0.4/mod.ts": {
-			name: "@hugoalh/is-json",
-			version: "^1.0.4"
+		"https://raw.githubusercontent.com/hugoalh/eol-es/v0.4.1/normalize.ts": {
+			name: "@hugoalh/eol",
+			version: "^0.4.1",
+			subPath: "normalize"
 		},
-		"https://raw.githubusercontent.com/hugoalh/is-string-singleline-es/v1.0.4/mod.ts": {
+		"https://raw.githubusercontent.com/hugoalh/is-json-es/v1.0.5/mod.ts": {
+			name: "@hugoalh/is-json",
+			version: "^1.0.5"
+		},
+		"https://raw.githubusercontent.com/hugoalh/is-string-singleline-es/v1.0.5/mod.ts": {
 			name: "@hugoalh/is-string-singleline",
-			version: "^1.0.4"
+			version: "^1.0.5"
 		}
 	},
 	metadata: {
