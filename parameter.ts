@@ -37,7 +37,7 @@ export type {
  * @returns {void}
  */
 export function clearOutput(): void {
-	return clearFileCommand("GITHUB_OUTPUT");
+	clearFileCommand("GITHUB_OUTPUT");
 }
 /**
  * **\[🅰️ Advanced\]** Clear the states which set in the current step.
@@ -53,7 +53,7 @@ export function clearOutput(): void {
  * @returns {void}
  */
 export function clearState(): void {
-	return clearFileCommand("GITHUB_STATE");
+	clearFileCommand("GITHUB_STATE");
 }
 export interface GitHubActionsGetParameterOptions {
 	/**
@@ -144,7 +144,7 @@ export function getInputBigInt(key: string, options: GitHubActionsGetParameterOp
 	try {
 		return BigInt(value.endsWith("n") ? value.slice(0, value.length - 1) : value);
 	} catch {
-		throw new SyntaxError(`Input \`${key}\` is not a valid big integer!`);
+		throw new SyntaxError(`\`${value}\` (input \`${key}\`) is not a valid big integer!`);
 	}
 }
 /**
@@ -190,7 +190,7 @@ export function getInputBoolean(key: string, options: GitHubActionsGetParameterO
 		case "TRUE":
 			return true;
 		default:
-			throw new SyntaxError(`Input \`${key}\` is not a valid boolean!`);
+			throw new SyntaxError(`\`${value}\` (input \`${key}\`) is not a valid boolean!`);
 	}
 }
 /**
@@ -229,7 +229,7 @@ export function getInputJSON(key: string, options: GitHubActionsGetParameterOpti
 	try {
 		return JSON.parse(value) as JSONValue;
 	} catch {
-		throw new SyntaxError(`Input \`${key}\` is not a valid JSON value!`);
+		throw new SyntaxError(`\`${value}\` (input \`${key}\`) is not a valid JSON value!`);
 	}
 }
 export {
@@ -269,7 +269,7 @@ export function getInputJSONArray(key: string, options: GitHubActionsGetParamete
 		return;
 	}
 	if (!Array.isArray(value)) {
-		throw new SyntaxError(`Input \`${key}\` is not a valid JSON array!`);
+		throw new SyntaxError(`\`${value}\` (input \`${key}\`) is not a valid JSON array!`);
 	}
 	return value;
 }
@@ -307,7 +307,7 @@ export function getInputJSONObject(key: string, options: GitHubActionsGetParamet
 		return;
 	}
 	if (!(typeof value === "object" && !Array.isArray(value) && value !== null)) {
-		throw new SyntaxError(`Input \`${key}\` is not a valid JSON object!`);
+		throw new SyntaxError(`\`${value}\` (input \`${key}\`) is not a valid JSON object!`);
 	}
 	return value;
 }
@@ -345,7 +345,7 @@ export function getInputJSONPrimitive(key: string, options: GitHubActionsGetPara
 		return;
 	}
 	if (!isJSONPrimitive(value)) {
-		throw new SyntaxError(`Input \`${key}\` is not a valid JSON primitive!`);
+		throw new SyntaxError(`\`${value}\` (input \`${key}\`) is not a valid JSON primitive!`);
 	}
 	return value;
 }
@@ -385,7 +385,7 @@ export function getInputNumber(key: string, options: GitHubActionsGetParameterOp
 	try {
 		return Number(value);
 	} catch {
-		throw new SyntaxError(`Input \`${key}\` is not a valid number!`);
+		throw new SyntaxError(`\`${value}\` (input \`${key}\`) is not a valid number!`);
 	}
 }
 /**
@@ -462,7 +462,7 @@ export function getStateBigInt(key: string, options: GitHubActionsGetParameterOp
 	try {
 		return BigInt(value.endsWith("n") ? value.slice(0, value.length - 1) : value);
 	} catch {
-		throw new SyntaxError(`State \`${key}\` is not a valid big integer!`);
+		throw new SyntaxError(`\`${value}\` (state \`${key}\`) is not a valid big integer!`);
 	}
 }
 /**
@@ -508,7 +508,7 @@ export function getStateBoolean(key: string, options: GitHubActionsGetParameterO
 		case "TRUE":
 			return true;
 		default:
-			throw new SyntaxError(`State \`${key}\` is not a valid boolean!`);
+			throw new SyntaxError(`\`${value}\` (state \`${key}\`) is not a valid boolean!`);
 	}
 }
 /**
@@ -547,7 +547,7 @@ export function getStateJSON(key: string, options: GitHubActionsGetParameterOpti
 	try {
 		return JSON.parse(value) as JSONValue;
 	} catch {
-		throw new SyntaxError(`State \`${key}\` is not a valid JSON value!`);
+		throw new SyntaxError(`\`${value}\` (state \`${key}\`) is not a valid JSON value!`);
 	}
 }
 export {
@@ -587,7 +587,7 @@ export function getStateJSONArray(key: string, options: GitHubActionsGetParamete
 		return;
 	}
 	if (!Array.isArray(value)) {
-		throw new SyntaxError(`State \`${key}\` is not a valid JSON array!`);
+		throw new SyntaxError(`\`${value}\` (state \`${key}\`) is not a valid JSON array!`);
 	}
 	return value;
 }
@@ -625,7 +625,7 @@ export function getStateJSONObject(key: string, options: GitHubActionsGetParamet
 		return;
 	}
 	if (!(typeof value === "object" && !Array.isArray(value) && value !== null)) {
-		throw new SyntaxError(`State \`${key}\` is not a valid JSON object!`);
+		throw new SyntaxError(`\`${value}\` (state \`${key}\`) is not a valid JSON object!`);
 	}
 	return value;
 }
@@ -663,7 +663,7 @@ export function getStateJSONPrimitive(key: string, options: GitHubActionsGetPara
 		return;
 	}
 	if (!isJSONPrimitive(value)) {
-		throw new SyntaxError(`State \`${key}\` is not a valid JSON primitive!`);
+		throw new SyntaxError(`\`${value}\` (state \`${key}\`) is not a valid JSON primitive!`);
 	}
 	return value;
 }
@@ -703,7 +703,7 @@ export function getStateNumber(key: string, options: GitHubActionsGetParameterOp
 	try {
 		return Number(value);
 	} catch {
-		throw new SyntaxError(`State \`${key}\` is not a valid number!`);
+		throw new SyntaxError(`\`${value}\` (state \`${key}\`) is not a valid number!`);
 	}
 }
 /**
@@ -720,7 +720,7 @@ export function getStateNumber(key: string, options: GitHubActionsGetParameterOp
  * @returns {void}
  */
 export function optimizeOutput(): void {
-	return optimizeFileCommand("GITHUB_OUTPUT");
+	optimizeFileCommand("GITHUB_OUTPUT");
 }
 /**
  * **\[🅰️ Advanced\]** Optimize the states which set in the current step to reduce size whenever possible.
@@ -736,7 +736,7 @@ export function optimizeOutput(): void {
  * @returns {void}
  */
 export function optimizeState(): void {
-	return optimizeFileCommand("GITHUB_STATE");
+	optimizeFileCommand("GITHUB_STATE");
 }
 /**
  * Set an output.
@@ -777,7 +777,10 @@ export function setOutput(param0: string | KeyValueLike<StringifiableType>, para
 		}
 		pairs.set(param0, stringifyInput(param1!));
 	} else {
-		for (const [key, value] of ((param0 instanceof Map) ? param0.entries() : Object.entries(param0))) {
+		for (const [
+			key,
+			value
+		] of ((param0 instanceof Map) ? param0.entries() : Object.entries(param0))) {
 			if (!isStringSingleLine(key)) {
 				throw new SyntaxError(`\`${key}\` is not a valid GitHub Actions output key!`);
 			}
@@ -827,7 +830,10 @@ export function setState(param0: string | KeyValueLike<StringifiableType>, param
 		}
 		pairs.set(param0, stringifyInput(param1!));
 	} else {
-		for (const [key, value] of ((param0 instanceof Map) ? param0.entries() : Object.entries(param0))) {
+		for (const [
+			key,
+			value
+		] of ((param0 instanceof Map) ? param0.entries() : Object.entries(param0))) {
 			if (!isStringSingleLine(key)) {
 				throw new SyntaxError(`\`${key}\` is not a valid GitHub Actions state key!`);
 			}

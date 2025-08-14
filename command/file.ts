@@ -51,7 +51,7 @@ export function getFileCommandPath(command: string): string {
 		throw new Error(`File command \`${command}\` path is not defined!`);
 	}
 	if (!isPathAbsolute(path)) {
-		throw new Error(`\`${path}\` (file command \`${command}\`) is not a valid absolute path!`);
+		throw new Error(`\`${path}\` (file command \`${command}\`) is not an absolute path!`);
 	}
 	try {
 		const { isFile }: Deno.FileInfo = Deno.statSync(path);
@@ -170,7 +170,7 @@ export function appendFileMapCommand(command: string, param1: string | KeyValueL
  * @returns {void}
  */
 export function clearFileCommand(command: string): void {
-	return Deno.writeTextFileSync(getFileCommandPath(command), "");
+	Deno.writeTextFileSync(getFileCommandPath(command), "");
 }
 /**
  * **\[🅰️ Advanced\]** Optimize the file command to reduce size whenever possible.
@@ -192,14 +192,14 @@ export function optimizeFileCommand(command: string, type: GitHubActionsFileComm
 	switch (commandsFileMeta[command] ?? type) {
 		case "pairs": {
 			const pairs: Map<string, string> = new Map<string, string>();
-			const content: string[] = Deno.readTextFileSync(path).split(regexpEOL());
+			const content: readonly string[] = Deno.readTextFileSync(path).split(regexpEOL());
 			for (let index: number = 0; index < content.length; index += 1) {
 				const line: string = content[index];
-				if (/^[\s\t]*$/.test(line)) {
+				if (line.trim().length === 0) {
 					continue;
 				}
 				if (/^.+<<.+?$/.test(line)) {
-					const lineSplit: string[] = line.split("<<");
+					const lineSplit: readonly string[] = line.split("<<");
 					const key: string = lineSplit.slice(0, lineSplit.length - 1).join("<<");
 					const delimiter: string = lineSplit[-1];
 					const value: string[] = [];
@@ -221,7 +221,10 @@ export function optimizeFileCommand(command: string, type: GitHubActionsFileComm
 					continue;
 				}
 				if (/^.+?=.+$/.test(line)) {
-					const [key, value]: string[] = line.split("=", 1);
+					const [
+						key,
+						value
+					]: string[] = line.split("=", 1);
 					pairs.set(key, value);
 					continue;
 				}

@@ -35,13 +35,13 @@ export class GitHubActionsStdOutCommand {
 	}
 	#result: string;
 	/**
-	 * **\[🅰️ Advanced\]** Create new stdout command to communicate with the GitHub Actions runner.
+	 * Initialize.
 	 * @param {string} command StdOut command.
 	 * @param {string} [message] Message of the stdout command.
 	 */
 	constructor(command: string, message?: string);
 	/**
-	 * **\[🅰️ Advanced\]** Create new stdout command to communicate with the GitHub Actions runner.
+	 * Initialize.
 	 * @param {string} command StdOut command.
 	 * @param {KeyValueLike} properties Properties of the stdout command.
 	 * @param {string} [message] Message of the stdout command.
@@ -116,12 +116,7 @@ const commandEchoEnable: GitHubActionsStdOutCommand = new GitHubActionsStdOutCom
 export function enableEchoStdOutCommand(): void {
 	commandEchoEnable.dispatch();
 }
-/**
- * Validate the item is a valid GitHub Actions stdout command end token.
- * @param {string} item Item that need to determine.
- * @returns {void}
- */
-function validateStdOutCommandEndToken(item: string): void {
+function assertStdOutCommandEndToken(item: string): void {
 	if (!(!commandsStdOutCurrent.includes(item) && !commandsStdOutForbid.includes(item) && regexpCommandStdout.test(item) && item.length >= 4)) {
 		throw new SyntaxError(`Parameter \`endToken\` is not a string which is single line, more than or equal to 4 characters, and not match any GitHub Actions command!`);
 	}
@@ -137,7 +132,7 @@ export function disableProcessStdOutCommand(endToken?: string): string {
 		new GitHubActionsStdOutCommand("stop-commands", endTokenGenerate).dispatch();
 		return endTokenGenerate;
 	}
-	validateStdOutCommandEndToken(endToken);
+	assertStdOutCommandEndToken(endToken);
 	new GitHubActionsStdOutCommand("stop-commands", endToken).dispatch();
 	return endToken;
 }
@@ -147,6 +142,6 @@ export function disableProcessStdOutCommand(endToken?: string): string {
  * @returns {void}
  */
 export function enableProcessStdOutCommand(endToken: string): void {
-	validateStdOutCommandEndToken(endToken);
+	assertStdOutCommandEndToken(endToken);
 	new GitHubActionsStdOutCommand(endToken).dispatch();
 }

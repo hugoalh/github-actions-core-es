@@ -167,7 +167,7 @@ export function getRunnerTempPath(): string {
 		throw new ReferenceError(`Unable to get the GitHub Actions runner TEMP path, environment variable \`RUNNER_TEMP\` is not defined!`);
 	}
 	if (!isPathAbsolute(value)) {
-		throw new Error(`\`${value}\` (environment variable \`RUNNER_TEMP\`) is not a valid absolute path!`);
+		throw new Error(`\`${value}\` (environment variable \`RUNNER_TEMP\`) is not an absolute path!`);
 	}
 	return value;
 }
@@ -190,7 +190,7 @@ export function getRunnerTempPath(): string {
 export function getRunnerToolCachePath(): string | undefined {
 	const value: string | undefined = env.get("RUNNER_TOOL_CACHE");
 	if (typeof value !== "undefined" && !isPathAbsolute(value)) {
-		throw new Error(`\`${value}\` (environment variable \`RUNNER_TOOL_CACHE\`) is not a valid absolute path!`);
+		throw new Error(`\`${value}\` (environment variable \`RUNNER_TOOL_CACHE\`) is not an absolute path!`);
 	}
 	return value;
 }
@@ -214,19 +214,19 @@ export function getRunnerWorkspacePath(): string {
 		throw new ReferenceError(`Unable to get the GitHub Actions runner workspace path, environment variable \`GITHUB_WORKSPACE\` is not defined!`);
 	}
 	if (!isPathAbsolute(value)) {
-		throw new Error(`\`${value}\` (environment variable \`GITHUB_WORKSPACE\`) is not a valid absolute path!`);
+		throw new Error(`\`${value}\` (environment variable \`GITHUB_WORKSPACE\`) is not an absolute path!`);
 	}
 	return value;
 }
 interface GitHubActionsRunnerDefaultEnvironmentVariableMeta {
 	key: string;
-	need?: boolean;
-	value?: string;
+	shouldTest?: boolean;
+	expected?: string;
 }
 const runnerEnvsDefault: readonly GitHubActionsRunnerDefaultEnvironmentVariableMeta[] = [
-	{ key: "CI", value: "true" },
+	{ key: "CI", expected: "true" },
 	{ key: "GITHUB_ACTION" },
-	{ key: "GITHUB_ACTIONS", value: "true" },
+	{ key: "GITHUB_ACTIONS", expected: "true" },
 	{ key: "GITHUB_ACTOR" },
 	{ key: "GITHUB_ACTOR_ID" },
 	{ key: "GITHUB_API_URL" },
@@ -345,25 +345,25 @@ export function isInRunner(options: GitHubActionsRunnerTestOptions = {}): boolea
 	}: GitHubActionsRunnerTestOptions = options;
 	const envs: readonly GitHubActionsRunnerDefaultEnvironmentVariableMeta[] = [
 		...runnerEnvsDefault,
-		{ key: "ACTIONS_CACHE_SERVICE_V2", need: cache },
-		{ key: "ACTIONS_CACHE_URL", need: cache },
-		{ key: "ACTIONS_ID_TOKEN_REQUEST_TOKEN", need: oidc },
-		{ key: "ACTIONS_ID_TOKEN_REQUEST_URL", need: oidc },
-		{ key: "ACTIONS_RESULTS_URL", need: artifact },
-		{ key: "ACTIONS_RUNTIME_TOKEN", need: artifact || cache },
-		{ key: "ACTIONS_RUNTIME_URL", need: artifact },
-		{ key: "RUNNER_TOOL_CACHE", need: toolCache }
+		{ key: "ACTIONS_CACHE_SERVICE_V2", shouldTest: cache },
+		{ key: "ACTIONS_CACHE_URL", shouldTest: cache },
+		{ key: "ACTIONS_ID_TOKEN_REQUEST_TOKEN", shouldTest: oidc },
+		{ key: "ACTIONS_ID_TOKEN_REQUEST_URL", shouldTest: oidc },
+		{ key: "ACTIONS_RESULTS_URL", shouldTest: artifact },
+		{ key: "ACTIONS_RUNTIME_TOKEN", shouldTest: artifact || cache },
+		{ key: "ACTIONS_RUNTIME_URL", shouldTest: artifact },
+		{ key: "RUNNER_TOOL_CACHE", shouldTest: toolCache }
 	];
-	return !(envs.filter(({ need }: GitHubActionsRunnerDefaultEnvironmentVariableMeta): boolean => {
-		return (need ?? true);
+	return !(envs.filter(({ shouldTest = true }: GitHubActionsRunnerDefaultEnvironmentVariableMeta): boolean => {
+		return shouldTest;
 	}).map(({
-		key,
-		value: valueExpected
+		expected,
+		key
 	}: GitHubActionsRunnerDefaultEnvironmentVariableMeta): boolean => {
 		const valueCurrent: string | undefined = env.get(key);
 		if (
 			typeof valueCurrent === "undefined" ||
-			(typeof valueExpected !== "undefined" && valueCurrent !== valueExpected)
+			(typeof expected !== "undefined" && valueCurrent !== expected)
 		) {
 			console.warn(`Unable to get the GitHub Actions resources, environment variable \`${key}\` is not defined, or not contain an expected value!`);
 			return false;

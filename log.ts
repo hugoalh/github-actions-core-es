@@ -11,8 +11,9 @@ import {
  */
 export function addSecretMask(...values: readonly string[]): void {
 	values.forEach((value: string): void => {
-		if (value.length > 0) {
-			new GitHubActionsStdOutCommand("add-mask", value).dispatch();
+		const valueFmt: string = value.trim();
+		if (valueFmt.length > 0) {
+			new GitHubActionsStdOutCommand("add-mask", valueFmt).dispatch();
 		}
 	});
 }
@@ -171,7 +172,7 @@ export function writeDebug(...data: readonly string[]): void {
  * @returns {void}
  */
 export function writeError(data: string, properties: GitHubActionsAnnotationProperties = {}): void {
-	return writeAnnotation("error", data, properties);
+	writeAnnotation("error", data, properties);
 }
 /**
  * Print a notice annotation to the log.
@@ -180,7 +181,7 @@ export function writeError(data: string, properties: GitHubActionsAnnotationProp
  * @returns {void}
  */
 export function writeNotice(data: string, properties: GitHubActionsAnnotationProperties = {}): void {
-	return writeAnnotation("notice", data, properties);
+	writeAnnotation("notice", data, properties);
 }
 export {
 	writeNotice as writeNote
@@ -192,7 +193,7 @@ export {
  * @returns {void}
  */
 export function writeWarning(data: string, properties: GitHubActionsAnnotationProperties = {}): void {
-	return writeAnnotation("warning", data, properties);
+	writeAnnotation("warning", data, properties);
 }
 export {
 	writeWarning as writeWarn

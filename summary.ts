@@ -38,7 +38,7 @@ export function appendSummary(data: string | Uint8Array): void {
  * @returns {void}
  */
 export function clearSummary(): void {
-	return clearFileCommand("GITHUB_STEP_SUMMARY");
+	clearFileCommand("GITHUB_STEP_SUMMARY");
 }
 /**
  * Get the size of the summary which set in the current step.

@@ -1,4 +1,4 @@
-import { isAbsolute as isPathAbsolute } from "node:path"
+import { isAbsolute as isPathAbsolute } from "node:path";
 import { env } from "https://raw.githubusercontent.com/hugoalh/env-es/v0.3.0/env.ts";
 import { isStringSingleLine } from "https://raw.githubusercontent.com/hugoalh/is-string-singleline-es/v1.0.5/mod.ts";
 import {
@@ -66,16 +66,14 @@ export function addPATH(param0: string | readonly string[], options: GitHubActio
 	const paths: readonly string[] = (typeof param0 === "string") ? [param0] : param0;
 	paths.forEach((path: string): void => {
 		if (!isPathAbsolute(path)) {
-			throw new SyntaxError(`\`${path}\` is not a valid absolute path!`);
+			throw new SyntaxError(`\`${path}\` is not an absolute path!`);
 		}
 	});
-	if (paths.length > 0) {
-		if (scopeCurrent) {
-			env.path.add(...paths);
-		}
-		if (scopeSubsequent) {
-			appendFileLineCommand("GITHUB_PATH", ...paths);
-		}
+	if (scopeCurrent) {
+		env.path.add(...paths);
+	}
+	if (scopeSubsequent) {
+		appendFileLineCommand("GITHUB_PATH", ...paths);
 	}
 }
 /**
@@ -92,7 +90,7 @@ export function addPATH(param0: string | readonly string[], options: GitHubActio
  * @returns {void}
  */
 export function clearEnvironmentVariableSubsequent(): void {
-	return clearFileCommand("GITHUB_ENV");
+	clearFileCommand("GITHUB_ENV");
 }
 export {
 	clearEnvironmentVariableSubsequent as clearEnvSubsequent
@@ -111,7 +109,7 @@ export {
  * @returns {void}
  */
 export function clearPATHSubsequent(): void {
-	return clearFileCommand("GITHUB_PATH");
+	clearFileCommand("GITHUB_PATH");
 }
 /**
  * **\[🅰️ Advanced\]** Optimize the environment variables for all of the subsequent steps which set in the current step to reduce size whenever possible.
@@ -127,7 +125,7 @@ export function clearPATHSubsequent(): void {
  * @returns {void}
  */
 export function optimizeEnvironmentVariableSubsequent(): void {
-	return optimizeFileCommand("GITHUB_ENV");
+	optimizeFileCommand("GITHUB_ENV");
 }
 export {
 	optimizeEnvironmentVariableSubsequent as optimizeEnvSubsequent
@@ -146,15 +144,10 @@ export {
  * @returns {void}
  */
 export function optimizePATHSubsequent(): void {
-	return optimizeFileCommand("GITHUB_PATH");
+	optimizeFileCommand("GITHUB_PATH");
 }
 const regexpEnvironmentVariableKeyForbidden = /^(?:CI|PATH)$|^(?:ACTIONS|GITHUB|RUNNER)_/i;
-/**
- * Validate the item is a valid GitHub Actions environment variable key.
- * @param {string} item Item that need to determine.
- * @returns {void}
- */
-function validateEnvironmentVariableKey(item: string): void {
+function assertEnvironmentVariableKey(item: string): void {
 	if (!(isStringSingleLine(item) && item.length > 0)) {
 		throw new SyntaxError(`\`${item}\` is not a valid environment variable key!`);
 	}
@@ -204,23 +197,21 @@ export function setEnvironmentVariable(param0: string | KeyValueLike<Stringifiab
 	}: GitHubActionsSetEnvironmentVariableOptions = ((typeof param0 === "string") ? (param1 as GitHubActionsSetEnvironmentVariableOptions | undefined) : param2) ?? {};
 	const pairs: Map<string, string> = new Map<string, string>();
 	if (typeof param0 === "string") {
-		validateEnvironmentVariableKey(param0);
+		assertEnvironmentVariableKey(param0);
 		pairs.set(param0, stringifyInput(param1 as StringifiableType));
 	} else {
 		for (const [key, value] of ((param0 instanceof Map) ? param0.entries() : Object.entries(param0))) {
-			validateEnvironmentVariableKey(key);
+			assertEnvironmentVariableKey(key);
 			pairs.set(key, stringifyInput(value));
 		}
 	}
-	if (pairs.size > 0) {
-		if (scopeCurrent) {
-			for (const [key, value] of pairs.values()) {
-				env.set(key, value);
-			}
+	if (scopeCurrent) {
+		for (const [key, value] of pairs.values()) {
+			env.set(key, value);
 		}
-		if (scopeSubsequent) {
-			appendFileMapCommand("GITHUB_ENV", pairs);
-		}
+	}
+	if (scopeSubsequent) {
+		appendFileMapCommand("GITHUB_ENV", pairs);
 	}
 }
 export {

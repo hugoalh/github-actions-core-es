@@ -610,7 +610,7 @@ export function getWorkflowRunWebhookEventPayload(): JSONObject {
 		throw new ReferenceError(`Unable to get the GitHub Actions workflow run webhook event payload, environment variable \`GITHUB_EVENT_PATH\` is not defined!`);
 	}
 	if (!isPathAbsolute(path)) {
-		throw new ReferenceError(`Unable to get the GitHub Actions workflow run webhook event payload, \`${path}\` (environment variable \`GITHUB_EVENT_PATH\`) is not a valid absolute path!`);
+		throw new ReferenceError(`Unable to get the GitHub Actions workflow run webhook event payload, \`${path}\` (environment variable \`GITHUB_EVENT_PATH\`) is not an absolute path!`);
 	}
 	const context: unknown = JSON.parse(Deno.readTextFileSync(path));
 	if (!isJSONObject(context)) {
