@@ -3,8 +3,8 @@ import { env } from "https://raw.githubusercontent.com/hugoalh/env-es/v0.3.0/env
 import {
 	eolCurrent,
 	regexpEOL
-} from "https://raw.githubusercontent.com/hugoalh/eol-es/v0.4.1/eol.ts";
-import { normalizeEOL } from "https://raw.githubusercontent.com/hugoalh/eol-es/v0.4.1/normalize.ts";
+} from "https://raw.githubusercontent.com/hugoalh/eol-es/v0.5.0/eol.ts";
+import { normalizeEOL } from "https://raw.githubusercontent.com/hugoalh/eol-es/v0.5.0/normalize.ts";
 import { isStringSingleLine } from "https://raw.githubusercontent.com/hugoalh/is-string-singleline-es/v1.0.5/mod.ts";
 import type { KeyValueLike } from "../_share.ts";
 /**

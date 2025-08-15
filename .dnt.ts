@@ -17,14 +17,14 @@ await invokeDenoNodeJSTransformer({
 			version: "^0.3.0",
 			subPath: "env"
 		},
-		"https://raw.githubusercontent.com/hugoalh/eol-es/v0.4.1/eol.ts": {
+		"https://raw.githubusercontent.com/hugoalh/eol-es/v0.5.0/eol.ts": {
 			name: "@hugoalh/eol",
-			version: "^0.4.1",
+			version: "^0.5.0",
 			subPath: "eol"
 		},
-		"https://raw.githubusercontent.com/hugoalh/eol-es/v0.4.1/normalize.ts": {
+		"https://raw.githubusercontent.com/hugoalh/eol-es/v0.5.0/normalize.ts": {
 			name: "@hugoalh/eol",
-			version: "^0.4.1",
+			version: "^0.5.0",
 			subPath: "normalize"
 		},
 		"https://raw.githubusercontent.com/hugoalh/is-json-es/v1.0.5/mod.ts": {
