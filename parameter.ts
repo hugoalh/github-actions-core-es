@@ -144,7 +144,7 @@ export function getInputBigInt(key: string, options: GitHubActionsGetParameterOp
 	try {
 		return BigInt(value.endsWith("n") ? value.slice(0, value.length - 1) : value);
 	} catch {
-		throw new SyntaxError(`\`${value}\` (input \`${key}\`) is not a valid big integer!`);
+		throw new SyntaxError(`\`${value}\` (input \`${key}\`) is not a big integer!`);
 	}
 }
 /**
@@ -190,7 +190,7 @@ export function getInputBoolean(key: string, options: GitHubActionsGetParameterO
 		case "TRUE":
 			return true;
 		default:
-			throw new SyntaxError(`\`${value}\` (input \`${key}\`) is not a valid boolean!`);
+			throw new SyntaxError(`\`${value}\` (input \`${key}\`) is not a boolean!`);
 	}
 }
 /**
@@ -229,7 +229,7 @@ export function getInputJSON(key: string, options: GitHubActionsGetParameterOpti
 	try {
 		return JSON.parse(value) as JSONValue;
 	} catch {
-		throw new SyntaxError(`\`${value}\` (input \`${key}\`) is not a valid JSON value!`);
+		throw new SyntaxError(`\`${value}\` (input \`${key}\`) is not a JSON value!`);
 	}
 }
 export {
@@ -269,7 +269,7 @@ export function getInputJSONArray(key: string, options: GitHubActionsGetParamete
 		return;
 	}
 	if (!Array.isArray(value)) {
-		throw new SyntaxError(`\`${value}\` (input \`${key}\`) is not a valid JSON array!`);
+		throw new SyntaxError(`\`${value}\` (input \`${key}\`) is not a JSON array!`);
 	}
 	return value;
 }
@@ -307,7 +307,7 @@ export function getInputJSONObject(key: string, options: GitHubActionsGetParamet
 		return;
 	}
 	if (!(typeof value === "object" && !Array.isArray(value) && value !== null)) {
-		throw new SyntaxError(`\`${value}\` (input \`${key}\`) is not a valid JSON object!`);
+		throw new SyntaxError(`\`${value}\` (input \`${key}\`) is not a JSON object!`);
 	}
 	return value;
 }
@@ -345,7 +345,7 @@ export function getInputJSONPrimitive(key: string, options: GitHubActionsGetPara
 		return;
 	}
 	if (!isJSONPrimitive(value)) {
-		throw new SyntaxError(`\`${value}\` (input \`${key}\`) is not a valid JSON primitive!`);
+		throw new SyntaxError(`\`${value}\` (input \`${key}\`) is not a JSON primitive!`);
 	}
 	return value;
 }
@@ -385,7 +385,7 @@ export function getInputNumber(key: string, options: GitHubActionsGetParameterOp
 	try {
 		return Number(value);
 	} catch {
-		throw new SyntaxError(`\`${value}\` (input \`${key}\`) is not a valid number!`);
+		throw new SyntaxError(`\`${value}\` (input \`${key}\`) is not a number!`);
 	}
 }
 /**
@@ -462,7 +462,7 @@ export function getStateBigInt(key: string, options: GitHubActionsGetParameterOp
 	try {
 		return BigInt(value.endsWith("n") ? value.slice(0, value.length - 1) : value);
 	} catch {
-		throw new SyntaxError(`\`${value}\` (state \`${key}\`) is not a valid big integer!`);
+		throw new SyntaxError(`\`${value}\` (state \`${key}\`) is not a big integer!`);
 	}
 }
 /**
@@ -508,7 +508,7 @@ export function getStateBoolean(key: string, options: GitHubActionsGetParameterO
 		case "TRUE":
 			return true;
 		default:
-			throw new SyntaxError(`\`${value}\` (state \`${key}\`) is not a valid boolean!`);
+			throw new SyntaxError(`\`${value}\` (state \`${key}\`) is not a boolean!`);
 	}
 }
 /**
@@ -547,7 +547,7 @@ export function getStateJSON(key: string, options: GitHubActionsGetParameterOpti
 	try {
 		return JSON.parse(value) as JSONValue;
 	} catch {
-		throw new SyntaxError(`\`${value}\` (state \`${key}\`) is not a valid JSON value!`);
+		throw new SyntaxError(`\`${value}\` (state \`${key}\`) is not a JSON value!`);
 	}
 }
 export {
@@ -587,7 +587,7 @@ export function getStateJSONArray(key: string, options: GitHubActionsGetParamete
 		return;
 	}
 	if (!Array.isArray(value)) {
-		throw new SyntaxError(`\`${value}\` (state \`${key}\`) is not a valid JSON array!`);
+		throw new SyntaxError(`\`${value}\` (state \`${key}\`) is not a JSON array!`);
 	}
 	return value;
 }
@@ -625,7 +625,7 @@ export function getStateJSONObject(key: string, options: GitHubActionsGetParamet
 		return;
 	}
 	if (!(typeof value === "object" && !Array.isArray(value) && value !== null)) {
-		throw new SyntaxError(`\`${value}\` (state \`${key}\`) is not a valid JSON object!`);
+		throw new SyntaxError(`\`${value}\` (state \`${key}\`) is not a JSON object!`);
 	}
 	return value;
 }
@@ -663,7 +663,7 @@ export function getStateJSONPrimitive(key: string, options: GitHubActionsGetPara
 		return;
 	}
 	if (!isJSONPrimitive(value)) {
-		throw new SyntaxError(`\`${value}\` (state \`${key}\`) is not a valid JSON primitive!`);
+		throw new SyntaxError(`\`${value}\` (state \`${key}\`) is not a JSON primitive!`);
 	}
 	return value;
 }
@@ -703,7 +703,7 @@ export function getStateNumber(key: string, options: GitHubActionsGetParameterOp
 	try {
 		return Number(value);
 	} catch {
-		throw new SyntaxError(`\`${value}\` (state \`${key}\`) is not a valid number!`);
+		throw new SyntaxError(`\`${value}\` (state \`${key}\`) is not a number!`);
 	}
 }
 /**

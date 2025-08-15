@@ -1,8 +1,8 @@
 import { isAbsolute as isPathAbsolute } from "node:path";
 import { env } from "https://raw.githubusercontent.com/hugoalh/env-es/v0.3.0/env.ts";
-import {
-	isJSONObject,
-	type JSONObject
+import type {
+	JSONObject,
+	JSONValue
 } from "https://raw.githubusercontent.com/hugoalh/is-json-es/v1.0.5/mod.ts";
 /**
  * Get the URL of the GitHub API.
@@ -612,8 +612,8 @@ export function getWorkflowRunWebhookEventPayload(): JSONObject {
 	if (!isPathAbsolute(path)) {
 		throw new ReferenceError(`Unable to get the GitHub Actions workflow run webhook event payload, \`${path}\` (environment variable \`GITHUB_EVENT_PATH\`) is not an absolute path!`);
 	}
-	const context: unknown = JSON.parse(Deno.readTextFileSync(path));
-	if (!isJSONObject(context)) {
+	const context: JSONValue = JSON.parse(Deno.readTextFileSync(path)) as JSONValue;
+	if (!(typeof context === "object" && !Array.isArray(context) && context !== null)) {
 		throw new Error(`GitHub Actions workflow run webhook event payload context is not a JSON object!`);
 	}
 	return context;
