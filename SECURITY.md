@@ -6,7 +6,6 @@
 |:-:|:-:|:-:|:-:|
 | v0.7.X | 2025-08-15 | N/A | *Unknown* |
 | v0.5.X \~ v0.6.X | 2025-02-03 | N/A | 2026-03-31 |
-| v0.4.X | 2024-11-06 | N/A | 2025-09-30 |
 
 > [!NOTE]
 > - Format of the date is according to the specification ISO 8601.
@@ -14,4 +13,4 @@
 
 ## Report Vulnerabilities
 
-To report security vulnerabilities, please create security vulnerability report, [click here to see how to create security vulnerability report](https://github.com/hugoalh/hugoalh/blob/main/guides/universal-contributing.md#create-security-vulnerability-report).
+To report security vulnerabilities, please create security vulnerability report. [Click here to see how to create security vulnerability report](https://github.com/hugoalh/hugoalh/blob/main/guides/universal-contributing.md#create-security-vulnerability-report).

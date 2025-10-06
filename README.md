@@ -6,13 +6,11 @@
 [![JSR: @hugoalh/github-actions-core](https://img.shields.io/jsr/v/@hugoalh/github-actions-core?label=@hugoalh/github-actions-core&labelColor=F7DF1E&logo=jsr&logoColor=000000&style=flat "JSR: @hugoalh/github-actions-core")](https://jsr.io/@hugoalh/github-actions-core)
 [![NPM: @hugoalh/github-actions-core](https://img.shields.io/npm/v/@hugoalh/github-actions-core?label=@hugoalh/github-actions-core&labelColor=CB3837&logo=npm&logoColor=ffffff&style=flat "NPM: @hugoalh/github-actions-core")](https://www.npmjs.com/package/@hugoalh/github-actions-core)
 
-An ECMAScript (JavaScript & TypeScript) module to provide a better and easier way for GitHub Actions to communicate with the runner, and the toolkit for developing GitHub Actions.
-
-## ⚠️ Important
-
-[official-toolkit]: https://github.com/actions/toolkit
+An ECMAScript module to provide a better and easier way for GitHub Actions to communicate with the runner, and the toolkit for developing GitHub Actions.
 
 This is a partial refactor of [the official toolkit][official-toolkit], not all of the features in [the official toolkit][official-toolkit] are available in here, and not all of the features in here are available in [the official toolkit][official-toolkit].
+
+[official-toolkit]: https://github.com/actions/toolkit
 
 ## 🌟 Features
 
@@ -20,48 +18,17 @@ This is a partial refactor of [the official toolkit][official-toolkit], not all 
 - Compatible with bundler.
 - Full ECMAScript module.
 
-## 🔰 Begin
+## 🎯 Targets
 
-### 🎯 Targets
-
-| **Targets** | **Remote** | **JSR** | **NPM** |
+| **Runtime \\ Source** | **GitHub Raw** | **JSR** | **NPM** |
 |:--|:-:|:-:|:-:|
 | **[Bun](https://bun.sh/)** >= v1.1.0 | ❌ | ✔️ | ✔️ |
 | **[Deno](https://deno.land/)** >= v2.1.0 | ✔️ | ✔️ | ✔️ |
 | **[NodeJS](https://nodejs.org/)** >= v20.9.0 | ❌ | ✔️ | ✔️ |
 
-> [!NOTE]
-> - It is possible to use this module in other methods/ways which not listed in here, however those methods/ways are not officially supported, and should beware maybe cause security issues.
+## 🛡️ Runtime Permissions
 
-### #️⃣ Resources Identifier
-
-- **Remote - GitHub Raw:**
-  ```
-  https://raw.githubusercontent.com/hugoalh/github-actions-core-es/{Tag}/mod.ts
-  ```
-- **JSR:**
-  ```
-  [jsr:]@hugoalh/github-actions-core[@{Tag}]
-  ```
-- **NPM:**
-  ```
-  [npm:]@hugoalh/github-actions-core[@{Tag}]
-  ```
-
-> [!NOTE]
-> - For usage of remote resources, it is recommended to import the entire module with the main path `mod.ts`, however it is also able to import part of the module with sub path if available, but do not import if:
->
->   - it's path has an underscore prefix (e.g.: `_foo.ts`, `_util/bar.ts`), or
->   - it is a benchmark or test file (e.g.: `foo.bench.ts`, `foo.test.ts`), or
->   - it's symbol has an underscore prefix (e.g.: `_bar`, `_foo`).
->
->   These elements are not considered part of the public API, thus no stability is guaranteed for them.
-> - For usage of JSR or NPM resources, it is recommended to import the entire module with the main entrypoint, however it is also able to import part of the module with sub entrypoint if available, please visit the [file `jsr.jsonc`](./jsr.jsonc) property `exports` for available sub entrypoints.
-> - It is recommended to use this module with tag for immutability.
-
-### 🛡️ Runtime Permissions
-
-- **Environment Variable (Deno: `env`):**
+- Environment Variable (Deno: `env`)
   - `ACTIONS_CACHE_SERVICE_V2` (Optional)
   - `ACTIONS_CACHE_URL` (Optional)
   - `ACTIONS_ID_TOKEN_REQUEST_TOKEN` (Optional)
@@ -107,10 +74,48 @@ This is a partial refactor of [the official toolkit][official-toolkit], not all 
   - `RUNNER_TEMP` (Optional)
   - `RUNNER_TOOL_CACHE` (Optional)
   - *Resources* (Optional)
-- **File System - Read (Deno: `read`; NodeJS: `fs-read`):**
+- File System - Read (Deno: `read`; NodeJS: `fs-read`)
   - *Resources* (Optional)
-- **File System - Write (Deno: `write`; NodeJS: `fs-write`):**
+- File System - Write (Deno: `write`; NodeJS: `fs-write`)
   - *Resources* (Optional)
+
+## #️⃣ Sources
+
+- GitHub Raw
+  ```
+  https://raw.githubusercontent.com/hugoalh/github-actions-core-es/{Tag}/mod.ts
+  ```
+- JSR
+  ```
+  jsr:@hugoalh/github-actions-core[@{Tag}]
+  ```
+- NPM
+  ```
+  npm:@hugoalh/github-actions-core[@{Tag}]
+  ```
+
+> [!NOTE]
+> - It is recommended to include tag for immutability.
+> - These are not part of the public APIs hence should not be used:
+>   - Benchmark/Test file (e.g.: `example.bench.ts`, `example.test.ts`).
+>   - Entrypoint name or path include any underscore prefix (e.g.: `_example.ts`, `foo/_example.ts`).
+>   - Identifier/Namespace/Symbol include any underscore prefix (e.g.: `_example`, `Foo._example`).
+
+## ⤵️ Entrypoints
+
+| **Name** | **Path** | **Description** |
+|:--|:--|:--|
+| `.` | `./mod.ts` | Default. |
+| `./command/file` | `./command/file.ts` | File command. |
+| `./command/stdout` | `./command/stdout.ts` | StdOut command. |
+| `./env` | `./environment_variable.ts` | Environment variable. |
+| `./environment-variable` | `./environment_variable.ts` | Environment variable. |
+| `./log` | `./log.ts` | Log. |
+| `./parameter` | `./parameter.ts` | Input, output, and state. |
+| `./problem-matcher` | `./problem_matcher.ts` | Problem matcher. |
+| `./runner` | `./runner.ts` | Runner. |
+| `./summary` | `./summary.ts` | Summary. |
+| `./utility` | `./utility.ts` | Utility. |
 
 ## 🧩 APIs
 
@@ -162,7 +167,7 @@ This is a partial refactor of [the official toolkit][official-toolkit], not all 
 
 > [!NOTE]
 > - For the full or prettier documentation, can visit via:
->   - [Deno CLI `deno doc`](https://docs.deno.com/runtime/reference/cli/documentation_generator/)
+>   - [Deno CLI `deno doc`](https://docs.deno.com/runtime/reference/cli/doc/)
 >   - [JSR](https://jsr.io/@hugoalh/github-actions-core)
 
 ## ✍️ Examples
