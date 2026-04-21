@@ -2,9 +2,10 @@
 
 [**⚖️** MIT](./LICENSE.md)
 
-[![GitHub: hugoalh/github-actions-core-es](https://img.shields.io/github/v/release/hugoalh/github-actions-core-es?label=hugoalh/github-actions-core-es&labelColor=181717&logo=github&logoColor=ffffff&sort=semver&style=flat "GitHub: hugoalh/github-actions-core-es")](https://github.com/hugoalh/github-actions-core-es)
-[![JSR: @hugoalh/github-actions-core](https://img.shields.io/jsr/v/@hugoalh/github-actions-core?label=@hugoalh/github-actions-core&labelColor=F7DF1E&logo=jsr&logoColor=000000&style=flat "JSR: @hugoalh/github-actions-core")](https://jsr.io/@hugoalh/github-actions-core)
-[![NPM: @hugoalh/github-actions-core](https://img.shields.io/npm/v/@hugoalh/github-actions-core?label=@hugoalh/github-actions-core&labelColor=CB3837&logo=npm&logoColor=ffffff&style=flat "NPM: @hugoalh/github-actions-core")](https://www.npmjs.com/package/@hugoalh/github-actions-core)
+🔗
+[GitHub](https://github.com/hugoalh/github-actions-core-es)
+[JSR](https://jsr.io/@hugoalh/github-actions-core)
+[NPM](https://www.npmjs.com/package/@hugoalh/github-actions-core)
 
 An ECMAScript module to provide a better and easier way for GitHub Actions to communicate with the runner, and the toolkit for developing GitHub Actions.
 

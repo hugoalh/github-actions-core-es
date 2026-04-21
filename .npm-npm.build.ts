@@ -62,6 +62,6 @@ await invokeDenoNodeJSTransformer({
 			access: "public"
 		}
 	},
-	outputDirectory: "dist/npm",
+	outputDirectory: "dist/npm-npm",
 	outputDirectoryPreEmpty: true
 });
