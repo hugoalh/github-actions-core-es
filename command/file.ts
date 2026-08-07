@@ -1,11 +1,11 @@
-import { isAbsolute as isPathAbsolute } from "node:path";
-import { env } from "https://raw.githubusercontent.com/hugoalh/env-es/v0.3.0/env.ts";
+import { getEnv } from "https://raw.githubusercontent.com/hugoalh/env-es/v0.4.0/general.ts";
 import {
 	eolCurrent,
 	regexpEOL
-} from "https://raw.githubusercontent.com/hugoalh/eol-es/v0.5.0/eol.ts";
-import { normalizeEOL } from "https://raw.githubusercontent.com/hugoalh/eol-es/v0.5.0/normalize.ts";
-import { isStringSingleLine } from "https://raw.githubusercontent.com/hugoalh/is-string-singleline-es/v1.0.5/mod.ts";
+} from "https://raw.githubusercontent.com/hugoalh/eol-es/v0.5.1/eol.ts";
+import { normalizeEOL } from "https://raw.githubusercontent.com/hugoalh/eol-es/v0.5.1/normalize.ts";
+import { isStringSingleLine } from "https://raw.githubusercontent.com/hugoalh/is-string-singleline-es/v1.0.6/mod.ts";
+import { isAbsolute as isPathAbsolute } from "node:path";
 import type { KeyValueLike } from "../_share.ts";
 /**
  * GitHub Actions file command type.
@@ -14,7 +14,7 @@ export type GitHubActionsFileCommandType =
 	| "pairs"
 	| "raw"
 	| "values";
-const fileCommandTypes: readonly GitHubActionsFileCommandType[] = [
+const fileCommandTypes: readonly GitHubActionsFileCommandType[] = [/* UNIQUE */
 	"pairs",
 	"raw",
 	"values"
@@ -32,10 +32,8 @@ const regexpCommandFile = /^(?:[\dA-Z][\dA-Z_-]*)?[\dA-Z]$/;
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - **Environment Variable (Deno: `env`):**
- * >   - *Resources*
- * > - **File System - Read (Deno: `read`; NodeJS: `fs-read`):**
- * >   - *Resources*
+ * > - Environment Variable (Deno: `env`)
+ * > - File System - Read (Deno: `read`; NodeJS: `fs-read`)
  * @param {string} command File command.
  * @returns {string} Path of the file command.
  */
@@ -46,7 +44,7 @@ export function getFileCommandPath(command: string): string {
 	)) {
 		throw new SyntaxError(`\`${command}\` is not a valid GitHub Actions file command!`);
 	}
-	const path: string = env.get(command) ?? "";
+	const path: string = getEnv(command) ?? "";
 	if (path.length === 0) {
 		throw new Error(`File command \`${command}\` path is not defined!`);
 	}
@@ -54,8 +52,7 @@ export function getFileCommandPath(command: string): string {
 		throw new Error(`\`${path}\` (file command \`${command}\`) is not an absolute path!`);
 	}
 	try {
-		const { isFile }: Deno.FileInfo = Deno.statSync(path);
-		if (!isFile) {
+		if (!Deno.statSync(path).isFile) {
 			throw new Error(`\`${path}\` (file command \`${command}\`) is not a file!`);
 		}
 	} catch (error) {
@@ -67,7 +64,10 @@ export function getFileCommandPath(command: string): string {
 	return path;
 }
 function formatFilePairsCommand(inputs: Map<string, string>): string {
-	return Array.from(inputs.entries(), ([key, value]: [string, string]): string => {
+	return Array.from(inputs.entries(), ([
+		key,
+		value
+	]: [string, string]): string => {
 		if (isStringSingleLine(value)) {
 			return `${key}=${value}`;
 		}
@@ -86,23 +86,20 @@ function formatFilePairsCommand(inputs: Map<string, string>): string {
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - **Environment Variable (Deno: `env`):**
- * >   - *Resources*
- * > - **File System - Read (Deno: `read`; NodeJS: `fs-read`):**
- * >   - *Resources*
- * > - **File System - Write (Deno: `write`; NodeJS: `fs-write`):**
- * >   - *Resources*
+ * > - Environment Variable (Deno: `env`)
+ * > - File System - Read (Deno: `read`; NodeJS: `fs-read`)
+ * > - File System - Write (Deno: `write`; NodeJS: `fs-write`)
  * @param {string} command File command.
  * @param {...string} values Value of the file line command.
  * @returns {void}
  */
 export function appendFileLineCommand(command: string, ...values: readonly string[]): void {
 	const path: string = getFileCommandPath(command);
-	values.forEach((value: string): void => {
+	for (const value of values) {
 		if (!(isStringSingleLine(value) && value.length > 0)) {
 			throw new SyntaxError(`\`${value}\` is not a valid GitHub Actions file line command value!`);
 		}
-	});
+	}
 	if (values.length > 0) {
 		Deno.writeTextFileSync(path, `${Array.from(new Set<string>(values).values()).join(eolCurrent)}${eolCurrent}`, { append: true });
 	}
@@ -112,12 +109,9 @@ export function appendFileLineCommand(command: string, ...values: readonly strin
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - **Environment Variable (Deno: `env`):**
- * >   - *Resources*
- * > - **File System - Read (Deno: `read`; NodeJS: `fs-read`):**
- * >   - *Resources*
- * > - **File System - Write (Deno: `write`; NodeJS: `fs-write`):**
- * >   - *Resources*
+ * > - Environment Variable (Deno: `env`)
+ * > - File System - Read (Deno: `read`; NodeJS: `fs-read`)
+ * > - File System - Write (Deno: `write`; NodeJS: `fs-write`)
  * @param {string} command File command.
  * @param {string} key Key of the pair of the file map command.
  * @param {string} value Value of the pair of the file map command.
@@ -129,12 +123,9 @@ export function appendFileMapCommand(command: string, key: string, value: string
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - **Environment Variable (Deno: `env`):**
- * >   - *Resources*
- * > - **File System - Read (Deno: `read`; NodeJS: `fs-read`):**
- * >   - *Resources*
- * > - **File System - Write (Deno: `write`; NodeJS: `fs-write`):**
- * >   - *Resources*
+ * > - Environment Variable (Deno: `env`)
+ * > - File System - Read (Deno: `read`; NodeJS: `fs-read`)
+ * > - File System - Write (Deno: `write`; NodeJS: `fs-write`)
  * @param {string} command File command.
  * @param {KeyValueLike} pairs Pairs of the file map command.
  * @returns {void}
@@ -146,11 +137,11 @@ export function appendFileMapCommand(command: string, param1: string | KeyValueL
 		(typeof param1 === "string") ? new Map<string, string>([[param1, param2!]])
 			: (param1 instanceof Map) ? param1
 				: new Map<string, string>(Object.entries(param1));
-	pairs.forEach((_value: string, key: string): void => {
+	for (const [key] of pairs.entries()) {
 		if (!isStringSingleLine(key)) {
 			throw new SyntaxError(`\`${key}\` is not a valid GitHub Actions file map command pair key!`);
 		}
-	});
+	}
 	if (pairs.size > 0) {
 		Deno.writeTextFileSync(path, `${formatFilePairsCommand(pairs)}${eolCurrent}`, { append: true });
 	}
@@ -160,12 +151,9 @@ export function appendFileMapCommand(command: string, param1: string | KeyValueL
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - **Environment Variable (Deno: `env`):**
- * >   - *Resources*
- * > - **File System - Read (Deno: `read`; NodeJS: `fs-read`):**
- * >   - *Resources*
- * > - **File System - Write (Deno: `write`; NodeJS: `fs-write`):**
- * >   - *Resources*
+ * > - Environment Variable (Deno: `env`)
+ * > - File System - Read (Deno: `read`; NodeJS: `fs-read`)
+ * > - File System - Write (Deno: `write`; NodeJS: `fs-write`)
  * @param {string} command File command.
  * @returns {void}
  */
@@ -177,12 +165,9 @@ export function clearFileCommand(command: string): void {
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - **Environment Variable (Deno: `env`):**
- * >   - *Resources*
- * > - **File System - Read (Deno: `read`; NodeJS: `fs-read`):**
- * >   - *Resources*
- * > - **File System - Write (Deno: `write`; NodeJS: `fs-write`):**
- * >   - *Resources*
+ * > - Environment Variable (Deno: `env`)
+ * > - File System - Read (Deno: `read`; NodeJS: `fs-read`)
+ * > - File System - Write (Deno: `write`; NodeJS: `fs-write`)
  * @param {string} command File command.
  * @param {GitHubActionsFileCommandType} [type="raw"] Type of the file command; Only used when the {@linkcode command} is not known.
  * @returns {void}

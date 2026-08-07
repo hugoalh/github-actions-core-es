@@ -1,26 +1,29 @@
 {
 	"$schema": "https://raw.githubusercontent.com/denoland/deno/main/cli/schemas/config-file.v1.json",
 	"name": "@hugoalh/github-actions-core",
-	"version": "0.7.0",
+	"version": "0.8.0",
+	"license": "MIT",
 	"exports": {
+		".": "./mod.ts",
 		"./command/file": "./command/file.ts",
 		"./command/stdout": "./command/stdout.ts",
-		"./env": "./environment_variable.ts",
-		"./environment-variable": "./environment_variable.ts",
+		"./annotation": "./annotation.ts",
+		"./env": "./env.ts",
+		"./input": "./input.ts",
 		"./log": "./log.ts",
-		"./parameter": "./parameter.ts",
+		"./output": "./output.ts",
 		"./problem-matcher": "./problem_matcher.ts",
 		"./runner": "./runner.ts",
+		"./state": "./state.ts",
 		"./summary": "./summary.ts",
-		"./utility": "./utility.ts",
-		".": "./mod.ts"
+		"./utility": "./utility.ts"
 	},
 	"imports": {
-		"https://raw.githubusercontent.com/hugoalh/env-es/v0.3.0/env.ts": "jsr:@hugoalh/env@^0.3.0/env",
-		"https://raw.githubusercontent.com/hugoalh/eol-es/v0.5.0/eol.ts": "jsr:@hugoalh/eol@^0.5.0/eol",
-		"https://raw.githubusercontent.com/hugoalh/eol-es/v0.5.0/normalize.ts": "jsr:@hugoalh/eol@^0.5.0/normalize",
-		"https://raw.githubusercontent.com/hugoalh/is-json-es/v1.0.5/mod.ts": "jsr:@hugoalh/is-json@^1.0.5",
-		"https://raw.githubusercontent.com/hugoalh/is-string-singleline-es/v1.0.5/mod.ts": "jsr:@hugoalh/is-string-singleline@^1.0.5"
+		"https://raw.githubusercontent.com/hugoalh/env-es/v0.4.0/general.ts": "jsr:@hugoalh/env@^0.4.0/general",
+		"https://raw.githubusercontent.com/hugoalh/eol-es/v0.5.1/eol.ts": "jsr:@hugoalh/eol@^0.5.1/eol",
+		"https://raw.githubusercontent.com/hugoalh/eol-es/v0.5.1/normalize.ts": "jsr:@hugoalh/eol@^0.5.1/normalize",
+		"https://raw.githubusercontent.com/hugoalh/is-json-es/v1.0.6/mod.ts": "jsr:@hugoalh/is-json@^1.0.6",
+		"https://raw.githubusercontent.com/hugoalh/is-string-singleline-es/v1.0.6/mod.ts": "jsr:@hugoalh/is-string-singleline@^1.0.6"
 	},
 	"publish": {
 		"exclude": [

@@ -3,9 +3,10 @@
 [**⚖️** MIT](./LICENSE.md)
 
 🔗
-[GitHub](https://github.com/hugoalh/github-actions-core-es)
-[JSR](https://jsr.io/@hugoalh/github-actions-core)
-[NPM](https://www.npmjs.com/package/@hugoalh/github-actions-core)
+[DistBoard @hugoalh](https://hugoalh.github.io/distboard/github_actions_core_ecmascript)
+● [GitHub](https://github.com/hugoalh/github-actions-core-es)
+● [JSR](https://jsr.io/@hugoalh/github-actions-core)
+● [NPM](https://www.npmjs.com/package/@hugoalh/github-actions-core)
 
 An ECMAScript module to provide a better and easier way for GitHub Actions to communicate with the runner, and the toolkit for developing GitHub Actions.
 
@@ -15,72 +16,25 @@ This is a partial refactor of [the official toolkit][official-toolkit], not all 
 
 ## 🌟 Features
 
-- Ability to use directly on GitHub Actions with Deno runtime without complex setup.
+- Ability to use directly on GitHub Actions with ECMAScript runtime without complex setup.
 - Compatible with bundler.
-- Full ECMAScript module.
+- Full ECMAScript.
 
-## 🎯 Targets
+## 🎯 Runtime Targets
 
-| **Runtime \\ Source** | **GitHub Raw** | **JSR** | **NPM** |
-|:--|:-:|:-:|:-:|
-| **[Bun](https://bun.sh/)** >= v1.1.0 | ❌ | ✔️ | ✔️ |
-| **[Deno](https://deno.land/)** >= v2.1.0 | ✔️ | ✔️ | ✔️ |
-| **[NodeJS](https://nodejs.org/)** >= v20.9.0 | ❌ | ✔️ | ✔️ |
+Any runtime which support ECMAScript should able to use this; These runtimes are officially supported:
+
+- **[Bun](https://bun.sh/)** >= v1.1.0
+- **[Deno](https://deno.land/)** >= v2.1.0
+- **[NodeJS](https://nodejs.org/)** >= v20.9.0
 
 ## 🛡️ Runtime Permissions
 
-- Environment Variable (Deno: `env`)
-  - `ACTIONS_CACHE_SERVICE_V2` (Optional)
-  - `ACTIONS_CACHE_URL` (Optional)
-  - `ACTIONS_ID_TOKEN_REQUEST_TOKEN` (Optional)
-  - `ACTIONS_ID_TOKEN_REQUEST_URL` (Optional)
-  - `ACTIONS_RESULTS_URL` (Optional)
-  - `ACTIONS_RUNTIME_TOKEN` (Optional)
-  - `ACTIONS_RUNTIME_URL` (Optional)
-  - `CI` (Optional)
-  - `GITHUB_ACTION` (Optional)
-  - `GITHUB_ACTIONS` (Optional)
-  - `GITHUB_ACTOR` (Optional)
-  - `GITHUB_ACTOR_ID` (Optional)
-  - `GITHUB_API_URL` (Optional)
-  - `GITHUB_ENV` (Optional)
-  - `GITHUB_EVENT_NAME` (Optional)
-  - `GITHUB_EVENT_PATH` (Optional)
-  - `GITHUB_GRAPHQL_URL` (Optional)
-  - `GITHUB_JOB` (Optional)
-  - `GITHUB_OUTPUT` (Optional)
-  - `GITHUB_PATH` (Optional)
-  - `GITHUB_REF_NAME` (Optional)
-  - `GITHUB_REF_TYPE` (Optional)
-  - `GITHUB_REPOSITORY` (Optional)
-  - `GITHUB_REPOSITORY_ID` (Optional)
-  - `GITHUB_REPOSITORY_OWNER` (Optional)
-  - `GITHUB_REPOSITORY_OWNER_ID` (Optional)
-  - `GITHUB_RETENTION_DAYS` (Optional)
-  - `GITHUB_RUN_ATTEMPT` (Optional)
-  - `GITHUB_RUN_ID` (Optional)
-  - `GITHUB_RUN_NUMBER` (Optional)
-  - `GITHUB_SERVER_URL` (Optional)
-  - `GITHUB_SHA` (Optional)
-  - `GITHUB_STATE` (Optional)
-  - `GITHUB_STEP_SUMMARY` (Optional)
-  - `GITHUB_WORKFLOW` (Optional)
-  - `GITHUB_WORKFLOW_REF` (Optional)
-  - `GITHUB_WORKFLOW_SHA` (Optional)
-  - `GITHUB_WORKSPACE` (Optional)
-  - `RUNNER_ARCH` (Optional)
-  - `RUNNER_ENVIRONMENT` (Optional)
-  - `RUNNER_NAME` (Optional)
-  - `RUNNER_OS` (Optional)
-  - `RUNNER_TEMP` (Optional)
-  - `RUNNER_TOOL_CACHE` (Optional)
-  - *Resources* (Optional)
-- File System - Read (Deno: `read`; NodeJS: `fs-read`)
-  - *Resources* (Optional)
-- File System - Write (Deno: `write`; NodeJS: `fs-write`)
-  - *Resources* (Optional)
+- Environment Variable (Deno: `env`) (Optional)
+- File System - Read (Deno: `read`; NodeJS: `fs-read`) (Optional)
+- File System - Write (Deno: `write`; NodeJS: `fs-write`) (Optional)
 
-## #️⃣ Sources
+## #️⃣ Sources & Entrypoints
 
 - GitHub Raw
   ```
@@ -95,37 +49,37 @@ This is a partial refactor of [the official toolkit][official-toolkit], not all 
   npm:@hugoalh/github-actions-core[@{Tag}]
   ```
 
+| **Name** | **Path** | **Description** |
+|:--|:--|:--|
+| `.` | `./mod.ts` | Default |
+| `./command/file` | `./command/file.ts` | File command. |
+| `./command/stdout` | `./command/stdout.ts` | StdOut command. |
+| `./annotation` | `./annotation.ts` | Annotation. |
+| `./env` | `./env.ts` | Environment variable. |
+| `./input` | `./input.ts` | Input. |
+| `./log` | `./log.ts` | Log. |
+| `./output` | `./output.ts` | Output. |
+| `./problem-matcher` | `./problem_matcher.ts` | Problem matcher. |
+| `./runner` | `./runner.ts` | Runner. |
+| `./state` | `./state.ts` | State. |
+| `./summary` | `./summary.ts` | Summary. |
+| `./utility` | `./utility.ts` | Utility. |
+
 > [!NOTE]
+> - Different runtimes have vary support for the sources and entrypoints, visit the runtime documentation for more information.
 > - It is recommended to include tag for immutability.
 > - These are not part of the public APIs hence should not be used:
 >   - Benchmark/Test file (e.g.: `example.bench.ts`, `example.test.ts`).
 >   - Entrypoint name or path include any underscore prefix (e.g.: `_example.ts`, `foo/_example.ts`).
 >   - Identifier/Namespace/Symbol include any underscore prefix (e.g.: `_example`, `Foo._example`).
 
-## ⤵️ Entrypoints
-
-| **Name** | **Path** | **Description** |
-|:--|:--|:--|
-| `.` | `./mod.ts` | Default. |
-| `./command/file` | `./command/file.ts` | File command. |
-| `./command/stdout` | `./command/stdout.ts` | StdOut command. |
-| `./env` | `./environment_variable.ts` | Environment variable. |
-| `./environment-variable` | `./environment_variable.ts` | Environment variable. |
-| `./log` | `./log.ts` | Log. |
-| `./parameter` | `./parameter.ts` | Input, output, and state. |
-| `./problem-matcher` | `./problem_matcher.ts` | Problem matcher. |
-| `./runner` | `./runner.ts` | Runner. |
-| `./summary` | `./summary.ts` | Summary. |
-| `./utility` | `./utility.ts` | Utility. |
-
 ## 🧩 APIs
 
 - ```ts
-  function addPATH(path: string, options?: GitHubActionsSetEnvironmentVariableOptions): void;
-  function addPATH(paths: readonly string[], options?: GitHubActionsSetEnvironmentVariableOptions): void;
+  function addPATHSubsequent(...paths: readonly string[]): void;
   ```
 - ```ts
-  function addSecretMask(...values: readonly string[]): void;
+  function addSecretMask(value: string): void;
   ```
 - ```ts
   function enterLogGroup(title?: string): void;
@@ -142,8 +96,8 @@ This is a partial refactor of [the official toolkit][official-toolkit], not all 
   function getState(key: string, options: GitHubActionsGetParameterOptions & { require: true; }): string;
   ```
 - ```ts
-  function setEnvironmentVariable(key: string, value: StringizableType, options?: GitHubActionsSetEnvironmentVariableOptions): void;
-  function setEnvironmentVariable(pairs: KeyValueLike<StringizableType>, options?: GitHubActionsSetEnvironmentVariableOptions): void;
+  function setEnvSubsequent(key: string, value: StringifiableType): void;
+  function setEnvSubsequent(pairs: KeyValueLike<StringifiableType>): void;
   ```
 - ```ts
   function setOutput(key: string, value: StringizableType): void;
@@ -168,7 +122,7 @@ This is a partial refactor of [the official toolkit][official-toolkit], not all 
 
 > [!NOTE]
 > - For the full or prettier documentation, can visit via:
->   - [Deno CLI `deno doc`](https://docs.deno.com/runtime/reference/cli/doc/)
+>   - [Deno CLI `deno doc`](https://docs.deno.com/runtime/reference/cli/doc)
 >   - [JSR](https://jsr.io/@hugoalh/github-actions-core)
 
 ## ✍️ Examples

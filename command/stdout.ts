@@ -1,6 +1,7 @@
-import { isStringSingleLine } from "https://raw.githubusercontent.com/hugoalh/is-string-singleline-es/v1.0.5/mod.ts";
+import { isStringSingleLine } from "https://raw.githubusercontent.com/hugoalh/is-string-singleline-es/v1.0.6/mod.ts";
+import { deepStrictEqual } from "node:assert";
 import type { KeyValueLike } from "../_share.ts";
-const commandsStdOutCurrent: readonly string[] = [
+const commandsStdOutCurrent: readonly string[] = [/* UNIQUE */
 	"add-mask",
 	"add-matcher",
 	"debug",
@@ -13,7 +14,7 @@ const commandsStdOutCurrent: readonly string[] = [
 	"stop-commands",
 	"warning"
 ];
-const commandsStdOutForbid: readonly string[] = [
+const commandsStdOutForbid: readonly string[] = [/* UNIQUE */
 	"add-path",
 	"save-state",
 	"set-env",
@@ -33,7 +34,7 @@ export class GitHubActionsStdOutCommand {
 	get [Symbol.toStringTag](): string {
 		return "GitHubActionsStdOutCommand";
 	}
-	#result: string;
+	#command: string;
 	/**
 	 * Initialize.
 	 * @param {string} command StdOut command.
@@ -48,8 +49,6 @@ export class GitHubActionsStdOutCommand {
 	 */
 	constructor(command: string, properties: KeyValueLike, message?: string);
 	constructor(command: string, param1?: string | KeyValueLike, param2?: string) {
-		let message: string = "";
-		const properties: Map<string, string> = new Map<string, string>();
 		if (!(
 			commandsStdOutCurrent.includes(command) ||
 			regexpCommandStdout.test(command)
@@ -59,41 +58,47 @@ export class GitHubActionsStdOutCommand {
 		if (commandsStdOutForbid.includes(command)) {
 			throw new Error(`\`${command}\` is a forbidden GitHub Actions stdout command!`);
 		}
-		switch (typeof param1) {
-			case "string":
-				message = param1;
-				break;
-			case "undefined":
-				break;
-			default:
-				if (typeof param2 !== "undefined") {
-					message = param2;
+		let message: string | undefined;
+		const properties: Map<string, string> = new Map<string, string>();
+		if (
+			typeof param1 === "string" ||
+			typeof param1 === "undefined"
+		) {
+			message = param1;
+		} else {
+			message = param2;
+			for (const [
+				key,
+				value
+			] of ((param1 instanceof Map) ? param1.entries() : Object.entries(param1))) {
+				if (!isStringSingleLine(key)) {
+					throw new SyntaxError(`\`${key}\` is not a valid GitHub Actions stdout command property key!`);
 				}
-				for (const [key, value] of ((param1 instanceof Map) ? param1.entries() : Object.entries(param1))) {
-					if (!isStringSingleLine(key)) {
-						throw new SyntaxError(`\`${key}\` is not a valid GitHub Actions stdout command property key!`);
-					}
-					properties.set(key, value);
-				}
-				break;
+				properties.set(key, value);
+			}
 		}
-		this.#result = `::${command}${properties.size > 0 ? " " : ""}${Array.from(properties.entries(), ([key, value]: [string, string]): string => {
+		this.#command = `::${command}${properties.size > 0 ? " " : ""}${Array.from(properties.entries(), ([
+			key,
+			value
+		]: [string, string]): string => {
 			return `${key}=${escapeStdOutCommandPropertyValue(value)}`;
-		}).join(",")}::${escapeStdOutCommandValue(message)}`;
-	}
-	/**
-	 * Stringify the stdout command.
-	 * @returns {string}
-	 */
-	toString(): string {
-		return this.#result;
+		}).join(",")}::${escapeStdOutCommandValue(message ?? "")}`;
 	}
 	/**
 	 * Dispatch the stdout command.
 	 * @returns {void}
 	 */
 	dispatch(): void {
-		console.log(this.toString());
+		console.log(this.#command);
+	}
+	/**
+	 * Test the stdout command equality. Use in module test.
+	 * @param expected Expected stdout command string.
+	 * @returns {void}
+	 * @throws {AssertionError} If the actual stdout command is not equal to the expected stdout command.
+	 */
+	test(expected: string): void {
+		return deepStrictEqual(this.#command, expected);
 	}
 }
 const commandEchoDisable: GitHubActionsStdOutCommand = new GitHubActionsStdOutCommand("echo", "off");

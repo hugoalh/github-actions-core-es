@@ -1,3 +1,16 @@
+export type { GitHubActionsGetParameterOptions } from "./_parameter.ts";
+export type {
+	KeyValueLike,
+	StringifiableType
+} from "./_share.ts";
+export {
+	writeError,
+	writeNote,
+	writeNotice,
+	writeWarn,
+	writeWarning,
+	type GitHubActionsAnnotationProperties
+} from "./annotation.ts";
 export {
 	appendFileLineCommand,
 	appendFileMapCommand,
@@ -13,41 +26,12 @@ export {
 	enableProcessStdOutCommand,
 	GitHubActionsStdOutCommand
 } from "./command/stdout.ts";
-export type {
-	KeyValueLike,
-	StringifiableType
-} from "./_share.ts";
 export {
-	addPATH,
-	clearEnvironmentVariableSubsequent,
 	clearEnvSubsequent,
-	clearPATHSubsequent,
-	optimizeEnvironmentVariableSubsequent,
 	optimizeEnvSubsequent,
-	optimizePATHSubsequent,
-	setEnv,
-	setEnvironmentVariable,
-	type GitHubActionsSetEnvironmentVariableOptions
-} from "./environment_variable.ts";
+	setEnvSubsequent
+} from "./env.ts";
 export {
-	addMask,
-	addSecret,
-	addSecretMask,
-	endLogGroup,
-	enterLogGroup,
-	exitLogGroup,
-	startLogGroup,
-	writeDebug,
-	writeError,
-	writeNote,
-	writeNotice,
-	writeWarn,
-	writeWarning,
-	type GitHubActionsAnnotationProperties
-} from "./log.ts";
-export {
-	clearOutput,
-	clearState,
 	getInput,
 	getInputBigInt,
 	getInputBoolean,
@@ -57,27 +41,28 @@ export {
 	getInputJSONPrimitive,
 	getInputJSONValue,
 	getInputNumber,
-	getInputString,
-	getState,
-	getStateBigInt,
-	getStateBoolean,
-	getStateJSON,
-	getStateJSONArray,
-	getStateJSONObject,
-	getStateJSONPrimitive,
-	getStateJSONValue,
-	getStateNumber,
-	getStateString,
+	getInputString
+} from "./input.ts";
+export {
+	addMask,
+	addSecret,
+	addSecretMask,
+	endLogGroup,
+	enterLogGroup,
+	exitLogGroup,
+	startLogGroup,
+	writeDebug
+} from "./log.ts";
+export {
+	clearOutput,
 	optimizeOutput,
-	optimizeState,
-	setOutput,
-	setState,
-	type GitHubActionsGetParameterOptions,
-	type JSONArray,
-	type JSONObject,
-	type JSONPrimitive,
-	type JSONValue
-} from "./parameter.ts";
+	setOutput
+} from "./output.ts";
+export {
+	addPATHSubsequent,
+	clearPATHSubsequent,
+	optimizePATHSubsequent
+} from "./path.ts";
 export {
 	addProblemMatcher,
 	removeProblemMatcher
@@ -103,9 +88,22 @@ export {
 	makeRunnerTempFile,
 	type GitHubActionsRunnerArchitecture,
 	type GitHubActionsRunnerEnvironment,
-	type GitHubActionsRunnerOS,
-	type GitHubActionsRunnerTestOptions
+	type GitHubActionsRunnerOS
 } from "./runner.ts";
+export {clearState,
+	getState,
+	getStateBigInt,
+	getStateBoolean,
+	getStateJSON,
+	getStateJSONArray,
+	getStateJSONObject,
+	getStateJSONPrimitive,
+	getStateJSONValue,
+	getStateNumber,
+	getStateString,
+	optimizeState,
+	setState
+} from "./state.ts"
 export {
 	appendSummary,
 	clearSummary,

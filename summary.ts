@@ -7,12 +7,10 @@ import {
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - **Environment Variable (Deno: `env`):**
+ * > - Environment Variable (Deno: `env`)
  * >   - `GITHUB_STEP_SUMMARY`
- * > - **File System - Read (Deno: `read`; NodeJS: `fs-read`):**
- * >   - *Resources*
- * > - **File System - Write (Deno: `write`; NodeJS: `fs-write`):**
- * >   - *Resources*
+ * > - File System - Read (Deno: `read`; NodeJS: `fs-read`)
+ * > - File System - Write (Deno: `write`; NodeJS: `fs-write`)
  * @param {string | Uint8Array} data Data.
  * @returns {void}
  */
@@ -29,12 +27,10 @@ export function appendSummary(data: string | Uint8Array): void {
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - **Environment Variable (Deno: `env`):**
+ * > - Environment Variable (Deno: `env`)
  * >   - `GITHUB_STEP_SUMMARY`
- * > - **File System - Read (Deno: `read`; NodeJS: `fs-read`):**
- * >   - *Resources*
- * > - **File System - Write (Deno: `write`; NodeJS: `fs-write`):**
- * >   - *Resources*
+ * > - File System - Read (Deno: `read`; NodeJS: `fs-read`)
+ * > - File System - Write (Deno: `write`; NodeJS: `fs-write`)
  * @returns {void}
  */
 export function clearSummary(): void {
@@ -45,12 +41,10 @@ export function clearSummary(): void {
  * 
  * > **🛡️ Runtime Permissions**
  * > 
- * > - **Environment Variable (Deno: `env`):**
+ * > - Environment Variable (Deno: `env`)
  * >   - `GITHUB_STEP_SUMMARY`
- * > - **File System - Read (Deno: `read`; NodeJS: `fs-read`):**
- * >   - *Resources*
- * > - **File System - Write (Deno: `write`; NodeJS: `fs-write`):**
- * >   - *Resources*
+ * > - File System - Read (Deno: `read`; NodeJS: `fs-read`)
+ * > - File System - Write (Deno: `write`; NodeJS: `fs-write`)
  * @returns {number} Size of the summary, in bytes.
  */
 export function getSummarySize(): number {
