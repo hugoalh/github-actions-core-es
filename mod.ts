@@ -90,7 +90,8 @@ export {
 	type GitHubActionsRunnerEnvironment,
 	type GitHubActionsRunnerOS
 } from "./runner.ts";
-export {clearState,
+export {
+	clearState,
 	getState,
 	getStateBigInt,
 	getStateBoolean,
@@ -103,7 +104,7 @@ export {clearState,
 	getStateString,
 	optimizeState,
 	setState
-} from "./state.ts"
+} from "./state.ts";
 export {
 	appendSummary,
 	clearSummary,
