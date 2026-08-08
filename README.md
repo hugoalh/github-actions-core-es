@@ -10,9 +10,7 @@
 
 An ECMAScript module to provide a better and easier way for GitHub Actions to communicate with the runner, and the toolkit for developing GitHub Actions.
 
-This is a partial refactor of [the official toolkit][official-toolkit], not all of the features in [the official toolkit][official-toolkit] are available in here, and not all of the features in here are available in [the official toolkit][official-toolkit].
-
-[official-toolkit]: https://github.com/actions/toolkit
+This is not the [official GitHub Actions toolkit](https://github.com/actions/toolkit), features are vary.
 
 ## 🌟 Features
 
