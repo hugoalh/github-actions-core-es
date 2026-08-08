@@ -52,6 +52,7 @@ Any runtime which support ECMAScript should able to use this; These runtimes are
 | **Name** | **Path** | **Description** |
 |:--|:--|:--|
 | `.` | `./mod.ts` | Default |
+| `./cli` | `./cli.ts` | CLI. |
 | `./command/file` | `./command/file.ts` | File command. |
 | `./command/stdout` | `./command/stdout.ts` | StdOut command. |
 | `./annotation` | `./annotation.ts` | Annotation. |
@@ -125,9 +126,64 @@ Any runtime which support ECMAScript should able to use this; These runtimes are
 >   - [Deno CLI `deno doc`](https://docs.deno.com/runtime/reference/cli/doc)
 >   - [JSR](https://jsr.io/@hugoalh/github-actions-core)
 
+## 🧩 CLIs
+
+- ```powershell
+  ghac echo off
+  ghac echo on
+  ```
+- ```powershell
+  ghac env clear
+  ghac env optimize
+  ghac env set $Key $Value
+  ```
+- ```powershell
+  ghac error $Data [--file $File] [--line $Line] [--column $Column] [--line-end $LineEnd] [--column-end $ColumnEnd] [--title $Title] [--summary $Summary]
+  ghac notice $Data [--file $File] [--line $Line] [--column $Column] [--line-end $LineEnd] [--column-end $ColumnEnd] [--title $Title] [--summary $Summary]
+  ghac warning $Data [--file $File] [--line $Line] [--column $Column] [--line-end $LineEnd] [--column-end $ColumnEnd] [--title $Title] [--summary $Summary]
+  <# 🔀 Unordered Positions: `$Data`, `--file $File`, `--line $Line`, `--column $Column`, `--line-end $LineEnd`, `--column-end $ColumnEnd`, `--title $Title`, `--summary $Summary` #>
+  ```
+  | **Argument** | **Type** | **Description** |
+  |:--|:--|:--|
+  | `column` | `number` | Column start of the issue file of the annotation. |
+  | `column-end` | `number` | Column end of the issue file of the annotation. |
+  | `file` | `string` | Path of the issue file of the annotation. |
+  | `line` | `number` | Line start of the issue file of the annotation. |
+  | `line-end` | `number` | Line end of the issue file of the annotation. |
+  | `summary` | `string` | Summary of the annotation when the message is too large to display. |
+  | `title` | `string` | Title of the annotation. |
+- ```powershell
+  ghac loggroup exit
+  ghac loggroup enter [$Title]
+  ```
+- ```powershell
+  ghac output clear
+  ghac output optimize
+  ghac output set $Key $Value
+  ```
+- ```powershell
+  ghac path add ...$Paths
+  ghac path clear
+  ghac path optimize
+  ```
+- ```powershell
+  ghac state clear
+  ghac state optimize
+  ghac state set $Key $Value
+  ```
+- ```powershell
+  ghac summary clear
+  ```
+- ```powershell
+  ghac temp clear
+  ```
+
 ## ✍️ Examples
 
 - ```ts
   writeNotice("Hello, world!");
   //=> ::notice::Hello, world!
+  ```
+- ```powershell
+  ghac notice 'Hello, world!'
   ```
