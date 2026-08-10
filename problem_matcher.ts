@@ -1,4 +1,4 @@
-import { isStringSingleLine } from "https://raw.githubusercontent.com/hugoalh/is-string-singleline-es/v1.0.6/mod.ts";
+import { isStringSingleLine } from "jsr:@hugoalh/is-string-singleline@^1.0.6";
 import { GitHubActionsStdOutCommand } from "./command/stdout.ts";
 /**
  * Add problem matcher to scan the logs by specified regular expression patterns and automatically surface that information prominently in the user interface, both annotation and log decoration will create when a match is detected.

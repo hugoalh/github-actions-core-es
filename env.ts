@@ -1,4 +1,4 @@
-import { isStringSingleLine } from "https://raw.githubusercontent.com/hugoalh/is-string-singleline-es/v1.0.6/mod.ts";
+import { isStringSingleLine } from "jsr:@hugoalh/is-string-singleline@^1.0.6";
 import {
 	stringifyInput,
 	type KeyValueLike,

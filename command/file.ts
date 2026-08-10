@@ -1,10 +1,10 @@
-import { getEnv } from "https://raw.githubusercontent.com/hugoalh/env-es/v0.4.0/general.ts";
+import { getEnv } from "jsr:@hugoalh/env@^0.4.0/general";
 import {
 	eolCurrent,
 	regexpEOL
-} from "https://raw.githubusercontent.com/hugoalh/eol-es/v0.5.1/eol.ts";
-import { normalizeEOL } from "https://raw.githubusercontent.com/hugoalh/eol-es/v0.5.1/normalize.ts";
-import { isStringSingleLine } from "https://raw.githubusercontent.com/hugoalh/is-string-singleline-es/v1.0.6/mod.ts";
+} from "jsr:@hugoalh/eol@^0.5.1/eol";
+import { normalizeEOL } from "jsr:@hugoalh/eol@^0.5.1/normalize";
+import { isStringSingleLine } from "jsr:@hugoalh/is-string-singleline@^1.0.6";
 import { isAbsolute as isPathAbsolute } from "node:path";
 import type { KeyValueLike } from "../_share.ts";
 /**

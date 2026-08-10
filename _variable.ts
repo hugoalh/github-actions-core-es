@@ -1,4 +1,4 @@
-import { getEnv } from "https://raw.githubusercontent.com/hugoalh/env-es/v0.4.0/general.ts";
+import { getEnv } from "jsr:@hugoalh/env@^0.4.0/general";
 import { isAbsolute as isPathAbsolute } from "node:path";
 export function getVariableWithGuard(key: string, description: string): string {
 	const value: string = getEnv(key) ?? "";

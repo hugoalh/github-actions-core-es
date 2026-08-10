@@ -1,7 +1,7 @@
 import {
 	getEnv,
 	hasEnv
-} from "https://raw.githubusercontent.com/hugoalh/env-es/v0.4.0/general.ts";
+} from "jsr:@hugoalh/env@^0.4.0/general";
 import {
 	isAbsolute as isPathAbsolute,
 	join as joinPath

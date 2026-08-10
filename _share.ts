@@ -3,7 +3,7 @@ import type {
 	JSONObject,
 	JSONPrimitive,
 	JSONValue,
-} from "https://raw.githubusercontent.com/hugoalh/is-json-es/v1.0.6/mod.ts";
+} from "jsr:@hugoalh/is-json@^1.0.6";
 /**
  * Type of key-value like.
  */

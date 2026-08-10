@@ -1,4 +1,4 @@
-import { getEnv } from "https://raw.githubusercontent.com/hugoalh/env-es/v0.4.0/general.ts";
+import { getEnv } from "jsr:@hugoalh/env@^0.4.0/general";
 import {
 	isJSONArray,
 	isJSONObject,
@@ -7,8 +7,8 @@ import {
 	type JSONObject,
 	type JSONPrimitive,
 	type JSONValue,
-} from "https://raw.githubusercontent.com/hugoalh/is-json-es/v1.0.6/mod.ts";
-import { isStringSingleLine } from "https://raw.githubusercontent.com/hugoalh/is-string-singleline-es/v1.0.6/mod.ts";
+} from "jsr:@hugoalh/is-json@^1.0.6";
+import { isStringSingleLine } from "jsr:@hugoalh/is-string-singleline@^1.0.6";
 import {
 	stringifyInput,
 	type KeyValueLike,

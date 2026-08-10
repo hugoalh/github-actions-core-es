@@ -1,8 +1,8 @@
-import { getEnvSafe } from "https://raw.githubusercontent.com/hugoalh/env-es/v0.4.0/general.ts";
+import { getEnvSafe } from "jsr:@hugoalh/env@^0.4.0/general";
 import {
 	isJSONObject,
 	type JSONObject
-} from "https://raw.githubusercontent.com/hugoalh/is-json-es/v1.0.6/mod.ts";
+} from "jsr:@hugoalh/is-json@^1.0.6";
 import {
 	getVariableWithGuard,
 	getVariableWithGuardAbsolutePath,

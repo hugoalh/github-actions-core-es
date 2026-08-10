@@ -32,41 +32,27 @@ Any runtime which support ECMAScript should able to use this; These runtimes are
 - File System - Read (Deno: `read`; NodeJS: `fs-read`) (Optional)
 - File System - Write (Deno: `write`; NodeJS: `fs-write`) (Optional)
 
-## #️⃣ Sources & Entrypoints
+## #️⃣ Entrypoints
 
-- GitHub Raw
-  ```
-  https://raw.githubusercontent.com/hugoalh/github-actions-core-es/{Tag}/mod.ts
-  ```
-- JSR
-  ```
-  jsr:@hugoalh/github-actions-core[@{Tag}]
-  ```
-- NPM
-  ```
-  npm:@hugoalh/github-actions-core[@{Tag}]
-  ```
-
-| **Name** | **Path** | **Description** |
-|:--|:--|:--|
-| `.` | `./mod.ts` | Default |
-| `./cli` | `./cli.ts` | CLI. |
-| `./command/file` | `./command/file.ts` | File command. |
-| `./command/stdout` | `./command/stdout.ts` | StdOut command. |
-| `./annotation` | `./annotation.ts` | Annotation. |
-| `./env` | `./env.ts` | Environment variable. |
-| `./input` | `./input.ts` | Input. |
-| `./log` | `./log.ts` | Log. |
-| `./output` | `./output.ts` | Output. |
-| `./problem-matcher` | `./problem_matcher.ts` | Problem matcher. |
-| `./runner` | `./runner.ts` | Runner. |
-| `./state` | `./state.ts` | State. |
-| `./summary` | `./summary.ts` | Summary. |
-| `./utility` | `./utility.ts` | Utility. |
+| **Type** | **Name** | **Path** | **Description** |
+|:--|:--|:--|:--|
+| API | `.` | `./mod.ts` | Default. |
+| API | `./command/file` | `./command/file.ts` | File command. |
+| API | `./command/stdout` | `./command/stdout.ts` | StdOut command. |
+| API | `./annotation` | `./annotation.ts` | Annotation. |
+| API | `./env` | `./env.ts` | Environment variable. |
+| API | `./input` | `./input.ts` | Input. |
+| API | `./log` | `./log.ts` | Log. |
+| API | `./output` | `./output.ts` | Output. |
+| API | `./problem-matcher` | `./problem_matcher.ts` | Problem matcher. |
+| API | `./runner` | `./runner.ts` | Runner. |
+| API | `./state` | `./state.ts` | State. |
+| API | `./summary` | `./summary.ts` | Summary. |
+| API | `./utility` | `./utility.ts` | Utility. |
+| CLI | `./cli` | `./cli.ts` | Default. |
 
 > [!NOTE]
-> - Different runtimes have vary support for the sources and entrypoints, visit the runtime documentation for more information.
-> - It is recommended to include tag for immutability.
+> - Different runtimes have vary support for the entrypoints, visit the runtime documentation for more information.
 > - These are not part of the public APIs hence should not be used:
 >   - Benchmark/Test file (e.g.: `example.bench.ts`, `example.test.ts`).
 >   - Entrypoint name or path include any underscore prefix (e.g.: `_example.ts`, `foo/_example.ts`).
