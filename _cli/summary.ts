@@ -1,5 +1,5 @@
 import { parseArgs } from "node:util";
-import {	clearSummary} from "../summary.ts";
+import { clearSummary } from "../summary.ts";
 export default function (): void {
 	const {
 		positionals: [
@@ -7,9 +7,7 @@ export default function (): void {
 			action1,
 			...positionals
 		]
-	} = parseArgs({
-		allowPositionals: true
-	});
+	} = parseArgs({ allowPositionals: true });
 	function checkPositionalArgumentsLength(length: number): void {
 		if (positionals.length !== length) {
 			throw new SyntaxError(`Invalid positional arguments length! Expect: ${length}, Current: ${positionals.length}.`);

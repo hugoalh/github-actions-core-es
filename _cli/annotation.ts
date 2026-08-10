@@ -9,7 +9,6 @@ export default function (): void {
 	const {
 		positionals: [
 			action0,
-			data,
 			...positionals
 		],
 		values
@@ -39,8 +38,10 @@ export default function (): void {
 			}
 		}
 	});
-	if (positionals.length !== 0) {
-		throw new SyntaxError(`Invalid positional arguments length! Expect: 1, Current: ${positionals.length + 1}.`);
+	function checkPositionalArgumentsLength(length: number): void {
+		if (positionals.length !== length) {
+			throw new SyntaxError(`Invalid positional arguments length! Expect: ${length}, Current: ${positionals.length}.`);
+		}
 	}
 	const properties: GitHubActionsAnnotationProperties = {
 		column: (typeof values.column === "undefined") ? undefined : Number(values.column),
@@ -53,13 +54,16 @@ export default function (): void {
 	};
 	switch (action0) {
 		case "error":
-			return writeError(data, properties);
+			checkPositionalArgumentsLength(1);
+			return writeError(positionals[0], properties);
 		case "note":
 		case "notice":
-			return writeNotice(data, properties);
+			checkPositionalArgumentsLength(1);
+			return writeNotice(positionals[0], properties);
 		case "warn":
 		case "warning":
-			return writeWarning(data, properties);
+			checkPositionalArgumentsLength(1);
+			return writeWarning(positionals[0], properties);
 		default:
 			throw new Error(`Unknown action \`${action0}\`! I do not know how you get into here...`);
 	}
