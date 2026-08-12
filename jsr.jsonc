@@ -20,11 +20,6 @@
 		"./utility": "./utility.ts"
 	},
 	"imports": {
-		"https://raw.githubusercontent.com/hugoalh/env-es/v0.4.0/general.ts": "jsr:@hugoalh/env@^0.4.0/general",
-		"https://raw.githubusercontent.com/hugoalh/eol-es/v0.5.1/eol.ts": "jsr:@hugoalh/eol@^0.5.1/eol",
-		"https://raw.githubusercontent.com/hugoalh/eol-es/v0.5.1/normalize.ts": "jsr:@hugoalh/eol@^0.5.1/normalize",
-		"https://raw.githubusercontent.com/hugoalh/is-json-es/v1.0.6/mod.ts": "jsr:@hugoalh/is-json@^1.0.6",
-		"https://raw.githubusercontent.com/hugoalh/is-string-singleline-es/v1.0.6/mod.ts": "jsr:@hugoalh/is-string-singleline@^1.0.6"
 	},
 	"publish": {
 		"exclude": [
