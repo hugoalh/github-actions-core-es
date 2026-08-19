@@ -3,6 +3,7 @@ import {
 	isJSONObject,
 	type JSONObject
 } from "jsr:@hugoalh/is-json@^1.0.6";
+import { readFileSync } from "node:fs";
 import {
 	getVariableWithGuard,
 	getVariableWithGuardAbsolutePath,
@@ -528,7 +529,7 @@ export function getWorkflowRunURL(): URL {
  */
 export function getWorkflowRunWebhookEventPayload(): JSONObject {
 	const path: string = getVariableWithGuardAbsolutePath("GITHUB_EVENT_PATH", "GitHub Actions workflow run webhook event payload");
-	const context: unknown = JSON.parse(Deno.readTextFileSync(path));
+	const context: unknown = JSON.parse(readFileSync(path, { encoding: "utf8" }));
 	if (!isJSONObject(context)) {
 		throw new Error(`GitHub Actions workflow run webhook event payload context is not a JSON object!`);
 	}

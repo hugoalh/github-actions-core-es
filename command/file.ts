@@ -1,3 +1,4 @@
+//deno-lint-ignore-file hugoalh/no-bad-comment-location -- False positive.
 import { getEnv } from "jsr:@hugoalh/env@^0.4.0/general";
 import {
 	eolCurrent,
@@ -5,6 +6,12 @@ import {
 } from "jsr:@hugoalh/eol@^0.5.1/eol";
 import { normalizeEOL } from "jsr:@hugoalh/eol@^0.5.1/normalize";
 import { isStringSingleLine } from "jsr:@hugoalh/is-string-singleline@^1.0.6";
+import {
+	appendFileSync,
+	readFileSync,
+	statSync,
+	writeFileSync
+} from "node:fs";
 import { isAbsolute as isPathAbsolute } from "node:path";
 import type { KeyValueLike } from "../_share.ts";
 /**
@@ -52,12 +59,17 @@ export function getFileCommandPath(command: string): string {
 		throw new Error(`\`${path}\` (file command \`${command}\`) is not an absolute path!`);
 	}
 	try {
-		if (!Deno.statSync(path).isFile) {
+		if (!statSync(path).isFile()) {
 			throw new Error(`\`${path}\` (file command \`${command}\`) is not a file!`);
 		}
 	} catch (error) {
 		// NOTE: Command file may not created yet.
-		if (!(error instanceof Deno.errors.NotFound)) {
+		if (!(
+			//@ts-ignore `Deno` maybe not exist.
+			(typeof globalThis.Deno !== "undefined" && error instanceof Deno.errors.NotFound) ||
+			//@ts-ignore NodeJS error code.
+			(error instanceof Error && typeof error.code !== "undefined" && error.code === "ENOENT")
+		)) {
 			throw error;
 		}
 	}
@@ -101,7 +113,7 @@ export function appendFileLineCommand(command: string, ...values: readonly strin
 		}
 	}
 	if (values.length > 0) {
-		Deno.writeTextFileSync(path, `${Array.from(new Set<string>(values).values()).join(eolCurrent)}${eolCurrent}`, { append: true });
+		appendFileSync(path, `${Array.from(new Set<string>(values).values()).join(eolCurrent)}${eolCurrent}`, { encoding: "utf8" });
 	}
 }
 /**
@@ -143,7 +155,7 @@ export function appendFileMapCommand(command: string, param1: string | KeyValueL
 		}
 	}
 	if (pairs.size > 0) {
-		Deno.writeTextFileSync(path, `${formatFilePairsCommand(pairs)}${eolCurrent}`, { append: true });
+		appendFileSync(path, `${formatFilePairsCommand(pairs)}${eolCurrent}`, { encoding: "utf8" });
 	}
 }
 /**
@@ -158,7 +170,7 @@ export function appendFileMapCommand(command: string, param1: string | KeyValueL
  * @returns {void}
  */
 export function clearFileCommand(command: string): void {
-	Deno.writeTextFileSync(getFileCommandPath(command), "");
+	writeFileSync(getFileCommandPath(command), "", { encoding: "utf8" });
 }
 /**
  * **\[🅰️ Advanced\]** Optimize the file command to reduce size whenever possible.
@@ -175,59 +187,67 @@ export function clearFileCommand(command: string): void {
 export function optimizeFileCommand(command: string, type: GitHubActionsFileCommandType = "raw"): void {
 	const path: string = getFileCommandPath(command);
 	switch (commandsFileMeta[command] ?? type) {
-		case "pairs": {
-			const pairs: Map<string, string> = new Map<string, string>();
-			const content: readonly string[] = Deno.readTextFileSync(path).split(regexpEOL());
-			for (let index: number = 0; index < content.length; index += 1) {
-				const line: string = content[index];
-				if (line.trim().length === 0) {
-					continue;
-				}
-				if (/^.+<<.+?$/.test(line)) {
-					const lineSplit: readonly string[] = line.split("<<");
-					const key: string = lineSplit.slice(0, lineSplit.length - 1).join("<<");
-					const delimiter: string = lineSplit[-1];
-					const value: string[] = [];
-					let indexOffset: number = index;
-					while (true) {
-						indexOffset += 1;
-						if (indexOffset >= content.length) {
-							// NOTE: File may contain issues, abort optimization.
-							return;
-						}
-						const lineOffset: string = content[indexOffset];
-						if (lineOffset === delimiter) {
-							break;
-						}
-						value.push(lineOffset);
+		case "pairs":
+			try {
+				const pairs: Map<string, string> = new Map<string, string>();
+				const content: readonly string[] = readFileSync(path, { encoding: "utf8" }).split(regexpEOL());
+				for (let index: number = 0; index < content.length; index += 1) {
+					const line: string = content[index];
+					if (line.trim().length === 0) {
+						continue;
 					}
-					pairs.set(key, value.join("\n"));
-					index = indexOffset;
-					continue;
+					if (/^.+<<.+?$/.test(line)) {
+						const lineSplit: readonly string[] = line.split("<<");
+						const key: string = lineSplit.slice(0, lineSplit.length - 1).join("<<");
+						const delimiter: string = lineSplit[-1];
+						const value: string[] = [];
+						let indexOffset: number = index;
+						while (true) {
+							indexOffset += 1;
+							if (indexOffset >= content.length) {
+								// NOTE: File may contain issues, abort optimization.
+								return;
+							}
+							const lineOffset: string = content[indexOffset];
+							if (lineOffset === delimiter) {
+								break;
+							}
+							value.push(lineOffset);
+						}
+						pairs.set(key, value.join("\n"));
+						index = indexOffset;
+						continue;
+					}
+					if (/^.+?=.+$/.test(line)) {
+						const [
+							key,
+							value
+						]: string[] = line.split("=", 1);
+						pairs.set(key, value);
+						continue;
+					}
+					// NOTE: File may contain issues, abort optimization.
+					return;
 				}
-				if (/^.+?=.+$/.test(line)) {
-					const [
-						key,
-						value
-					]: string[] = line.split("=", 1);
-					pairs.set(key, value);
-					continue;
-				}
-				// NOTE: File may contain issues, abort optimization.
-				return;
+				writeFileSync(path, (pairs.size > 0) ? `${formatFilePairsCommand(pairs)}${eolCurrent}` : "", { encoding: "utf8" });
+			} catch {
+				// IGNORE
 			}
-			return Deno.writeTextFileSync(path, (pairs.size > 0) ? `${formatFilePairsCommand(pairs)}${eolCurrent}` : "");
-		}
+			break;
 		case "raw":
-			return;
-		case "values": {
-			const content: Set<string> = new Set<string>(Deno.readTextFileSync(path).split(regexpEOL()).map((value: string): string => {
-				return value.trim();
-			}).filter((value: string): boolean => {
-				return (value.length > 0);
-			}));
-			return Deno.writeTextFileSync(path, (content.size > 0) ? `${Array.from(content.values()).join(eolCurrent)}${eolCurrent}` : "");
-		}
+			break;
+		case "values":
+			try {
+				const content: Set<string> = new Set<string>(readFileSync(path, { encoding: "utf8" }).split(regexpEOL()).map((value: string): string => {
+					return value.trim();
+				}).filter((value: string): boolean => {
+					return (value.length > 0);
+				}));
+				writeFileSync(path, (content.size > 0) ? `${Array.from(content.values()).join(eolCurrent)}${eolCurrent}` : "", { encoding: "utf8" });
+			} catch {
+				// IGNORE
+			}
+			break;
 		default:
 			throw new RangeError(`\`${type}\` is not a valid GitHub Actions file command type! Only accept these values: ${Object.keys(fileCommandTypes).sort().join(", ")}`);
 	}

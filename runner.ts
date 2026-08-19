@@ -3,6 +3,13 @@ import {
 	hasEnv
 } from "jsr:@hugoalh/env@^0.4.0/general";
 import {
+	existsSync,
+	mkdirSync as makeDirSync,
+	readdirSync as readDirSync,
+	rmSync as removeSync,
+	writeFileSync
+} from "node:fs";
+import {
 	isAbsolute as isPathAbsolute,
 	join as joinPath
 } from "node:path";
@@ -230,9 +237,13 @@ export function isInRunner(): boolean {
 export function clearRunnerTemp(): void {
 	const path: string = getRunnerTempPath();
 	const errors: Error[] = [];
-	for (const { name } of Deno.readDirSync(path)) {
+	for (const name of readDirSync(path, {
+		encoding: "utf8",
+		recursive: false,
+		withFileTypes: false
+	})) {
 		try {
-			Deno.removeSync(joinPath(path, name), { recursive: true });
+			removeSync(joinPath(path, name), { recursive: true });
 		} catch (error) {
 			errors.push(error as Error);
 		}
@@ -241,8 +252,12 @@ export function clearRunnerTemp(): void {
 		throw new AggregateError(errors, `Unable to fully clear the \`TEMP\` directory of the GitHub Actions runner!`);
 	}
 }
+export interface MakeTempOptions {
+	prefix?: string;
+	suffix?: string;
+}
 /**
- * Create/Make a new temporary directory in the `TEMP` directory of the GitHub Actions runner, optionally include prefixing and suffixing the directory name with {@linkcode Deno.MakeTempOptions.prefix} and {@linkcode Deno.MakeTempOptions.suffix} respectively.
+ * Create/Make a new temporary directory in the `TEMP` directory of the GitHub Actions runner, optionally include prefix and suffix the directory name.
  * 
  * Multiple programs calling this function simultaneously will create different directories. It is the caller's responsibility to remove the directory when no longer needed.
  * 
@@ -256,11 +271,21 @@ export function clearRunnerTemp(): void {
  * > - File System - Write (Deno: `write`; NodeJS: `fs-write`)
  * @returns {string} Absolute path of the new temporary directory in the `TEMP` directory.
  */
-export function makeRunnerTempDir(options: Omit<Deno.MakeTempOptions, "dir"> = {}): string {
-	return Deno.makeTempDirSync({
-		...options,
-		dir: getRunnerTempPath()
-	});
+export function makeRunnerTempDir(options: MakeTempOptions = {}): string {
+	const {
+		prefix = "",
+		suffix = ""
+	}: MakeTempOptions = options;
+	const pathRunnerTemp: string = getRunnerTempPath();
+	let path: string;
+	for (let trial: number = 0; trial < 5; trial += 1) {
+		path = joinPath(pathRunnerTemp, `${prefix}${crypto.randomUUID().replaceAll("-", "").toLowerCase()}${suffix}`);
+		if (!existsSync(path)) {
+			break;
+		}
+	}
+	makeDirSync(path!, { recursive: false });
+	return path!;
 }
 export {
 	makeRunnerTempDir as createRunnerTempDir,
@@ -268,7 +293,7 @@ export {
 	makeRunnerTempDir as makeRunnerTempDirectory
 };
 /**
- * Create/Make a new temporary file in the `TEMP` directory of the GitHub Actions runner, optionally include prefixing and suffixing the file name with {@linkcode Deno.MakeTempOptions.prefix} and {@linkcode Deno.MakeTempOptions.suffix} respectively.
+ * Create/Make a new temporary file in the `TEMP` directory of the GitHub Actions runner, optionally include prefix and suffix the file name.
  * 
  * Multiple programs calling this function simultaneously will create different files. It is the caller's responsibility to remove the file when no longer needed.
  * 
@@ -282,11 +307,24 @@ export {
  * > - File System - Write (Deno: `write`; NodeJS: `fs-write`)
  * @returns {string} Absolute path of the new temporary file in the `TEMP` directory.
  */
-export function makeRunnerTempFile(options: Omit<Deno.MakeTempOptions, "dir"> = {}): string {
-	return Deno.makeTempFileSync({
-		...options,
-		dir: getRunnerTempPath()
+export function makeRunnerTempFile(options: MakeTempOptions = {}): string {
+	const {
+		prefix = "",
+		suffix = ""
+	}: MakeTempOptions = options;
+	const pathRunnerTemp: string = getRunnerTempPath();
+	let path: string;
+	for (let trial: number = 0; trial < 5; trial += 1) {
+		path = joinPath(pathRunnerTemp, `${prefix}${crypto.randomUUID().replaceAll("-", "").toLowerCase()}${suffix}`);
+		if (!existsSync(path)) {
+			break;
+		}
+	}
+	writeFileSync(path!, "", {
+		encoding: "utf8",
+		flag: "wx+"
 	});
+	return path!;
 }
 export {
 	makeRunnerTempFile as createRunnerTempFile

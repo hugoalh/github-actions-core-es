@@ -1,4 +1,8 @@
 import {
+	appendFileSync,
+	statSync
+} from "node:fs";
+import {
 	clearFileCommand,
 	getFileCommandPath
 } from "./command/file.ts";
@@ -17,9 +21,9 @@ import {
 export function appendSummary(data: string | Uint8Array): void {
 	const path: string = getFileCommandPath("GITHUB_STEP_SUMMARY");
 	if (typeof data === "string") {
-		Deno.writeTextFileSync(path, data, { append: true });
+		appendFileSync(path, data, { encoding: "utf8" });
 	} else {
-		Deno.writeFileSync(path, data, { append: true });
+		appendFileSync(path, data);
 	}
 }
 /**
@@ -49,9 +53,14 @@ export function clearSummary(): void {
  */
 export function getSummarySize(): number {
 	try {
-		return Deno.statSync(getFileCommandPath("GITHUB_STEP_SUMMARY")).size;
+		return statSync(getFileCommandPath("GITHUB_STEP_SUMMARY")).size;
 	} catch (error) {
-		if (error instanceof Deno.errors.NotFound) {
+		if (
+			//@ts-ignore `Deno` maybe not exist.
+			(typeof globalThis.Deno !== "undefined" && error instanceof Deno.errors.NotFound) ||
+			//@ts-ignore NodeJS error code.
+			(error instanceof Error && typeof error.code !== "undefined" && error.code === "ENOENT")
+		) {
 			return 0;
 		}
 		throw error;
