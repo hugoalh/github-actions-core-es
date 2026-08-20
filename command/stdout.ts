@@ -93,7 +93,7 @@ export class GitHubActionsStdOutCommand {
 	}
 	/**
 	 * Test the stdout command equality. Use in module test.
-	 * @param expected Expected stdout command string.
+	 * @param {string} expected Expected stdout command string.
 	 * @returns {void}
 	 * @throws {AssertionError} If the actual stdout command is not equal to the expected stdout command.
 	 */
