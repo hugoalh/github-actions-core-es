@@ -1,4 +1,4 @@
-import { getEnv } from "jsr:@hugoalh/env@^0.4.0/general";
+import { getEnv } from "jsr:@hugoalh/env@^0.4.1/general";
 import {
 	isJSONArray,
 	isJSONObject,

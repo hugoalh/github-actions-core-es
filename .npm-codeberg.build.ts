@@ -15,19 +15,19 @@ await transform({
 	entrypointsScript: manifest.exports,
 	generateDeclarationMap: true,
 	mappings: {
-		"jsr:@hugoalh/env@^0.4.0/general": {
+		"jsr:@hugoalh/env@^0.4.1/general": {
 			name: "@hugoalh/env",
-			version: "^0.4.0",
+			version: "^0.4.1",
 			subPath: "general"
 		},
-		"jsr:@hugoalh/eol@^0.5.1/eol": {
+		"jsr:@hugoalh/eol@^0.6.0/eol": {
 			name: "@hugoalh/eol",
-			version: "^0.5.1",
+			version: "^0.6.0",
 			subPath: "eol"
 		},
-		"jsr:@hugoalh/eol@^0.5.1/normalize": {
+		"jsr:@hugoalh/eol@^0.6.0/normalize": {
 			name: "@hugoalh/eol",
-			version: "^0.5.1",
+			version: "^0.6.0",
 			subPath: "normalize"
 		},
 		"jsr:@hugoalh/is-json@^1.0.6": {

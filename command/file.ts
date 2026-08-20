@@ -1,10 +1,10 @@
 //deno-lint-ignore-file hugoalh/no-bad-comment-location -- False positive.
-import { getEnv } from "jsr:@hugoalh/env@^0.4.0/general";
+import { getEnv } from "jsr:@hugoalh/env@^0.4.1/general";
 import {
 	eolCurrent,
 	regexpEOL
-} from "jsr:@hugoalh/eol@^0.5.1/eol";
-import { normalizeEOL } from "jsr:@hugoalh/eol@^0.5.1/normalize";
+} from "jsr:@hugoalh/eol@^0.6.0/eol";
+import { normalizeEOL } from "jsr:@hugoalh/eol@^0.6.0/normalize";
 import { isStringSingleLine } from "jsr:@hugoalh/is-string-singleline@^1.0.6";
 import {
 	appendFileSync,
