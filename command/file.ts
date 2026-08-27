@@ -1,4 +1,3 @@
-//deno-lint-ignore-file hugoalh/no-bad-comment-location -- False positive.
 import { getEnv } from "jsr:@hugoalh/env@^0.4.1/general";
 import {
 	eolCurrent,
