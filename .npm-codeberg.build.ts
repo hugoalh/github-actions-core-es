@@ -15,9 +15,9 @@ await transform({
 	entrypointsScript: manifest.exports,
 	generateDeclarationMap: true,
 	mappings: {
-		"jsr:@hugoalh/env@^0.4.1/general": {
+		"jsr:@hugoalh/env@^0.5.0/general": {
 			name: "@hugoalh/env",
-			version: "^0.4.1",
+			version: "^0.5.0",
 			subPath: "general"
 		},
 		"jsr:@hugoalh/eol@^0.6.0/eol": {
