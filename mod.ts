@@ -88,7 +88,8 @@ export {
 	makeRunnerTempFile,
 	type GitHubActionsRunnerArchitecture,
 	type GitHubActionsRunnerEnvironment,
-	type GitHubActionsRunnerOS
+	type GitHubActionsRunnerOS,
+	type MakeTempOptions
 } from "./runner.ts";
 export {
 	clearState,
