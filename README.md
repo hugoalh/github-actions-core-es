@@ -37,9 +37,9 @@ Any runtime which support ECMAScript should able to use this; These runtimes are
 | **Type** | **Name** | **Path** | **Description** |
 |:--|:--|:--|:--|
 | API | `.` | `./mod.ts` | Default. |
+| API | `./annotation` | `./annotation.ts` | Annotation. |
 | API | `./command/file` | `./command/file.ts` | File command. |
 | API | `./command/stdout` | `./command/stdout.ts` | StdOut command. |
-| API | `./annotation` | `./annotation.ts` | Annotation. |
 | API | `./env` | `./env.ts` | Environment variable. |
 | API | `./input` | `./input.ts` | Input. |
 | API | `./log` | `./log.ts` | Log. |
