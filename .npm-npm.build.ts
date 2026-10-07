@@ -13,7 +13,6 @@ await transform({
 	},
 	//@ts-ignore Lazy type.
 	entrypointsScript: manifest.exports,
-	generateDeclarationMap: true,
 	mappings: {
 		"jsr:@hugoalh/env@^0.5.0/general": {
 			name: "@hugoalh/env",
