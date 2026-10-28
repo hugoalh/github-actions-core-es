@@ -14,28 +14,28 @@ await transform({
 	//@ts-ignore Lazy type.
 	entrypointsScript: manifest.exports,
 	mappings: {
-		"jsr:@hugoalh/env@^0.5.0/general": {
+		"jsr:@hugoalh/env@^0.5.1/general": {
 			name: "@hugoalh/env",
-			version: "^0.5.0",
+			version: "^0.5.1",
 			subPath: "general"
 		},
-		"jsr:@hugoalh/eol@^0.6.0/eol": {
+		"jsr:@hugoalh/eol@^0.6.1/eol": {
 			name: "@hugoalh/eol",
-			version: "^0.6.0",
+			version: "^0.6.1",
 			subPath: "eol"
 		},
-		"jsr:@hugoalh/eol@^0.6.0/normalize": {
+		"jsr:@hugoalh/eol@^0.6.1/normalize": {
 			name: "@hugoalh/eol",
-			version: "^0.6.0",
+			version: "^0.6.1",
 			subPath: "normalize"
 		},
-		"jsr:@hugoalh/is-json@^1.0.6": {
+		"jsr:@hugoalh/is-json@^1.0.7": {
 			name: "@hugoalh/is-json",
-			version: "^1.0.6"
+			version: "^1.0.7"
 		},
-		"jsr:@hugoalh/is-string-singleline@^1.0.6": {
+		"jsr:@hugoalh/is-string-singleline@^1.0.7": {
 			name: "@hugoalh/is-string-singleline",
-			version: "^1.0.6"
+			version: "^1.0.7"
 		}
 	},
 	metadata: {

@@ -1,4 +1,4 @@
-import { isStringSingleLine } from "jsr:@hugoalh/is-string-singleline@^1.0.6";
+import { isStringSingleLine } from "jsr:@hugoalh/is-string-singleline@^1.0.7";
 import { GitHubActionsStdOutCommand } from "./command/stdout.ts";
 /**
  * Make secret get masked from the log.

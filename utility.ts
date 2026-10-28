@@ -1,8 +1,8 @@
-import { getEnvSafe } from "jsr:@hugoalh/env@^0.5.0/general";
+import { getEnvSafe } from "jsr:@hugoalh/env@^0.5.1/general";
 import {
 	isJSONObject,
 	type JSONObject
-} from "jsr:@hugoalh/is-json@^1.0.6";
+} from "jsr:@hugoalh/is-json@^1.0.7";
 import { readFileSync } from "node:fs";
 import {
 	getVariableWithGuard,

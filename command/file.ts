@@ -1,10 +1,10 @@
-import { getEnv } from "jsr:@hugoalh/env@^0.5.0/general";
+import { getEnv } from "jsr:@hugoalh/env@^0.5.1/general";
 import {
 	eolCurrent,
 	regexpEOL
-} from "jsr:@hugoalh/eol@^0.6.0/eol";
-import { normalizeEOL } from "jsr:@hugoalh/eol@^0.6.0/normalize";
-import { isStringSingleLine } from "jsr:@hugoalh/is-string-singleline@^1.0.6";
+} from "jsr:@hugoalh/eol@^0.6.1/eol";
+import { normalizeEOL } from "jsr:@hugoalh/eol@^0.6.1/normalize";
+import { isStringSingleLine } from "jsr:@hugoalh/is-string-singleline@^1.0.7";
 import {
 	appendFileSync,
 	readFileSync,

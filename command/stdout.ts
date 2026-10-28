@@ -1,4 +1,4 @@
-import { isStringSingleLine } from "jsr:@hugoalh/is-string-singleline@^1.0.6";
+import { isStringSingleLine } from "jsr:@hugoalh/is-string-singleline@^1.0.7";
 import { deepStrictEqual } from "node:assert";
 import type { KeyValueLike } from "../_share.ts";
 const commandsStdOutCurrent: readonly string[] = [/* UNIQUE */

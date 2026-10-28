@@ -1,7 +1,7 @@
 import {
 	getEnv,
 	hasEnv
-} from "jsr:@hugoalh/env@^0.5.0/general";
+} from "jsr:@hugoalh/env@^0.5.1/general";
 import {
 	existsSync,
 	mkdirSync as makeDirSync,

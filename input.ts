@@ -3,7 +3,7 @@ import type {
 	JSONObject,
 	JSONPrimitive,
 	JSONValue,
-} from "jsr:@hugoalh/is-json@^1.0.6";
+} from "jsr:@hugoalh/is-json@^1.0.7";
 import {
 	getParameter,
 	getParameterBigInt,

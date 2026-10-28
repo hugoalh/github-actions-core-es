@@ -1,4 +1,4 @@
-import { getEnv } from "jsr:@hugoalh/env@^0.5.0/general";
+import { getEnv } from "jsr:@hugoalh/env@^0.5.1/general";
 import {
 	isJSONArray,
 	isJSONObject,
@@ -7,8 +7,8 @@ import {
 	type JSONObject,
 	type JSONPrimitive,
 	type JSONValue,
-} from "jsr:@hugoalh/is-json@^1.0.6";
-import { isStringSingleLine } from "jsr:@hugoalh/is-string-singleline@^1.0.6";
+} from "jsr:@hugoalh/is-json@^1.0.7";
+import { isStringSingleLine } from "jsr:@hugoalh/is-string-singleline@^1.0.7";
 import {
 	stringifyInput,
 	type KeyValueLike,
